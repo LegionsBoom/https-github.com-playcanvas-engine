@@ -4,6 +4,14 @@ class SMeditor {
         this.currentWorld = 'flat';
         this.containers = new Map();
         this.selectedContainer = null;
+        this.physicsMode = 'floating';
+        this.containerSpacing = 4;
+        this.containerScale = 1;
+        this.sceneAnalytics = {
+            totalSize: 0,
+            completionPercentage: 0,
+            estimatedLoadTime: 0
+        };
         this.brandSettings = {
             primaryColor: '#007bff',
             companyName: '',
@@ -17,6 +25,9 @@ class SMeditor {
         this.setupEventListeners();
         this.generateContainers();
         this.setupDragAndDrop();
+        this.updateSceneStats();
+        this.initializeValidation();
+        this.showFeedback('🚀 SMeditor Cockpit Initialized - Ready for spatial content creation!');
     }
 
     setupEventListeners() {
@@ -44,6 +55,7 @@ class SMeditor {
 
         document.getElementById('company-name').addEventListener('input', (e) => {
             this.brandSettings.companyName = e.target.value;
+            this.validateScene();
         });
 
         document.getElementById('logo-upload').addEventListener('change', (e) => {
@@ -71,6 +83,36 @@ class SMeditor {
         document.getElementById('copy-link').addEventListener('click', () => {
             this.copyShareLink();
         });
+
+        // Cockpit Controls
+        document.getElementById('physics-mode').addEventListener('change', (e) => {
+            this.physicsMode = e.target.value;
+            this.updatePhysics();
+            this.showFeedback(`Physics mode changed to: ${e.target.value}`);
+        });
+
+        document.getElementById('container-spacing').addEventListener('input', (e) => {
+            this.containerSpacing = parseFloat(e.target.value);
+            this.updateContainerLayout();
+        });
+
+        document.getElementById('container-scale').addEventListener('input', (e) => {
+            this.containerScale = parseFloat(e.target.value);
+            this.updateContainerScale();
+        });
+
+        // Quick Actions
+        document.getElementById('clear-all').addEventListener('click', () => {
+            this.clearAllContainers();
+        });
+
+        document.getElementById('auto-fill').addEventListener('click', () => {
+            this.autoFillContainers();
+        });
+
+        document.getElementById('randomize').addEventListener('click', () => {
+            this.randomizeContainers();
+        });
     }
 
     switchTemplate(template) {
@@ -82,6 +124,14 @@ class SMeditor {
         
         this.currentTemplate = template;
         this.generateContainers();
+        this.updateSceneStats();
+        this.updateContainerList();
+        this.validateScene();
+        this.showFeedback(`Template changed to ${template.replace('-', ' ')}`);
+        
+        // Reset selected container
+        this.selectedContainer = null;
+        this.showContentEditor(null);
     }
 
     switchWorld(world) {
@@ -218,8 +268,15 @@ class SMeditor {
             content: null
         });
 
+        // Update cockpit systems
+        this.updateSceneStats();
+        this.updateContainerList();
+        this.validateScene();
+
         // Auto-select for editing
         this.selectContainer(containerIndex);
+        
+        this.showFeedback(`${dataType.replace('-', ' ').toUpperCase()} data added to container ${containerIndex + 1}`);
     }
 
     selectContainer(index) {
@@ -229,10 +286,27 @@ class SMeditor {
         });
         
         const container = document.querySelector(`[data-index="${index}"]`);
-        container.classList.add('selected');
+        if (container) {
+            container.classList.add('selected');
+        }
+        
+        // Update container list highlighting
+        document.querySelectorAll('.container-item').forEach(item => {
+            item.classList.remove('active');
+        });
         
         this.selectedContainer = index;
         this.showContentEditor(index);
+        this.updateContainerList();
+        
+        // Update selected container info
+        const containerData = this.containers.get(index);
+        const infoEl = document.getElementById('selected-container-info');
+        if (containerData) {
+            infoEl.textContent = `Container ${index + 1} - ${containerData.type.replace('-', ' ')}`;
+        } else {
+            infoEl.textContent = '';
+        }
     }
 
     showContentEditor(index) {
@@ -240,7 +314,12 @@ class SMeditor {
         const containerData = this.containers.get(index);
         
         if (!containerData) {
-            editorContent.innerHTML = '<p>Select a container with data to edit its content</p>';
+            editorContent.innerHTML = `
+                <div class="validation-message warning">
+                    <strong>No Container Selected</strong><br>
+                    Click a container in the layout builder to edit its content.
+                </div>
+            `;
             return;
         }
 
@@ -394,6 +473,11 @@ class SMeditor {
         containerData.content = content;
         this.containers.set(index, containerData);
         
+        // Update cockpit systems
+        this.updateSceneStats();
+        this.validateScene();
+        
+        this.showFeedback(`Content saved for container ${index + 1}`);
         console.log('Container updated:', index, containerData);
     }
 
@@ -612,6 +696,267 @@ class SMeditor {
         setTimeout(() => {
             button.textContent = originalText;
         }, 2000);
+    }
+
+    // Cockpit Methods
+    showFeedback(message, duration = 3000) {
+        const feedback = document.getElementById('interactive-feedback');
+        const text = document.getElementById('feedback-text');
+        
+        text.textContent = message;
+        feedback.classList.add('show');
+        
+        setTimeout(() => {
+            feedback.classList.remove('show');
+        }, duration);
+    }
+
+    updateSceneStats() {
+        const containerCount = this.containers.size;
+        const contentCount = Array.from(this.containers.values()).filter(c => c.content).length;
+        const completion = containerCount > 0 ? (contentCount / containerCount) * 100 : 0;
+        
+        document.getElementById('container-count').textContent = containerCount;
+        document.getElementById('content-count').textContent = contentCount;
+        document.getElementById('scene-progress').style.width = `${completion}%`;
+        document.getElementById('completion-progress').style.width = `${completion}%`;
+        
+        // Calculate file size estimate
+        let totalSize = 0;
+        this.containers.forEach(container => {
+            if (container.content) {
+                totalSize += this.estimateContentSize(container);
+            }
+        });
+        
+        document.getElementById('scene-size').textContent = this.formatFileSize(totalSize);
+        document.getElementById('total-file-size').textContent = this.formatFileSize(totalSize);
+        document.getElementById('estimated-load-time').textContent = `~${Math.ceil(totalSize / 1024)}s`;
+        
+        this.sceneAnalytics = {
+            totalSize,
+            completionPercentage: completion,
+            estimatedLoadTime: Math.ceil(totalSize / 1024)
+        };
+    }
+
+    estimateContentSize(container) {
+        let size = 1; // Base size in KB
+        
+        switch (container.type) {
+            case 'image': size += 50; break;
+            case 'video': size += 500; break;
+            case '3d-model': size += 200; break;
+            case 'text': size += 2; break;
+            case 'contact': size += 1; break;
+        }
+        
+        return size;
+    }
+
+    formatFileSize(kb) {
+        if (kb < 1024) return `${Math.round(kb)}KB`;
+        return `${(kb / 1024).toFixed(1)}MB`;
+    }
+
+    updateContainerList() {
+        const containerList = document.getElementById('container-list');
+        containerList.innerHTML = '';
+        
+        this.containers.forEach((container, index) => {
+            const item = document.createElement('div');
+            item.className = `container-item ${this.selectedContainer === index ? 'active' : ''}`;
+            item.addEventListener('click', () => this.selectContainer(index));
+            
+            const ballColors = {
+                'image': '#ff6b6b',
+                'text': '#4ecdc4',
+                'contact': '#feca57',
+                'video': '#5f27cd',
+                '3d-model': '#fd79a8'
+            };
+            
+            item.innerHTML = `
+                <div class="container-preview" style="background: ${ballColors[container.type] || '#ddd'}"></div>
+                <div class="container-info">
+                    <div class="container-name">Container ${index + 1}</div>
+                    <div class="container-type">${container.type.replace('-', ' ')}</div>
+                </div>
+            `;
+            
+            containerList.appendChild(item);
+        });
+    }
+
+    initializeValidation() {
+        this.validateScene();
+    }
+
+    validateScene() {
+        const validationContainer = document.getElementById('validation-messages');
+        const messages = [];
+        
+        // Check for empty containers
+        const totalContainers = this.getContainerCount();
+        const filledContainers = this.containers.size;
+        
+        if (filledContainers === 0) {
+            messages.push({
+                type: 'warning',
+                message: 'No content added yet. Start by dragging data balls into containers.'
+            });
+        } else if (filledContainers < totalContainers) {
+            messages.push({
+                type: 'warning',
+                message: `${totalContainers - filledContainers} containers are still empty.`
+            });
+        }
+        
+        // Check for incomplete content
+        let incompleteContent = 0;
+        this.containers.forEach(container => {
+            if (!container.content || Object.keys(container.content).length === 0) {
+                incompleteContent++;
+            }
+        });
+        
+        if (incompleteContent > 0) {
+            messages.push({
+                type: 'error',
+                message: `${incompleteContent} containers have no content. Click to edit them.`
+            });
+        }
+        
+        // Check brand settings
+        if (!this.brandSettings.companyName) {
+            messages.push({
+                type: 'warning',
+                message: 'Add your company name for better branding.'
+            });
+        }
+        
+        // Show success if everything is complete
+        if (messages.length === 0) {
+            messages.push({
+                type: 'success',
+                message: '✅ Scene is complete and ready to publish!'
+            });
+        }
+        
+        // Render messages
+        validationContainer.innerHTML = messages.map(msg => `
+            <div class="validation-message ${msg.type}">
+                ${msg.message}
+            </div>
+        `).join('');
+    }
+
+    getContainerCount() {
+        const counts = {
+            'grid-3x3': 9,
+            'grid-2x2': 4,
+            'linear': 5,
+            'circular': 6
+        };
+        return counts[this.currentTemplate] || 9;
+    }
+
+    updatePhysics() {
+        // Update physics mode for containers
+        document.querySelectorAll('.container-slot').forEach(slot => {
+            slot.style.transition = this.physicsMode === 'static' ? 'none' : 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        });
+        
+        // Update physics indicator
+        const indicator = document.querySelector('.physics-indicator');
+        if (indicator) {
+            indicator.style.background = this.physicsMode === 'static' ? '#ffc107' : '#28a745';
+        }
+    }
+
+    updateContainerLayout() {
+        if (this.currentTemplate === 'circular') {
+            this.arrangeCircularContainers();
+        }
+        this.showFeedback(`Container spacing adjusted to ${this.containerSpacing}`);
+    }
+
+    updateContainerScale() {
+        document.querySelectorAll('.container-slot').forEach(slot => {
+            slot.style.transform = `scale(${this.containerScale})`;
+        });
+        this.showFeedback(`Container scale set to ${this.containerScale}x`);
+    }
+
+    clearAllContainers() {
+        if (this.containers.size === 0) {
+            this.showFeedback('No containers to clear');
+            return;
+        }
+        
+        if (confirm('Are you sure you want to clear all containers? This action cannot be undone.')) {
+            this.containers.clear();
+            this.selectedContainer = null;
+            this.generateContainers();
+            this.updateSceneStats();
+            this.updateContainerList();
+            this.validateScene();
+            this.showContentEditor(null);
+            this.showFeedback('🗑️ All containers cleared');
+        }
+    }
+
+    autoFillContainers() {
+        const dataTypes = ['image', 'text', 'contact', 'video', '3d-model'];
+        const containerCount = this.getContainerCount();
+        
+        for (let i = 0; i < containerCount; i++) {
+            if (!this.containers.has(i)) {
+                const randomType = dataTypes[Math.floor(Math.random() * dataTypes.length)];
+                this.addDataToContainer(i, randomType);
+            }
+        }
+        
+        this.updateSceneStats();
+        this.updateContainerList();
+        this.validateScene();
+        this.showFeedback('🎯 Auto-filled empty containers with random data types');
+    }
+
+    randomizeContainers() {
+        if (this.containers.size === 0) {
+            this.showFeedback('No containers to randomize. Add some content first.');
+            return;
+        }
+        
+        const dataTypes = ['image', 'text', 'contact', 'video', '3d-model'];
+        
+        this.containers.forEach((container, index) => {
+            const randomType = dataTypes[Math.floor(Math.random() * dataTypes.length)];
+            container.type = randomType;
+            
+            // Update visual
+            const containerEl = document.querySelector(`[data-index="${index}"]`);
+            if (containerEl) {
+                const ballColors = {
+                    'image': 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
+                    'text': 'linear-gradient(135deg, #4ecdc4, #44a08d)',
+                    'contact': 'linear-gradient(135deg, #feca57, #ff9ff3)',
+                    'video': 'linear-gradient(135deg, #5f27cd, #00d2d3)',
+                    '3d-model': 'linear-gradient(135deg, #fd79a8, #6c5ce7)'
+                };
+                
+                containerEl.innerHTML = `
+                    <div class="slot-content">
+                        <div class="slot-ball" style="background: ${ballColors[randomType]}"></div>
+                        <span>${randomType.replace('-', ' ').toUpperCase()}</span>
+                    </div>
+                `;
+            }
+        });
+        
+        this.updateContainerList();
+        this.showFeedback('🎲 Randomized all container types');
     }
 }
 

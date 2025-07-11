@@ -60,28 +60,64 @@
                     </div>
                 </div>
 
+                <!-- Scene Status -->
+                <div class="panel-section">
+                    <h3 class="cockpit-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="m9 12 2 2 4-4"></path>
+                        </svg>
+                        Scene Status
+                    </h3>
+                    <div class="status-lights">
+                        <div class="status-light active" title="Engine Ready"></div>
+                        <div class="status-light active" title="Physics Active"></div>
+                        <div class="status-light warning" title="Content Validation"></div>
+                    </div>
+                    <div class="scene-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="container-count">0</span>
+                            <span class="stat-label">Containers</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="content-count">0</span>
+                            <span class="stat-label">Content</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="scene-size">0KB</span>
+                            <span class="stat-label">Size</span>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Data Balls -->
                 <div class="panel-section">
-                    <h3>Data Types</h3>
+                    <h3 class="cockpit-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                        </svg>
+                        Data Types
+                    </h3>
                     <div class="data-balls">
                         <div class="data-ball" data-type="image" draggable="true">
-                            <div class="ball image-ball"></div>
+                            <div class="ball image-ball" style="--ball-color: #ff6b6b; --ball-color-dark: #ee5a24;"></div>
                             <span>Image</span>
                         </div>
                         <div class="data-ball" data-type="text" draggable="true">
-                            <div class="ball text-ball"></div>
+                            <div class="ball text-ball" style="--ball-color: #4ecdc4; --ball-color-dark: #44a08d;"></div>
                             <span>Text</span>
                         </div>
                         <div class="data-ball" data-type="contact" draggable="true">
-                            <div class="ball contact-ball"></div>
+                            <div class="ball contact-ball" style="--ball-color: #feca57; --ball-color-dark: #ff9ff3;"></div>
                             <span>Contact</span>
                         </div>
                         <div class="data-ball" data-type="video" draggable="true">
-                            <div class="ball video-ball"></div>
+                            <div class="ball video-ball" style="--ball-color: #5f27cd; --ball-color-dark: #00d2d3;"></div>
                             <span>Video</span>
                         </div>
                         <div class="data-ball" data-type="3d-model" draggable="true">
-                            <div class="ball model-ball"></div>
+                            <div class="ball model-ball" style="--ball-color: #fd79a8; --ball-color-dark: #6c5ce7;"></div>
                             <span>3D Model</span>
                         </div>
                     </div>
@@ -110,23 +146,148 @@
             <!-- Center: Layout Builder -->
             <div class="center-panel">
                 <div class="layout-builder">
-                    <h3>Layout Builder</h3>
+                    <div class="control-panel">
+                        <h3 class="cockpit-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                            </svg>
+                            Spatial Cockpit
+                            <div class="physics-indicator"></div>
+                        </h3>
+                        <div class="control-group">
+                            <span class="control-label">Physics:</span>
+                            <select class="control-input" id="physics-mode">
+                                <option value="floating">Floating</option>
+                                <option value="gravity">Gravity</option>
+                                <option value="static">Static</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <span class="control-label">Spacing:</span>
+                            <input type="range" class="control-input" id="container-spacing" min="2" max="8" value="4">
+                        </div>
+                        <div class="control-group">
+                            <span class="control-label">Scale:</span>
+                            <input type="range" class="control-input" id="container-scale" min="0.5" max="2" step="0.1" value="1">
+                        </div>
+                    </div>
+                    
                     <div id="container-grid" class="container-grid grid-3x3">
                         <!-- Dynamic containers will be generated here -->
                     </div>
+                    
                     <div class="layout-info">
-                        <p>Drag data balls from the left panel into containers</p>
-                        <p>Click containers to edit content</p>
+                        <p>🎮 Physics Engine Active - Drag data balls into spatial containers</p>
+                        <p>🎯 Click containers to edit • Use controls above to adjust physics</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="scene-progress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-actions">
+                        <button class="quick-btn" id="clear-all">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polyline points="3,6 5,6 21,6"></polyline>
+                                <path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v2"></path>
+                            </svg>
+                            Clear All
+                        </button>
+                        <button class="quick-btn" id="auto-fill">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                            </svg>
+                            Auto Fill
+                        </button>
+                        <button class="quick-btn" id="randomize">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M16 3h5v5"></path>
+                                <path d="M8 21H3v-5"></path>
+                                <path d="M21 8L8 21"></path>
+                                <path d="M3 16L16 3"></path>
+                            </svg>
+                            Randomize
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- Right Panel: Content Editor -->
             <div class="right-panel">
-                <div class="content-editor">
-                    <h3>Content Editor</h3>
+                <!-- Container Management -->
+                <div class="panel-section">
+                    <h3 class="cockpit-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27,6.96 12,12.01 20.73,6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                        Container Manager
+                    </h3>
+                    <div class="container-list" id="container-list">
+                        <!-- Dynamic container list will be generated here -->
+                    </div>
+                </div>
+
+                <!-- Content Validation -->
+                <div class="panel-section">
+                    <h3 class="cockpit-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M9 12l2 2 4-4"></path>
+                            <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"></path>
+                            <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"></path>
+                            <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3"></path>
+                            <path d="M12 21c0-1 1-3 3-3s3 2 3 3-1 3-3 3-3-2-3-3"></path>
+                        </svg>
+                        Validation
+                    </h3>
+                    <div id="validation-messages">
+                        <!-- Validation messages will appear here -->
+                    </div>
+                </div>
+
+                <!-- Content Editor -->
+                <div class="panel-section">
+                    <h3 class="cockpit-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                        Content Editor
+                        <span id="selected-container-info" class="cockpit-subtitle"></span>
+                    </h3>
                     <div id="editor-content">
-                        <p>Select a container to edit its content</p>
+                        <div class="validation-message warning">
+                            <strong>No Container Selected</strong><br>
+                            Click a container in the layout builder to edit its content.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scene Analytics -->
+                <div class="panel-section">
+                    <h3 class="cockpit-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                        Scene Analytics
+                    </h3>
+                    <div class="control-group">
+                        <span class="control-label">Completion:</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="completion-progress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <span class="control-label">File Size:</span>
+                        <span id="total-file-size">0 KB</span>
+                    </div>
+                    <div class="control-group">
+                        <span class="control-label">Load Time:</span>
+                        <span id="estimated-load-time">~0s</span>
                     </div>
                 </div>
             </div>
@@ -164,6 +325,11 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Interactive Feedback -->
+    <div id="interactive-feedback" class="interactive-feedback">
+        <span id="feedback-text"></span>
     </div>
 
     <script src="/js/editor.js"></script>
