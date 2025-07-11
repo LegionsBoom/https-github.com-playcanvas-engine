@@ -560,7 +560,7 @@ class AdminDashboard {
                 name: 'John Smith',
                 email: 'john@autodealer.com',
                 type: 'automotive',
-                subscription: { plan: 'Automotive Pro', status: 'active' },
+                subscription: { plan: 'Automotive Professional', status: 'active' },
                 createdAt: '2024-01-10',
                 lastActive: '2024-01-15'
             },
@@ -569,18 +569,27 @@ class AdminDashboard {
                 name: 'Sarah Johnson',
                 email: 'sarah@premierrealty.com',
                 type: 'realestate',
-                subscription: { plan: 'Real Estate Pro', status: 'active' },
+                subscription: { plan: 'Real Estate Professional', status: 'active' },
                 createdAt: '2024-01-08',
                 lastActive: '2024-01-14'
             },
             {
                 id: '3',
-                name: 'Mike Wilson',
-                email: 'mike@bigcorp.com',
-                type: 'enterprise',
-                subscription: { plan: 'Enterprise', status: 'trialing' },
+                name: 'Mike Rodriguez',
+                email: 'mike@luxuryprops.com',
+                type: 'realestate',
+                subscription: { plan: 'Real Estate Professional', status: 'active' },
                 createdAt: '2024-01-12',
                 lastActive: '2024-01-15'
+            },
+            {
+                id: '4',
+                name: 'Lisa Chen',
+                email: 'lisa@elitemotors.com',
+                type: 'automotive',
+                subscription: { plan: 'Automotive Professional', status: 'active' },
+                createdAt: '2024-01-05',
+                lastActive: '2024-01-14'
             }
         ];
     }
@@ -591,27 +600,36 @@ class AdminDashboard {
                 id: 'sub_1',
                 customerName: 'AutoDealer Pro',
                 customerEmail: 'billing@autodealer.com',
-                plan: 'Automotive Pro',
+                plan: 'Automotive Professional',
                 status: 'active',
-                amount: 99,
+                amount: 499,
                 nextPayment: '2024-02-15'
             },
             {
                 id: 'sub_2',
                 customerName: 'Premier Realty',
                 customerEmail: 'billing@premierrealty.com',
-                plan: 'Real Estate Pro',
+                plan: 'Real Estate Professional',
                 status: 'active',
-                amount: 79,
+                amount: 199,
                 nextPayment: '2024-02-12'
             },
             {
                 id: 'sub_3',
-                customerName: 'BigCorp Industries',
-                customerEmail: 'billing@bigcorp.com',
-                plan: 'Enterprise',
-                status: 'trialing',
-                amount: 299,
+                customerName: 'Elite Motors',
+                customerEmail: 'billing@elitemotors.com',
+                plan: 'Automotive Professional',
+                status: 'active',
+                amount: 499,
+                nextPayment: '2024-02-18'
+            },
+            {
+                id: 'sub_4',
+                customerName: 'Luxury Properties LLC',
+                customerEmail: 'billing@luxuryprops.com',
+                plan: 'Real Estate Professional',
+                status: 'active',
+                amount: 199,
                 nextPayment: '2024-02-20'
             }
         ];

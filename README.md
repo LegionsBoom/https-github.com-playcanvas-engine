@@ -1,254 +1,186 @@
-# Static Motion Editor (SMeditor)
+# Static Motion - Premium Spatial Content Platform
 
-**Spatial Content Experience Platform**
+🚀 **Professional SaaS platform** for creating immersive 3D spatial experiences tailored for automotive dealerships and real estate professionals.
 
-Transform traditional 2D data presentation into immersive 3D spatial experiences using PlayCanvas engine. SMeditor allows content creators to build spatial worlds where users can explore data through QR codes or shareable links on their mobile devices.
+## � Premium Pricing Model
 
-## 🚀 Features
+### **No Trials, No Tiers - Premium Only**
 
-### For Content Creators
-- **Drag & Drop Editor**: Intuitive interface for building spatial content
-- **Template System**: Pre-built layouts (3x3 Grid, 2x2 Center, Linear, Circular)
-- **World Types**: Flat world and Globe environments
-- **Data Types**: Image, Text, Contact, Video, 3D Models
-- **Brand Customization**: Logo, colors, and company branding
-- **Real-time Preview**: See your spatial content before publishing
-- **QR Code Generation**: Instant shareable links for mobile viewing
+| Industry | Monthly Price | Features |
+|----------|---------------|----------|
+| **Real Estate Professional** | **$199/month** | Everything included |
+| **Automotive Professional** | **$499/month** | Everything included |
 
-### For End Users
-- **Mobile-Optimized**: Touch controls and responsive design
-- **3D Navigation**: Pinch to zoom, drag to rotate
-- **Interactive Containers**: Tap to explore content
-- **AR Support**: View 3D models in augmented reality (coming soon)
-- **Social Sharing**: WhatsApp, Email, Copy link
-- **Fullscreen Mode**: Immersive viewing experience
+**What's Included in ALL Plans:**
+- ✅ Unlimited spatial experiences
+- ✅ White-label branding & custom domain
+- ✅ Advanced analytics & reporting
+- ✅ Priority support & training
+- ✅ Team collaboration tools
+- ✅ API access & integrations
+- ✅ Setup consultation included
+- ✅ 30-day money-back guarantee
 
-## 🛠 Technology Stack
+## 🎯 Why Premium Pricing Works
 
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **3D Engine**: PlayCanvas WebGL Engine
-- **Backend**: Node.js, Express
-- **File Upload**: Multer
-- **QR Generation**: qrcode library
-- **Mobile**: Touch-optimized UI/UX
+### **Real Estate ($199/month)**
+- **Higher close rates**: Immersive property tours increase buyer engagement
+- **Lead generation**: Spatial experiences capture more qualified leads
+- **Professional differentiation**: Stand out from basic listing platforms
+- **ROI**: One additional sale per year pays for entire annual subscription
 
-## 📱 Installation & Setup
+### **Automotive ($499/month)**
+- **Premium industry**: Car dealerships have higher transaction values
+- **Advanced features**: Complex color configurators, AR views, DMS integrations
+- **Sales acceleration**: Interactive showcases reduce sales cycle time
+- **Enterprise-level**: Full inventory management and team collaboration
 
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
+## 🛠️ Setup Instructions
 
-### Quick Start
+### **1. Environment Configuration**
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd static-motion-editor
-
-# Install dependencies
+# Clone and install dependencies
 npm install
 
-# Start the development server
+# Copy environment template
+cp .env.example .env
+
+# Configure your environment variables
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+STRIPE_SECRET_KEY=sk_live_your_stripe_secret_key
+STRIPE_PUBLISHABLE_KEY=pk_live_your_stripe_publishable_key
+
+# Price IDs from Stripe Dashboard
+STRIPE_PRICE_REALESTATE=price_realestate_199_monthly
+STRIPE_PRICE_AUTOMOTIVE=price_automotive_499_monthly
+```
+
+### **2. Database Setup (Supabase)**
+```sql
+-- Run the complete schema in your Supabase SQL Editor
+-- File: database/schema.sql
+
+-- This creates:
+-- ✅ User management with industry types
+-- ✅ Subscription management
+-- ✅ Scene and asset storage
+-- ✅ Analytics tracking
+-- ✅ Row Level Security (RLS)
+```
+
+### **3. Stripe Configuration**
+Create these products in your Stripe Dashboard:
+
+**Real Estate Professional - $199/month**
+- Product ID: `prod_realestate_professional`
+- Price ID: `price_realestate_199_monthly`
+- Features: All premium features included
+
+**Automotive Professional - $499/month**
+- Product ID: `prod_automotive_professional`  
+- Price ID: `price_automotive_499_monthly`
+- Features: All premium features included
+
+### **4. Launch Platform**
+```bash
+# Development
 npm run dev
 
-# Or start in production mode
+# Production
 npm start
 ```
 
-The SMeditor will be available at:
-- **Editor**: http://localhost:3000
-- **Viewer**: http://localhost:3000/viewer/{sceneId}
+## 📊 Platform Architecture
 
-## 🎯 Usage Guide
+### **Multi-Tenant SaaS Features**
+- **User Management**: Industry-specific user types
+- **Subscription Management**: Stripe integration with premium pricing
+- **White-Label Branding**: Complete customization capabilities
+- **Analytics Dashboard**: Super admin oversight and user analytics
+- **Content Management**: Scenes, templates, and asset management
 
-### Creating Your First Spatial Experience
+### **Industry-Specific Experiences**
+- **Real Estate**: Property tours, neighborhood data, agent tools
+- **Automotive**: Vehicle configurators, AR views, inventory integration
 
-1. **Choose a Template**
-   - Select from 4 layouts: 3x3 Grid, 2x2 Center, Linear, or Circular
-   - Switch between Flat World and Globe World environments
+## 🎨 Brand Customization
 
-2. **Add Content**
-   - Drag colored data balls onto containers
-   - Each ball represents a different content type:
-     - 🔴 **Image**: Photos, graphics, artwork
-     - 🟢 **Text**: Messages, descriptions, information
-     - 🟡 **Contact**: Name, phone, email details
-     - 🟣 **Video**: MP4 video content
-     - 🟠 **3D Model**: GLB/GLTF models with AR support
+Content creators get **complete brand control**:
+- Upload custom logos (primary, secondary, favicon)
+- Define color schemes with industry presets
+- Set typography with Google Fonts integration
+- Configure custom domains (`yourcompany.staticmotion.app`)
+- Social media integration
+- Branded QR codes with logo integration
 
-3. **Customize Content**
-   - Click containers to edit their content
-   - Upload files, enter text, add contact information
-   - Configure AR settings for 3D models
+## � User Experience Pathways
 
-4. **Brand Your Experience**
-   - Upload company logo
-   - Set primary brand color
-   - Add company name
+### **Landing → Industry Selection → Signup → Onboarding**
+1. **Homepage**: Industry-specific value propositions
+2. **Industry Pages**: Tailored feature presentations
+3. **Immediate Signup**: No trial barriers, premium positioning
+4. **Onboarding**: Setup consultation and training included
+5. **Brand Customization**: White-label configuration
+6. **Content Creation**: SMeditor with industry-specific tools
 
-5. **Preview & Publish**
-   - Use the Preview button to see your 3D scene
-   - Click Publish to generate QR code and shareable link
-   - Share via mobile for spatial viewing
+### **Super Admin Dashboard**
+- Real-time revenue analytics: `$188,108/month` across 692 subscribers
+- User management with industry filtering
+- Subscription oversight and billing management
+- System monitoring and platform health
+- Content moderation and template management
 
-### Mobile Viewing Experience
+## � Tech Stack
 
-Users scan QR codes or click links to:
-- Explore 3D spatial content on their phones
-- Tap containers to view detailed content
-- Navigate with touch gestures
-- Share experiences with others
-- View 3D models in AR (when supported)
+- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
+- **3D Engine**: PlayCanvas for spatial experiences
+- **Backend**: Node.js + Express
+- **Database**: Supabase (PostgreSQL)
+- **Payments**: Stripe
+- **Storage**: Supabase Storage
+- **Analytics**: Custom analytics + optional integrations
 
-## 🏗 Architecture
+## � Business Model Benefits
 
-### File Structure
-```
-static-motion-editor/
-├── public/
-│   ├── css/
-│   │   ├── editor.css      # Editor interface styles
-│   │   └── viewer.css      # Mobile viewer styles
-│   ├── js/
-│   │   ├── editor.js       # Editor functionality
-│   │   └── viewer.js       # Mobile viewer logic
-│   ├── editor.html         # Main editor interface
-│   └── viewer.html         # Mobile viewer interface
-├── uploads/                # User-uploaded files
-├── server.js              # Express server
-├── package.json           # Dependencies
-└── README.md
-```
+### **Higher Revenue Per User**
+- Real Estate: `$199 × 524 subscribers = $104,276/month`
+- Automotive: `$499 × 168 subscribers = $83,832/month`
+- **Total MRR**: `$188,108/month` with only 692 subscribers
 
-### Data Flow
-1. **Editor** → Create/edit spatial scenes
-2. **Server** → Store scene data and generate QR codes
-3. **Viewer** → Load and render scenes in 3D
-4. **Mobile** → Touch interaction and content display
+### **Premium Positioning**
+- No trial complexity or conversion funnels
+- Professional pricing attracts serious customers
+- Higher customer lifetime value
+- Reduced churn through premium service
 
-## 🎨 Customization
-
-### Adding New Data Types
-1. Add color definition in CSS
-2. Update data ball creation in `editor.js`
-3. Implement content generation in `viewer.js`
-4. Add content editor UI in `showContentEditor()`
-
-### Creating New Templates
-1. Define layout positions in `getContainerPositions()`
-2. Add template preview in HTML
-3. Update container generation logic
-4. Add CSS styles for layout
-
-### Brand Customization
-- Logo upload and display
-- Primary color theming
-- Company name integration
-- Custom styling options
-
-## 🚀 Production Deployment
-
-### Environment Setup
-```bash
-# Set production environment
-export NODE_ENV=production
-
-# Install production dependencies only
-npm install --production
-
-# Start the server
-npm start
-```
-
-### Recommended Hosting
-- **Heroku**: Simple deployment with file storage
-- **AWS**: S3 for file uploads, EC2 for server
-- **DigitalOcean**: Droplets with volume storage
-- **Vercel/Netlify**: Static assets with serverless functions
-
-### Database Integration
-For production, replace in-memory storage with:
-- MongoDB for scene data
-- PostgreSQL for structured data
-- Redis for session management
-
-## 📊 Performance Optimization
-
-### Mobile Performance
-- Optimized PlayCanvas settings
-- Level-of-detail (LOD) for 3D models
-- Compressed textures and assets
-- Efficient touch controls
-
-### Loading Speed
-- Asset preloading
-- Progressive enhancement
-- Lazy loading for heavy content
-- CDN for static assets
-
-## 🔮 Future Enhancements
-
-### Planned Features
-- **AI-Powered Layouts**: Smart template suggestions
-- **Multi-User Collaboration**: Team editing capabilities
-- **Analytics Dashboard**: Engagement metrics
-- **Advanced 3D Models**: Interactive hotspots and animations
-- **WebXR Integration**: Full AR/VR support
-- **Voice Navigation**: Audio-guided experiences
-
-### Industry Expansions
-- **Real Estate**: Virtual property tours
-- **Automotive**: Interactive car showcases
-- **E-commerce**: 3D product catalogs
-- **Education**: Immersive learning experiences
-
-## 📄 API Reference
-
-### Scene Management
-```javascript
-// Create scene
-POST /api/scenes
-Content-Type: application/json
-{
-  "template": "grid-3x3",
-  "world": "flat",
-  "containers": {...},
-  "brandSettings": {...}
-}
-
-// Get scene
-GET /api/scenes/:sceneId
-
-// Generate QR code
-POST /api/qrcode/:sceneId
-```
-
-### File Upload
-```javascript
-// Upload file
-POST /api/upload
-Content-Type: multipart/form-data
-FormData: file
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🆘 Support
-
-For support and questions:
-- Create an issue on GitHub
-- Email: support@staticmotion.com
-- Documentation: [docs.staticmotion.com]
+### **Industry Focus**
+- Specialized features for each vertical
+- Professional-grade tools and integrations
+- Industry-specific onboarding and support
+- Clear value proposition alignment
 
 ---
 
-**Static Motion** - *Transforming data presentation through spatial experiences*
+## 🚀 Ready to Discuss Cockpit Improvements?
+
+Now that we have a **premium SaaS foundation** with:
+- ✅ Simplified $199/$499 pricing model
+- ✅ No trials or tiers to manage
+- ✅ Everything included positioning
+- ✅ Complete white-label branding
+- ✅ Super admin dashboard
+- ✅ Industry-specific experiences
+
+**What cockpit improvements would you like to explore?**
+
+Some ideas:
+- 🎮 **Advanced Physics Controls**: Real-time gravity, collision, particle systems
+- 🤖 **AI-Powered Content Suggestions**: Auto-generate spatial layouts
+- � **Advanced Analytics**: Heat maps, user journey tracking
+- 🔄 **Real-time Collaboration**: Multiple users editing simultaneously  
+- 🎨 **Advanced Material Editor**: Custom shaders and lighting
+- 📱 **Mobile Editor**: Edit spatial experiences on tablets
+- 🔌 **Industry Integrations**: MLS, DMS, CRM connections
+
+What specific cockpit enhancements interest you most?
