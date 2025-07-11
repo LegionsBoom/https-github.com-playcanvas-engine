@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Settings - Static Motion</title>
+    <link rel="stylesheet" href="/css/editor.css">
+    <link rel="stylesheet" href="/css/branding.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="back-btn" onclick="window.location.href='/editor'">
+                    ← Back to Editor
+                </button>
+                <h1>Brand Settings</h1>
+            </div>
+            <div class="header-right">
+                <button class="btn-secondary" id="previewBtn">Preview Changes</button>
+                <button class="btn-primary" id="saveBrandBtn">Save Brand Settings</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Brand Configuration Panel -->
+            <div class="brand-panel">
+                <div class="panel-header">
+                    <h2>🎨 Brand Customization</h2>
+                    <p>Make Static Motion experiences your own with custom branding</p>
+                </div>
+
+                <!-- Brand Identity Section -->
+                <div class="brand-section">
+                    <h3>Brand Identity</h3>
+                    <div class="brand-grid">
+                        <div class="brand-item">
+                            <label>Company Name</label>
+                            <input type="text" id="companyName" placeholder="Your Company Name" class="brand-input">
+                        </div>
+                        <div class="brand-item">
+                            <label>Tagline</label>
+                            <input type="text" id="tagline" placeholder="Your Brand Tagline" class="brand-input">
+                        </div>
+                        <div class="brand-item">
+                            <label>Website URL</label>
+                            <input type="url" id="websiteUrl" placeholder="https://yourcompany.com" class="brand-input">
+                        </div>
+                        <div class="brand-item">
+                            <label>Phone Number</label>
+                            <input type="tel" id="phoneNumber" placeholder="+1 (555) 123-4567" class="brand-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logo Upload Section -->
+                <div class="brand-section">
+                    <h3>Logo & Images</h3>
+                    <div class="logo-grid">
+                        <div class="logo-upload-item">
+                            <label>Primary Logo</label>
+                            <div class="logo-upload-area" id="primaryLogoUpload">
+                                <div class="upload-placeholder">
+                                    <span class="upload-icon">📷</span>
+                                    <p>Click to upload logo</p>
+                                    <small>Recommended: 200x60px, PNG/SVG</small>
+                                </div>
+                                <input type="file" id="primaryLogo" accept=".png,.jpg,.jpeg,.svg" hidden>
+                            </div>
+                            <div class="logo-preview" id="primaryLogoPreview"></div>
+                        </div>
+                        
+                        <div class="logo-upload-item">
+                            <label>Secondary Logo (Dark Backgrounds)</label>
+                            <div class="logo-upload-area" id="secondaryLogoUpload">
+                                <div class="upload-placeholder">
+                                    <span class="upload-icon">📷</span>
+                                    <p>Click to upload logo</p>
+                                    <small>Light version for dark backgrounds</small>
+                                </div>
+                                <input type="file" id="secondaryLogo" accept=".png,.jpg,.jpeg,.svg" hidden>
+                            </div>
+                            <div class="logo-preview" id="secondaryLogoPreview"></div>
+                        </div>
+
+                        <div class="logo-upload-item">
+                            <label>Favicon</label>
+                            <div class="logo-upload-area" id="faviconUpload">
+                                <div class="upload-placeholder">
+                                    <span class="upload-icon">🔷</span>
+                                    <p>Click to upload favicon</p>
+                                    <small>32x32px, ICO/PNG format</small>
+                                </div>
+                                <input type="file" id="favicon" accept=".ico,.png" hidden>
+                            </div>
+                            <div class="logo-preview" id="faviconPreview"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Color Scheme Section -->
+                <div class="brand-section">
+                    <h3>Color Scheme</h3>
+                    <div class="color-grid">
+                        <div class="color-item">
+                            <label>Primary Brand Color</label>
+                            <div class="color-input-group">
+                                <input type="color" id="primaryColor" value="#6366f1" class="color-picker">
+                                <input type="text" id="primaryColorHex" value="#6366f1" class="color-hex">
+                            </div>
+                            <small>Main brand color for buttons and accents</small>
+                        </div>
+                        
+                        <div class="color-item">
+                            <label>Secondary Color</label>
+                            <div class="color-input-group">
+                                <input type="color" id="secondaryColor" value="#10b981" class="color-picker">
+                                <input type="text" id="secondaryColorHex" value="#10b981" class="color-hex">
+                            </div>
+                            <small>Supporting color for highlights</small>
+                        </div>
+                        
+                        <div class="color-item">
+                            <label>Background Color</label>
+                            <div class="color-input-group">
+                                <input type="color" id="backgroundColor" value="#ffffff" class="color-picker">
+                                <input type="text" id="backgroundColorHex" value="#ffffff" class="color-hex">
+                            </div>
+                            <small>Main background color</small>
+                        </div>
+                        
+                        <div class="color-item">
+                            <label>Text Color</label>
+                            <div class="color-input-group">
+                                <input type="color" id="textColor" value="#1f2937" class="color-picker">
+                                <input type="text" id="textColorHex" value="#1f2937" class="color-hex">
+                            </div>
+                            <small>Primary text color</small>
+                        </div>
+                    </div>
+                    
+                    <!-- Color Presets -->
+                    <div class="color-presets">
+                        <h4>Quick Presets</h4>
+                        <div class="preset-grid">
+                            <div class="preset-item" data-preset="automotive">
+                                <div class="preset-colors">
+                                    <span style="background: #ef4444;"></span>
+                                    <span style="background: #dc2626;"></span>
+                                    <span style="background: #ffffff;"></span>
+                                    <span style="background: #1f2937;"></span>
+                                </div>
+                                <span>Automotive</span>
+                            </div>
+                            <div class="preset-item" data-preset="realestate">
+                                <div class="preset-colors">
+                                    <span style="background: #10b981;"></span>
+                                    <span style="background: #059669;"></span>
+                                    <span style="background: #ffffff;"></span>
+                                    <span style="background: #1f2937;"></span>
+                                </div>
+                                <span>Real Estate</span>
+                            </div>
+                            <div class="preset-item" data-preset="professional">
+                                <div class="preset-colors">
+                                    <span style="background: #3b82f6;"></span>
+                                    <span style="background: #1d4ed8;"></span>
+                                    <span style="background: #ffffff;"></span>
+                                    <span style="background: #1f2937;"></span>
+                                </div>
+                                <span>Professional</span>
+                            </div>
+                            <div class="preset-item" data-preset="luxury">
+                                <div class="preset-colors">
+                                    <span style="background: #8b5cf6;"></span>
+                                    <span style="background: #7c3aed;"></span>
+                                    <span style="background: #000000;"></span>
+                                    <span style="background: #ffffff;"></span>
+                                </div>
+                                <span>Luxury</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Typography Section -->
+                <div class="brand-section">
+                    <h3>Typography</h3>
+                    <div class="typography-grid">
+                        <div class="typography-item">
+                            <label>Primary Font</label>
+                            <select id="primaryFont" class="font-select">
+                                <option value="Inter">Inter (Default)</option>
+                                <option value="Roboto">Roboto</option>
+                                <option value="Open Sans">Open Sans</option>
+                                <option value="Montserrat">Montserrat</option>
+                                <option value="Poppins">Poppins</option>
+                                <option value="Lato">Lato</option>
+                                <option value="Source Sans Pro">Source Sans Pro</option>
+                                <option value="Nunito">Nunito</option>
+                            </select>
+                        </div>
+                        <div class="typography-item">
+                            <label>Heading Font</label>
+                            <select id="headingFont" class="font-select">
+                                <option value="inherit">Same as Primary</option>
+                                <option value="Playfair Display">Playfair Display</option>
+                                <option value="Merriweather">Merriweather</option>
+                                <option value="Oswald">Oswald</option>
+                                <option value="Raleway">Raleway</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="font-preview">
+                        <h4>Font Preview</h4>
+                        <div class="preview-text">
+                            <h2 id="headingPreview">Your Brand Heading</h2>
+                            <p id="bodyPreview">This is how your body text will appear in the spatial experience.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Domain Section -->
+                <div class="brand-section">
+                    <h3>Custom Domain</h3>
+                    <div class="domain-grid">
+                        <div class="domain-item">
+                            <label>Subdomain</label>
+                            <div class="domain-input-group">
+                                <input type="text" id="subdomain" placeholder="yourcompany" class="domain-input">
+                                <span class="domain-suffix">.staticmotion.app</span>
+                            </div>
+                            <small>Your branded URL for sharing experiences</small>
+                        </div>
+                        <div class="domain-item">
+                            <label>Custom Domain (Enterprise)</label>
+                            <input type="text" id="customDomain" placeholder="experiences.yourcompany.com" class="brand-input" disabled>
+                            <small>Requires Enterprise plan</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Media Section -->
+                <div class="brand-section">
+                    <h3>Social Media Links</h3>
+                    <div class="social-grid">
+                        <div class="social-item">
+                            <label>Facebook</label>
+                            <input type="url" id="facebookUrl" placeholder="https://facebook.com/yourcompany" class="brand-input">
+                        </div>
+                        <div class="social-item">
+                            <label>Instagram</label>
+                            <input type="url" id="instagramUrl" placeholder="https://instagram.com/yourcompany" class="brand-input">
+                        </div>
+                        <div class="social-item">
+                            <label>Twitter</label>
+                            <input type="url" id="twitterUrl" placeholder="https://twitter.com/yourcompany" class="brand-input">
+                        </div>
+                        <div class="social-item">
+                            <label>LinkedIn</label>
+                            <input type="url" id="linkedinUrl" placeholder="https://linkedin.com/company/yourcompany" class="brand-input">
+                        </div>
+                        <div class="social-item">
+                            <label>YouTube</label>
+                            <input type="url" id="youtubeUrl" placeholder="https://youtube.com/@yourcompany" class="brand-input">
+                        </div>
+                        <div class="social-item">
+                            <label>TikTok</label>
+                            <input type="url" id="tiktokUrl" placeholder="https://tiktok.com/@yourcompany" class="brand-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Branding -->
+                <div class="brand-section">
+                    <h3>Advanced Branding</h3>
+                    <div class="advanced-grid">
+                        <div class="advanced-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="hideStaticMotionBranding">
+                                <span class="checkmark"></span>
+                                Hide "Powered by Static Motion" branding
+                            </label>
+                            <small>Available with Pro plans and above</small>
+                        </div>
+                        <div class="advanced-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="customLoadingScreen">
+                                <span class="checkmark"></span>
+                                Custom loading screen with your branding
+                            </label>
+                        </div>
+                        <div class="advanced-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="customQRDesign">
+                                <span class="checkmark"></span>
+                                Branded QR codes with logo
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Preview Panel -->
+            <div class="preview-panel">
+                <div class="preview-header">
+                    <h3>Live Preview</h3>
+                    <div class="preview-tabs">
+                        <button class="preview-tab active" data-tab="mobile">📱 Mobile</button>
+                        <button class="preview-tab" data-tab="desktop">💻 Desktop</button>
+                        <button class="preview-tab" data-tab="qr">🔲 QR Code</button>
+                    </div>
+                </div>
+                
+                <div class="preview-content">
+                    <!-- Mobile Preview -->
+                    <div class="preview-tab-content active" id="mobilePreview">
+                        <div class="phone-mockup">
+                            <div class="phone-screen">
+                                <div class="branded-header">
+                                    <img id="previewLogo" src="" alt="Logo" style="display: none;">
+                                    <div class="brand-info">
+                                        <h4 id="previewCompanyName">Your Company</h4>
+                                        <span id="previewTagline">Your Tagline</span>
+                                    </div>
+                                </div>
+                                <div class="spatial-demo">
+                                    <div class="demo-container">🚗</div>
+                                    <div class="demo-container">💰</div>
+                                    <div class="demo-container">🎨</div>
+                                </div>
+                                <div class="branded-footer">
+                                    <div class="contact-info">
+                                        <span id="previewPhone">📞</span>
+                                        <span id="previewWebsite">🌐</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Preview -->
+                    <div class="preview-tab-content" id="desktopPreview">
+                        <div class="desktop-mockup">
+                            <div class="desktop-screen">
+                                <div class="desktop-header">
+                                    <img id="desktopPreviewLogo" src="" alt="Logo" style="display: none;">
+                                    <h3 id="desktopPreviewCompany">Your Company Portal</h3>
+                                </div>
+                                <div class="desktop-content">
+                                    <p>Desktop experience preview with your branding</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- QR Code Preview -->
+                    <div class="preview-tab-content" id="qrPreview">
+                        <div class="qr-mockup">
+                            <div class="qr-code">
+                                <canvas id="qrCanvas" width="200" height="200"></canvas>
+                            </div>
+                            <div class="qr-branding">
+                                <img id="qrLogoPreview" src="" alt="Logo" style="display: none;">
+                                <p id="qrCompanyName">Your Company</p>
+                                <span id="qrUrl">yourcompany.staticmotion.app</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="/js/branding.js"></script>
+</body>
+</html>
