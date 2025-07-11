@@ -2,6 +2,7 @@ class SMeditor {
     constructor() {
         this.currentTemplate = 'grid-3x3';
         this.currentWorld = 'flat';
+        this.currentIndustry = 'general';
         this.containers = new Map();
         this.selectedContainer = null;
         this.physicsMode = 'floating';
@@ -112,6 +113,19 @@ class SMeditor {
 
         document.getElementById('randomize').addEventListener('click', () => {
             this.randomizeContainers();
+        });
+
+        // Industry Mode Switching
+        document.getElementById('general-mode').addEventListener('click', () => {
+            this.switchIndustryMode('general');
+        });
+
+        document.getElementById('automotive-mode').addEventListener('click', () => {
+            this.switchIndustryMode('automotive');
+        });
+
+        document.getElementById('realestate-mode').addEventListener('click', () => {
+            this.switchIndustryMode('realestate');
         });
     }
 
@@ -400,11 +414,17 @@ class SMeditor {
                 break;
         }
         
-        editorContent.innerHTML = editorHTML + `
-            <button class="btn-primary" onclick="smeditor.saveContainerContent(${index})">
-                Save Content
+        // Use industry-specific forms
+        const industryForm = this.generateIndustryContentForm(containerData);
+        
+        editorContent.innerHTML = industryForm + `
+            <button class="save-content-btn" onclick="smeditor.saveContainerContent(${index})">
+                💾 Save Content
             </button>
         `;
+        
+        // Add industry-specific event listeners
+        this.setupIndustryEventListeners(containerData.type);
     }
 
     saveContainerContent(index) {
@@ -958,6 +978,722 @@ class SMeditor {
         this.updateContainerList();
         this.showFeedback('🎲 Randomized all container types');
     }
+
+    // Industry Mode Management
+    switchIndustryMode(industry) {
+        // Update mode buttons
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.getElementById(`${industry}-mode`).classList.add('active');
+
+        // Update data ball visibility
+        this.currentIndustry = industry;
+        this.updateDataBallVisibility();
+        
+        // Clear existing containers when switching industries
+        this.clearAllContainers();
+        
+        this.showFeedback(`Switched to ${industry} mode`);
+    }
+
+    updateDataBallVisibility() {
+        // Hide all industry-specific balls first
+        document.querySelectorAll('.automotive-mode-ball, .realestate-mode-ball').forEach(ball => {
+            ball.style.display = 'none';
+        });
+
+        // Show general balls for general mode
+        document.querySelectorAll('.general-mode-ball').forEach(ball => {
+            ball.style.display = this.currentIndustry === 'general' ? 'flex' : 'none';
+        });
+
+        // Show industry-specific balls
+        if (this.currentIndustry === 'automotive') {
+            document.querySelectorAll('.automotive-mode-ball').forEach(ball => {
+                ball.style.display = 'flex';
+            });
+        } else if (this.currentIndustry === 'realestate') {
+            document.querySelectorAll('.realestate-mode-ball').forEach(ball => {
+                ball.style.display = 'flex';
+            });
+        }
+    }
+
+    // Industry-Specific Content Forms
+    generateIndustryContentForm(containerData) {
+        const { type } = containerData;
+        
+        switch (this.currentIndustry) {
+            case 'automotive':
+                return this.generateAutomotiveForm(type);
+            case 'realestate':
+                return this.generateRealEstateForm(type);
+            default:
+                return this.generateGeneralForm(type);
+        }
+    }
+
+    generateAutomotiveForm(type) {
+        switch (type) {
+            case 'vehicle-specs':
+                return `
+                    <div class="automotive-form">
+                        <div class="form-section">
+                            <h4>🚗 Vehicle Information</h4>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Make</label>
+                                    <input type="text" id="vehicle-make" placeholder="e.g., Toyota">
+                                </div>
+                                <div class="form-field">
+                                    <label>Model</label>
+                                    <input type="text" id="vehicle-model" placeholder="e.g., Camry">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Year</label>
+                                    <input type="number" id="vehicle-year" min="1990" max="2024" value="2024">
+                                </div>
+                                <div class="form-field">
+                                    <label>Mileage</label>
+                                    <input type="number" id="vehicle-mileage" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Engine</label>
+                                    <input type="text" id="vehicle-engine" placeholder="e.g., 2.5L I4">
+                                </div>
+                                <div class="form-field">
+                                    <label>Transmission</label>
+                                    <select id="vehicle-transmission">
+                                        <option value="">Select...</option>
+                                        <option value="automatic">Automatic</option>
+                                        <option value="manual">Manual</option>
+                                        <option value="cvt">CVT</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Fuel Type</label>
+                                    <select id="vehicle-fuel">
+                                        <option value="">Select...</option>
+                                        <option value="gasoline">Gasoline</option>
+                                        <option value="hybrid">Hybrid</option>
+                                        <option value="electric">Electric</option>
+                                        <option value="diesel">Diesel</option>
+                                    </select>
+                                </div>
+                                <div class="form-field">
+                                    <label>Drivetrain</label>
+                                    <select id="vehicle-drivetrain">
+                                        <option value="">Select...</option>
+                                        <option value="fwd">Front-Wheel Drive</option>
+                                        <option value="rwd">Rear-Wheel Drive</option>
+                                        <option value="awd">All-Wheel Drive</option>
+                                        <option value="4wd">4-Wheel Drive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            case 'color-picker':
+                return `
+                    <div class="automotive-form">
+                        <div class="form-section">
+                            <h4>🎨 Color Options</h4>
+                            <div class="form-row single">
+                                <div class="form-field">
+                                    <label>Available Colors</label>
+                                    <div class="color-palette">
+                                        <div class="color-option" style="background: #1a1a1a" data-color="Midnight Black" title="Midnight Black"></div>
+                                        <div class="color-option" style="background: #ffffff; border-color: #ccc" data-color="Pearl White" title="Pearl White"></div>
+                                        <div class="color-option" style="background: #c41e3a" data-color="Ruby Red" title="Ruby Red"></div>
+                                        <div class="color-option" style="background: #2e4bb3" data-color="Ocean Blue" title="Ocean Blue"></div>
+                                        <div class="color-option" style="background: #8b9dc3" data-color="Silver Metallic" title="Silver Metallic"></div>
+                                        <div class="color-option" style="background: #4a4a4a" data-color="Charcoal Gray" title="Charcoal Gray"></div>
+                                        <div class="color-option" style="background: #d4af37" data-color="Gold Metallic" title="Gold Metallic"></div>
+                                        <div class="color-option" style="background: #228b22" data-color="Forest Green" title="Forest Green"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Selected Color</label>
+                                    <input type="text" id="selected-color" readonly placeholder="Select a color above">
+                                </div>
+                                <div class="form-field">
+                                    <label>Color Premium</label>
+                                    <input type="number" id="color-premium" placeholder="Additional cost" min="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            case 'car-features':
+                return `
+                    <div class="automotive-form">
+                        <div class="form-section">
+                            <h4>⚙️ Vehicle Features</h4>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <input type="checkbox" id="feature-heated-seats">
+                                    <label for="feature-heated-seats">Heated Seats</label>
+                                </div>
+                                <div class="feature-item">
+                                    <input type="checkbox" id="feature-sunroof">
+                                    <label for="feature-sunroof">Sunroof</label>
+                                </div>
+                                <div class="feature-item">
+                                    <input type="checkbox" id="feature-nav">
+                                    <label for="feature-nav">Navigation</label>
+                                </div>
+                                <div class="feature-item">
+                                    <input type="checkbox" id="feature-backup-cam">
+                                    <label for="feature-backup-cam">Backup Camera</label>
+                                </div>
+                                <div class="feature-item">
+                                    <input type="checkbox" id="feature-bluetooth">
+                                    <label for="feature-bluetooth">Bluetooth</label>
+                                </div>
+                                <div class="feature-item">
+                                    <input type="checkbox" id="feature-cruise">
+                                    <label for="feature-cruise">Cruise Control</label>
+                                </div>
+                                <div class="feature-item">
+                                    <input type="checkbox" id="feature-leather">
+                                    <label for="feature-leather">Leather Interior</label>
+                                </div>
+                                <div class="feature-item">
+                                    <input type="checkbox" id="feature-keyless">
+                                    <label for="feature-keyless">Keyless Entry</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            case 'pricing':
+                return `
+                    <div class="automotive-form">
+                        <div class="form-section">
+                            <h4>💰 Pricing Information</h4>
+                            <div class="pricing-calculator">
+                                <div class="price-display">
+                                    <div class="base-price">$<span id="display-price">25,000</span></div>
+                                    <div class="monthly-payment">Est. $<span id="monthly-payment">350</span>/month</div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label>MSRP</label>
+                                        <input type="number" id="vehicle-msrp" placeholder="25000" min="0">
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Sale Price</label>
+                                        <input type="number" id="vehicle-price" placeholder="23000" min="0">
+                                    </div>
+                                </div>
+                                <div class="financing-options">
+                                    <div class="form-field">
+                                        <label>Down Payment</label>
+                                        <input type="number" id="down-payment" placeholder="3000" min="0">
+                                    </div>
+                                    <div class="form-field">
+                                        <label>APR (%)</label>
+                                        <input type="number" id="apr" placeholder="4.5" step="0.1" min="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            case 'ar-view':
+                return `
+                    <div class="automotive-form">
+                        <div class="form-section">
+                            <h4>📱 Augmented Reality</h4>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>3D Model Upload</label>
+                                    <input type="file" id="ar-model" accept=".glb,.gltf">
+                                </div>
+                                <div class="form-field">
+                                    <label>Model Scale</label>
+                                    <input type="range" id="ar-scale" min="0.1" max="2" step="0.1" value="1">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>AR Instructions</label>
+                                    <textarea id="ar-instructions" placeholder="Point your camera at a flat surface and tap to place the vehicle"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            case 'dealer-info':
+                return `
+                    <div class="automotive-form">
+                        <div class="form-section">
+                            <h4>🏢 Dealership Information</h4>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Dealership Name</label>
+                                    <input type="text" id="dealer-name" placeholder="ABC Motors">
+                                </div>
+                                <div class="form-field">
+                                    <label>Sales Rep</label>
+                                    <input type="text" id="sales-rep" placeholder="John Smith">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Phone</label>
+                                    <input type="tel" id="dealer-phone" placeholder="(555) 123-4567">
+                                </div>
+                                <div class="form-field">
+                                    <label>Email</label>
+                                    <input type="email" id="dealer-email" placeholder="sales@abcmotors.com">
+                                </div>
+                            </div>
+                            <div class="form-row single">
+                                <div class="form-field">
+                                    <label>Address</label>
+                                    <textarea id="dealer-address" placeholder="123 Main St, City, State 12345"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            default:
+                return this.generateGeneralForm(type);
+        }
+    }
+
+    generateRealEstateForm(type) {
+        switch (type) {
+            case 'property-details':
+                return `
+                    <div class="realestate-form">
+                        <div class="form-section">
+                            <h4>🏠 Property Details</h4>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Property Type</label>
+                                    <select id="property-type">
+                                        <option value="">Select...</option>
+                                        <option value="single-family">Single Family</option>
+                                        <option value="condo">Condominium</option>
+                                        <option value="townhouse">Townhouse</option>
+                                        <option value="multi-family">Multi-Family</option>
+                                    </select>
+                                </div>
+                                <div class="form-field">
+                                    <label>Year Built</label>
+                                    <input type="number" id="year-built" min="1800" max="2024">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Bedrooms</label>
+                                    <input type="number" id="bedrooms" min="0" max="10">
+                                </div>
+                                <div class="form-field">
+                                    <label>Bathrooms</label>
+                                    <input type="number" id="bathrooms" min="0" max="10" step="0.5">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Square Feet</label>
+                                    <input type="number" id="square-feet" placeholder="2000">
+                                </div>
+                                <div class="form-field">
+                                    <label>Lot Size (acres)</label>
+                                    <input type="number" id="lot-size" step="0.01" placeholder="0.25">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            case 'location-info':
+                return `
+                    <div class="realestate-form">
+                        <div class="form-section">
+                            <h4>📍 Location Information</h4>
+                            <div class="form-row single">
+                                <div class="form-field">
+                                    <label>Address</label>
+                                    <input type="text" id="property-address" placeholder="123 Main St, City, State 12345">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>School District</label>
+                                    <input type="text" id="school-district" placeholder="Springfield Elementary">
+                                </div>
+                                <div class="form-field">
+                                    <label>Walk Score</label>
+                                    <input type="number" id="walk-score" min="0" max="100" placeholder="75">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Nearby Amenities</label>
+                                    <textarea id="amenities" placeholder="Shopping center, parks, restaurants..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            case 'financial-info':
+                return `
+                    <div class="realestate-form">
+                        <div class="form-section">
+                            <h4>💵 Financial Information</h4>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>List Price</label>
+                                    <input type="number" id="list-price" placeholder="450000">
+                                </div>
+                                <div class="form-field">
+                                    <label>Property Tax (Annual)</label>
+                                    <input type="number" id="property-tax" placeholder="5400">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>HOA Fees (Monthly)</label>
+                                    <input type="number" id="hoa-fees" placeholder="150">
+                                </div>
+                                <div class="form-field">
+                                    <label>Est. Monthly Payment</label>
+                                    <input type="number" id="monthly-payment-est" placeholder="2100" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            case 'virtual-tour':
+                return `
+                    <div class="realestate-form">
+                        <div class="form-section">
+                            <h4>🎥 Virtual Tour</h4>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Tour Type</label>
+                                    <select id="tour-type">
+                                        <option value="video">Video Tour</option>
+                                        <option value="360">360° Images</option>
+                                        <option value="3d">3D Walkthrough</option>
+                                    </select>
+                                </div>
+                                <div class="form-field">
+                                    <label>Duration (minutes)</label>
+                                    <input type="number" id="tour-duration" min="1" max="30" value="5">
+                                </div>
+                            </div>
+                            <div class="form-row single">
+                                <div class="form-field">
+                                    <label>Tour Description</label>
+                                    <textarea id="tour-description" placeholder="Guided tour through this beautiful home..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            case 'neighborhood':
+                return `
+                    <div class="realestate-form">
+                        <div class="form-section">
+                            <h4>🌳 Neighborhood</h4>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Neighborhood Name</label>
+                                    <input type="text" id="neighborhood-name" placeholder="Oak Hills">
+                                </div>
+                                <div class="form-field">
+                                    <label>Safety Rating</label>
+                                    <select id="safety-rating">
+                                        <option value="5">Excellent</option>
+                                        <option value="4">Very Good</option>
+                                        <option value="3">Good</option>
+                                        <option value="2">Fair</option>
+                                        <option value="1">Poor</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row single">
+                                <div class="form-field">
+                                    <label>Neighborhood Description</label>
+                                    <textarea id="neighborhood-desc" placeholder="Quiet family-friendly neighborhood with tree-lined streets..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            case 'agent-contact':
+                return `
+                    <div class="realestate-form">
+                        <div class="form-section">
+                            <h4>👤 Agent Contact</h4>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Agent Name</label>
+                                    <input type="text" id="agent-name" placeholder="Jane Smith">
+                                </div>
+                                <div class="form-field">
+                                    <label>License #</label>
+                                    <input type="text" id="agent-license" placeholder="RE123456">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Phone</label>
+                                    <input type="tel" id="agent-phone" placeholder="(555) 123-4567">
+                                </div>
+                                <div class="form-field">
+                                    <label>Email</label>
+                                    <input type="email" id="agent-email" placeholder="jane@realty.com">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Brokerage</label>
+                                    <input type="text" id="brokerage" placeholder="ABC Realty">
+                                </div>
+                                <div class="form-field">
+                                    <label>Years Experience</label>
+                                    <input type="number" id="years-exp" min="0" max="50" placeholder="10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            default:
+                return this.generateGeneralForm(type);
+        }
+    }
+
+    generateGeneralForm(type) {
+        // Keep existing general form generation logic
+        switch (type) {
+            case 'image':
+                return `
+                    <div class="editor-field">
+                        <label>Image Upload</label>
+                        <input type="file" id="content-image" accept="image/*">
+                    </div>
+                    <div class="editor-field">
+                        <label>Alt Text</label>
+                        <input type="text" id="content-alt" placeholder="Describe the image">
+                    </div>
+                `;
+                
+            case 'text':
+                return `
+                    <div class="editor-field">
+                        <label>Title</label>
+                        <input type="text" id="content-title" placeholder="Enter title">
+                    </div>
+                    <div class="editor-field">
+                        <label>Message</label>
+                        <textarea id="content-message" placeholder="Enter your message for users"></textarea>
+                    </div>
+                `;
+                
+            case 'contact':
+                return `
+                    <div class="editor-field">
+                        <label>Name</label>
+                        <input type="text" id="content-name" placeholder="Your name">
+                    </div>
+                    <div class="editor-field">
+                        <label>Phone</label>
+                        <input type="tel" id="content-phone" placeholder="Phone number">
+                    </div>
+                    <div class="editor-field">
+                        <label>Email</label>
+                        <input type="email" id="content-email" placeholder="Email address">
+                    </div>
+                `;
+                
+            case 'video':
+                return `
+                    <div class="editor-field">
+                        <label>Video Upload</label>
+                        <input type="file" id="content-video" accept="video/*">
+                    </div>
+                    <div class="editor-field">
+                        <label>Video Title</label>
+                        <input type="text" id="content-video-title" placeholder="Video title">
+                    </div>
+                `;
+                
+            case '3d-model':
+                return `
+                    <div class="editor-field">
+                        <label>3D Model Upload</label>
+                        <input type="file" id="content-model" accept=".glb,.gltf">
+                    </div>
+                    <div class="editor-field">
+                        <label>Model Name</label>
+                        <input type="text" id="content-model-name" placeholder="Model name">
+                    </div>
+                    <div class="editor-field">
+                        <label>Enable AR View</label>
+                        <input type="checkbox" id="content-ar-enabled" checked>
+                    </div>
+                `;
+                
+                         default:
+                 return '<p>Unknown content type</p>';
+         }
+     }
+
+     // Industry-Specific Event Listeners
+     setupIndustryEventListeners(type) {
+         if (this.currentIndustry === 'automotive') {
+             this.setupAutomotiveEventListeners(type);
+         } else if (this.currentIndustry === 'realestate') {
+             this.setupRealEstateEventListeners(type);
+         }
+     }
+
+     setupAutomotiveEventListeners(type) {
+         switch (type) {
+             case 'color-picker':
+                 // Color selection functionality
+                 document.querySelectorAll('.color-option').forEach(option => {
+                     option.addEventListener('click', () => {
+                         // Remove previous selection
+                         document.querySelectorAll('.color-option').forEach(opt => {
+                             opt.classList.remove('selected');
+                         });
+                         
+                         // Add selection to clicked option
+                         option.classList.add('selected');
+                         
+                         // Update selected color field
+                         const colorName = option.dataset.color;
+                         const selectedColorInput = document.getElementById('selected-color');
+                         if (selectedColorInput) {
+                             selectedColorInput.value = colorName;
+                         }
+                         
+                         this.showFeedback(`Selected color: ${colorName}`);
+                     });
+                 });
+                 break;
+
+             case 'pricing':
+                 // Real-time pricing calculations
+                 const priceInputs = ['vehicle-msrp', 'vehicle-price', 'down-payment', 'apr'];
+                 priceInputs.forEach(inputId => {
+                     const input = document.getElementById(inputId);
+                     if (input) {
+                         input.addEventListener('input', () => {
+                             this.calculateMonthlyPayment();
+                         });
+                     }
+                 });
+                 break;
+
+             case 'car-features':
+                 // Feature selection tracking
+                 document.querySelectorAll('.feature-item input[type="checkbox"]').forEach(checkbox => {
+                     checkbox.addEventListener('change', () => {
+                         const featureCount = document.querySelectorAll('.feature-item input[type="checkbox"]:checked').length;
+                         this.showFeedback(`${featureCount} features selected`);
+                     });
+                 });
+                 break;
+         }
+     }
+
+     setupRealEstateEventListeners(type) {
+         switch (type) {
+             case 'financial-info':
+                 // Real estate payment calculations
+                 const reInputs = ['list-price', 'property-tax', 'hoa-fees'];
+                 reInputs.forEach(inputId => {
+                     const input = document.getElementById(inputId);
+                     if (input) {
+                         input.addEventListener('input', () => {
+                             this.calculatePropertyPayment();
+                         });
+                     }
+                 });
+                 break;
+         }
+     }
+
+     calculateMonthlyPayment() {
+         const msrp = parseFloat(document.getElementById('vehicle-msrp')?.value) || 0;
+         const price = parseFloat(document.getElementById('vehicle-price')?.value) || msrp;
+         const downPayment = parseFloat(document.getElementById('down-payment')?.value) || 0;
+         const apr = parseFloat(document.getElementById('apr')?.value) || 4.5;
+         
+         const loanAmount = price - downPayment;
+         const monthlyRate = (apr / 100) / 12;
+         const numPayments = 72; // 6 years
+         
+         let monthlyPayment = 0;
+         if (monthlyRate > 0) {
+             monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
+                             (Math.pow(1 + monthlyRate, numPayments) - 1);
+         } else {
+             monthlyPayment = loanAmount / numPayments;
+         }
+         
+         // Update display
+         const displayPrice = document.getElementById('display-price');
+         const monthlyDisplay = document.getElementById('monthly-payment');
+         
+         if (displayPrice) displayPrice.textContent = price.toLocaleString();
+         if (monthlyDisplay) monthlyDisplay.textContent = Math.round(monthlyPayment).toLocaleString();
+     }
+
+     calculatePropertyPayment() {
+         const listPrice = parseFloat(document.getElementById('list-price')?.value) || 0;
+         const propertyTax = parseFloat(document.getElementById('property-tax')?.value) || 0;
+         const hoaFees = parseFloat(document.getElementById('hoa-fees')?.value) || 0;
+         
+         // Rough mortgage calculation (assuming 20% down, 30-year loan, 6.5% APR)
+         const loanAmount = listPrice * 0.8; // 20% down
+         const monthlyRate = 0.065 / 12;
+         const numPayments = 360; // 30 years
+         
+         let monthlyMortgage = 0;
+         if (monthlyRate > 0) {
+             monthlyMortgage = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
+                              (Math.pow(1 + monthlyRate, numPayments) - 1);
+         }
+         
+         const monthlyTax = propertyTax / 12;
+         const totalMonthly = monthlyMortgage + monthlyTax + hoaFees;
+         
+         // Update display
+         const monthlyPaymentEst = document.getElementById('monthly-payment-est');
+         if (monthlyPaymentEst) {
+             monthlyPaymentEst.value = Math.round(totalMonthly).toLocaleString();
+         }
+     }
 }
 
 // Initialize the editor when the page loads

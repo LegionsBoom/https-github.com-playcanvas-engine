@@ -1,4 +1,4 @@
-THIS SHOULD BE A LINTER ERROR<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -116,26 +116,71 @@ THIS SHOULD BE A LINTER ERROR<!DOCTYPE html>
                         </svg>
                         Data Types
                     </h3>
-                    <div class="data-balls">
-                        <div class="data-ball" data-type="image" draggable="true">
+                    <div class="data-balls" id="data-balls-container">
+                        <!-- General Mode Data Balls -->
+                        <div class="data-ball general-mode-ball" data-type="image" draggable="true">
                             <div class="ball image-ball" style="--ball-color: #ff6b6b; --ball-color-dark: #ee5a24;"></div>
                             <span>Image</span>
                         </div>
-                        <div class="data-ball" data-type="text" draggable="true">
+                        <div class="data-ball general-mode-ball" data-type="text" draggable="true">
                             <div class="ball text-ball" style="--ball-color: #4ecdc4; --ball-color-dark: #44a08d;"></div>
                             <span>Text</span>
                         </div>
-                        <div class="data-ball" data-type="contact" draggable="true">
+                        <div class="data-ball general-mode-ball" data-type="contact" draggable="true">
                             <div class="ball contact-ball" style="--ball-color: #feca57; --ball-color-dark: #ff9ff3;"></div>
                             <span>Contact</span>
                         </div>
-                        <div class="data-ball" data-type="video" draggable="true">
+                        <div class="data-ball general-mode-ball" data-type="video" draggable="true">
                             <div class="ball video-ball" style="--ball-color: #5f27cd; --ball-color-dark: #00d2d3;"></div>
                             <span>Video</span>
                         </div>
-                        <div class="data-ball" data-type="3d-model" draggable="true">
+                        <div class="data-ball general-mode-ball" data-type="3d-model" draggable="true">
                             <div class="ball model-ball" style="--ball-color: #fd79a8; --ball-color-dark: #6c5ce7;"></div>
                             <span>3D Model</span>
+                        </div>
+                        
+                        <!-- Automotive Mode Data Balls (Hidden by default) -->
+                        <div class="data-ball automotive-mode-ball" data-type="car-model" draggable="true" style="display: none;">
+                            <div class="ball car-model-ball" style="--ball-color: #e74c3c; --ball-color-dark: #c0392b;"></div>
+                            <span>🚗 Car Model</span>
+                        </div>
+                        <div class="data-ball automotive-mode-ball" data-type="color-picker" draggable="true" style="display: none;">
+                            <div class="ball color-picker-ball" style="--ball-color: #9b59b6; --ball-color-dark: #8e44ad;"></div>
+                            <span>🎨 Color Picker</span>
+                        </div>
+                        <div class="data-ball automotive-mode-ball" data-type="car-specs" draggable="true" style="display: none;">
+                            <div class="ball car-specs-ball" style="--ball-color: #3498db; --ball-color-dark: #2980b9;"></div>
+                            <span>📊 Specifications</span>
+                        </div>
+                        <div class="data-ball automotive-mode-ball" data-type="hotspot" draggable="true" style="display: none;">
+                            <div class="ball hotspot-ball" style="--ball-color: #f39c12; --ball-color-dark: #e67e22;"></div>
+                            <span>📍 Hotspots</span>
+                        </div>
+                        <div class="data-ball automotive-mode-ball" data-type="price-calc" draggable="true" style="display: none;">
+                            <div class="ball price-calc-ball" style="--ball-color: #27ae60; --ball-color-dark: #229954;"></div>
+                            <span>💰 Price Calc</span>
+                        </div>
+                        <div class="data-ball automotive-mode-ball" data-type="360-view" draggable="true" style="display: none;">
+                            <div class="ball view-360-ball" style="--ball-color: #16a085; --ball-color-dark: #138d75;"></div>
+                            <span>🔄 360° View</span>
+                        </div>
+                        
+                        <!-- Real Estate Mode Data Balls (Hidden by default) -->
+                        <div class="data-ball realestate-mode-ball" data-type="property-info" draggable="true" style="display: none;">
+                            <div class="ball property-info-ball" style="--ball-color: #2ecc71; --ball-color-dark: #27ae60;"></div>
+                            <span>🏠 Property Info</span>
+                        </div>
+                        <div class="data-ball realestate-mode-ball" data-type="floor-plan" draggable="true" style="display: none;">
+                            <div class="ball floor-plan-ball" style="--ball-color: #34495e; --ball-color-dark: #2c3e50;"></div>
+                            <span>📐 Floor Plan</span>
+                        </div>
+                        <div class="data-ball realestate-mode-ball" data-type="neighborhood" draggable="true" style="display: none;">
+                            <div class="ball neighborhood-ball" style="--ball-color: #95a5a6; --ball-color-dark: #7f8c8d;"></div>
+                            <span>🌳 Neighborhood</span>
+                        </div>
+                        <div class="data-ball realestate-mode-ball" data-type="virtual-tour" draggable="true" style="display: none;">
+                            <div class="ball virtual-tour-ball" style="--ball-color: #e67e22; --ball-color-dark: #d35400;"></div>
+                            <span>🎥 Virtual Tour</span>
                         </div>
                     </div>
                 </div>

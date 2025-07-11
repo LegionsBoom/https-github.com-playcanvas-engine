@@ -984,3 +984,343 @@ body {
 .ball:hover {
     animation: bounce 1s ease-in-out;
 }
+
+/* Industry Mode Selector */
+.industry-mode {
+    margin-bottom: 1rem;
+}
+
+.mode-selector {
+    display: flex;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 4px;
+    margin-bottom: 1rem;
+}
+
+.mode-btn {
+    flex: 1;
+    padding: 0.5rem 0.25rem;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    color: #666;
+}
+
+.mode-btn.active {
+    background: #667eea;
+    color: white;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.mode-btn:hover:not(.active) {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+}
+
+/* Data Ball Sets */
+.data-ball-set {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.automotive-mode-set,
+.realestate-mode-set {
+    display: none;
+}
+
+.automotive-mode-set.active,
+.realestate-mode-set.active {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+/* Industry-Specific Ball Colors */
+.vehicle-specs-ball { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+.color-picker-ball { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+.car-features-ball { background: linear-gradient(135deg, #3498db, #2980b9); }
+.pricing-ball { background: linear-gradient(135deg, #27ae60, #229954); }
+.ar-view-ball { background: linear-gradient(135deg, #f39c12, #e67e22); }
+.dealer-info-ball { background: linear-gradient(135deg, #16a085, #138d75); }
+
+.property-details-ball { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+.location-info-ball { background: linear-gradient(135deg, #34495e, #2c3e50); }
+.financial-info-ball { background: linear-gradient(135deg, #95a5a6, #7f8c8d); }
+.virtual-tour-ball { background: linear-gradient(135deg, #e67e22, #d35400); }
+.neighborhood-ball { background: linear-gradient(135deg, #8e44ad, #7d3c98); }
+.agent-contact-ball { background: linear-gradient(135deg, #d35400, #ba4a00); }
+
+/* Industry-Specific Content Forms */
+.automotive-form, .realestate-form {
+    background: rgba(231, 76, 60, 0.05);
+    border: 1px solid rgba(231, 76, 60, 0.2);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.realestate-form {
+    background: rgba(46, 204, 113, 0.05);
+    border-color: rgba(46, 204, 113, 0.2);
+}
+
+.form-section {
+    margin-bottom: 1rem;
+}
+
+.form-section:last-child {
+    margin-bottom: 0;
+}
+
+.form-section h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.form-row.single {
+    grid-template-columns: 1fr;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 0.25rem;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    border-color: #667eea;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+}
+
+.form-field textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+/* Color Picker Specific */
+.color-palette {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.color-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+    border-color: #667eea;
+}
+
+.color-option.selected {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+.color-option::before {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.color-option.selected::before {
+    opacity: 1;
+}
+
+/* Feature Checkboxes */
+.feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.feature-item:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.feature-item input[type="checkbox"] {
+    margin: 0;
+}
+
+.feature-item label {
+    margin: 0;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+/* Pricing Calculator */
+.pricing-calculator {
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+}
+
+.price-display {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.base-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #27ae60;
+}
+
+.monthly-payment {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+.financing-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+/* Hotspot Management */
+.hotspot-list {
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 0.5rem;
+}
+
+.hotspot-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.hotspot-item:last-child {
+    margin-bottom: 0;
+}
+
+.hotspot-info {
+    flex: 1;
+}
+
+.hotspot-title {
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.hotspot-desc {
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.hotspot-actions {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.hotspot-btn {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.7rem;
+}
+
+.hotspot-btn:hover {
+    background: #f8f9fa;
+}
+
+/* Save Button Enhancement */
+.save-content-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.save-content-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Industry-Specific Validation */
+.automotive-validation {
+    border-left-color: #e74c3c;
+}
+
+.realestate-validation {
+    border-left-color: #2ecc71;
+}
