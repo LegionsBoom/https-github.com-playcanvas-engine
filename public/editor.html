@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+THIS SHOULD BE A LINTER ERROR<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SMeditor - Static Motion Editor</title>
     <link rel="stylesheet" href="/css/editor.css">
+    <link rel="stylesheet" href="/css/automotive.css">
     <script src="https://code.playcanvas.com/playcanvas-1.66.0.min.js"></script>
 </head>
 <body>
@@ -32,6 +33,22 @@
                         <button id="flat-world" class="world-btn active">Flat World</button>
                         <button id="globe-world" class="world-btn">Globe World</button>
                     </div>
+                    
+                    <!-- Industry Mode Toggle -->
+                    <div class="industry-mode">
+                        <h4 class="cockpit-title">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"></path>
+                            </svg>
+                            Industry Mode
+                        </h4>
+                        <div class="mode-selector">
+                            <button id="general-mode" class="mode-btn active">General</button>
+                            <button id="automotive-mode" class="mode-btn">🚗 Automotive</button>
+                            <button id="realestate-mode" class="mode-btn">🏠 Real Estate</button>
+                        </div>
+                    </div>
+                    
                     <div class="template-grid">
                         <div class="template-item active" data-template="grid-3x3">
                             <div class="template-preview">
@@ -333,5 +350,6 @@
     </div>
 
     <script src="/js/editor.js"></script>
+    <script src="/js/automotive-features.js"></script>
 </body>
 </html>
