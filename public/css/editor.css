@@ -390,6 +390,12 @@ body {
     transform: scale(1.05);
 }
 
+.container-slot.selected {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.15);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
 .slot-content {
     display: flex;
     flex-direction: column;
