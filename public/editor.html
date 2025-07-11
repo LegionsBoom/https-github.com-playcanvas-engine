@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMeditor - Static Motion Editor</title>
+    <link rel="stylesheet" href="/css/editor.css">
+    <script src="https://code.playcanvas.com/playcanvas-1.66.0.min.js"></script>
+</head>
+<body>
+    <div class="editor-container">
+        <!-- Header -->
+        <header class="editor-header">
+            <div class="logo">
+                <h1>SMeditor</h1>
+                <span>Spatial Content Experience</span>
+            </div>
+            <div class="actions">
+                <button id="preview-btn" class="btn-primary">Preview Scene</button>
+                <button id="publish-btn" class="btn-success">Publish & Share</button>
+            </div>
+        </header>
+
+        <!-- Main Editor -->
+        <div class="editor-main">
+            <!-- Left Panel: Templates & Data Balls -->
+            <div class="left-panel">
+                <!-- Template Selection -->
+                <div class="panel-section">
+                    <h3>World Templates</h3>
+                    <div class="world-toggle">
+                        <button id="flat-world" class="world-btn active">Flat World</button>
+                        <button id="globe-world" class="world-btn">Globe World</button>
+                    </div>
+                    <div class="template-grid">
+                        <div class="template-item active" data-template="grid-3x3">
+                            <div class="template-preview">
+                                <div class="grid-3x3-preview"></div>
+                            </div>
+                            <span>3x3 Grid</span>
+                        </div>
+                        <div class="template-item" data-template="grid-2x2">
+                            <div class="template-preview">
+                                <div class="grid-2x2-preview"></div>
+                            </div>
+                            <span>2x2 Center</span>
+                        </div>
+                        <div class="template-item" data-template="linear">
+                            <div class="template-preview">
+                                <div class="linear-preview"></div>
+                            </div>
+                            <span>Linear Row</span>
+                        </div>
+                        <div class="template-item" data-template="circular">
+                            <div class="template-preview">
+                                <div class="circular-preview"></div>
+                            </div>
+                            <span>Circular</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Balls -->
+                <div class="panel-section">
+                    <h3>Data Types</h3>
+                    <div class="data-balls">
+                        <div class="data-ball" data-type="image" draggable="true">
+                            <div class="ball image-ball"></div>
+                            <span>Image</span>
+                        </div>
+                        <div class="data-ball" data-type="text" draggable="true">
+                            <div class="ball text-ball"></div>
+                            <span>Text</span>
+                        </div>
+                        <div class="data-ball" data-type="contact" draggable="true">
+                            <div class="ball contact-ball"></div>
+                            <span>Contact</span>
+                        </div>
+                        <div class="data-ball" data-type="video" draggable="true">
+                            <div class="ball video-ball"></div>
+                            <span>Video</span>
+                        </div>
+                        <div class="data-ball" data-type="3d-model" draggable="true">
+                            <div class="ball model-ball"></div>
+                            <span>3D Model</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brand Customization -->
+                <div class="panel-section">
+                    <h3>Brand Settings</h3>
+                    <div class="brand-settings">
+                        <div class="setting-group">
+                            <label>Primary Color</label>
+                            <input type="color" id="primary-color" value="#007bff">
+                        </div>
+                        <div class="setting-group">
+                            <label>Company Logo</label>
+                            <input type="file" id="logo-upload" accept="image/*">
+                        </div>
+                        <div class="setting-group">
+                            <label>Company Name</label>
+                            <input type="text" id="company-name" placeholder="Your Company">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center: Layout Builder -->
+            <div class="center-panel">
+                <div class="layout-builder">
+                    <h3>Layout Builder</h3>
+                    <div id="container-grid" class="container-grid grid-3x3">
+                        <!-- Dynamic containers will be generated here -->
+                    </div>
+                    <div class="layout-info">
+                        <p>Drag data balls from the left panel into containers</p>
+                        <p>Click containers to edit content</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Content Editor -->
+            <div class="right-panel">
+                <div class="content-editor">
+                    <h3>Content Editor</h3>
+                    <div id="editor-content">
+                        <p>Select a container to edit its content</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="preview-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Scene Preview</h2>
+            <div id="preview-container">
+                <canvas id="preview-canvas"></canvas>
+            </div>
+            <div class="preview-controls">
+                <button id="mobile-preview">Mobile View</button>
+                <button id="desktop-preview">Desktop View</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="publish-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Publish Scene</h2>
+            <div class="publish-content">
+                <div class="qr-section">
+                    <div id="qr-code"></div>
+                    <p>Scan to view on mobile</p>
+                </div>
+                <div class="share-section">
+                    <label>Share Link:</label>
+                    <input type="text" id="share-link" readonly>
+                    <button id="copy-link">Copy Link</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/editor.js"></script>
+</body>
+</html>
