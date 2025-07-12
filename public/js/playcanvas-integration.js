@@ -1,4 +1,4 @@
-// PlayCanvas Integration Manager (Refactored)
+// PlayCanvas Integration Manager (Refactored with Binary Spatial Engine)
 class PlayCanvasManager extends pc.events {
     constructor(canvasId) {
         super();
@@ -17,6 +17,12 @@ class PlayCanvasManager extends pc.events {
             dragPreview: null,
             dragData: null
         };
+        
+        // Binary Spatial Engine Integration
+        this.binaryEngine = null;
+        this.consciousnessAware = false;
+        this.quantumActive = false;
+        
         this._init();
     }
 
@@ -26,6 +32,10 @@ class PlayCanvasManager extends pc.events {
             console.error('PlayCanvas canvas not found!');
             return;
         }
+        
+        // Initialize Binary Spatial Engine
+        this.initializeBinaryEngine();
+        
         this.app = new pc.Application(canvas, {
             mouse: new pc.Mouse(canvas),
             touch: new pc.TouchDevice(canvas),
@@ -57,21 +67,15 @@ class PlayCanvasManager extends pc.events {
         light.setLocalEulerAngles(45, 30, 0);
         this.app.root.addChild(light);
 
-        // Car placeholder (box)
-        const box = new pc.Entity('Box');
-        box.addComponent('model', { type: 'box' });
-        box.setLocalScale(2.2, 1, 4);
+        // Car placeholder (box) with binary optimization
+        const box = this.createBinaryOptimizedEntity('Box', 'box', { x: 2.2, y: 1, z: 4 });
         this.app.root.addChild(box);
-        const material = new pc.StandardMaterial();
-        material.diffuse = new pc.Color(0.1, 0.9, 0.8);
-        material.emissive = new pc.Color(0.0, 1.0, 0.8);
-        material.emissiveIntensity = 1.5;
-        material.update();
-        box.model.material = material;
 
-        // Animate box (for demo)
+        // Animate box with consciousness awareness
         this.app.on('update', (dt) => {
-            if (!this.walkthroughAnimating) box.rotate(0, 20 * dt, 0);
+            if (!this.walkthroughAnimating) {
+                this.updateBinaryEntityAnimation(box, dt);
+            }
         });
 
         // Initialize post-processing
@@ -85,6 +89,107 @@ class PlayCanvasManager extends pc.events {
         
         // Drag and drop handlers
         this.setupDragAndDrop();
+    }
+    
+    initializeBinaryEngine() {
+        // Initialize Binary Spatial Engine
+        if (window.BinarySpatialEngine) {
+            this.binaryEngine = new window.BinarySpatialEngine();
+            
+            // Activate consciousness awareness
+            this.binaryEngine.activateFeature('CONSCIOUSNESS_AWARE');
+            this.binaryEngine.activateFeature('SPATIAL_AWARE');
+            this.binaryEngine.activateFeature('BINARY_OPTIMIZED');
+            
+            this.consciousnessAware = true;
+            console.log('🔢 Binary Spatial Engine integrated with PlayCanvas');
+        } else {
+            console.warn('Binary Spatial Engine not available');
+        }
+    }
+    
+    createBinaryOptimizedEntity(name, type, scale) {
+        // Create entity with binary optimization
+        const entity = new pc.Entity(name);
+        entity.addComponent('model', { type: type });
+        
+        // Apply binary-optimized scaling
+        if (this.binaryEngine) {
+            const binaryScale = this.binaryEngine.scale(scale.x, scale.y, scale.z);
+            entity.setLocalScale(binaryScale.x, binaryScale.y, binaryScale.z);
+        } else {
+            entity.setLocalScale(scale.x, scale.y, scale.z);
+        }
+        
+        // Create consciousness-aware material
+        const material = this.createConsciousnessAwareMaterial();
+        entity.model.material = material;
+        
+        return entity;
+    }
+    
+    createConsciousnessAwareMaterial() {
+        const material = new pc.StandardMaterial();
+        
+        if (this.binaryEngine && this.consciousnessAware) {
+            const consciousnessLevel = this.binaryEngine.getConsciousnessLevel();
+            const emotionalState = this.binaryEngine.getEmotionalState();
+            
+            // Apply consciousness-aware colors
+            const consciousnessColor = new pc.Color(
+                0.1 + (consciousnessLevel * 0.9),
+                0.9 - (consciousnessLevel * 0.3),
+                0.8 + (consciousnessLevel * 0.2)
+            );
+            
+            material.diffuse = consciousnessColor;
+            material.emissive = consciousnessColor;
+            material.emissiveIntensity = 1.0 + consciousnessLevel;
+            
+            // Apply emotional effects
+            if (emotionalState === 'excited') {
+                material.emissiveIntensity *= 1.5;
+            } else if (emotionalState === 'calm') {
+                material.emissiveIntensity *= 0.7;
+            }
+        } else {
+            // Default material
+            material.diffuse = new pc.Color(0.1, 0.9, 0.8);
+            material.emissive = new pc.Color(0.0, 1.0, 0.8);
+            material.emissiveIntensity = 1.5;
+        }
+        
+        material.update();
+        return material;
+    }
+    
+    updateBinaryEntityAnimation(entity, dt) {
+        // Update entity animation with consciousness awareness
+        if (this.binaryEngine && this.consciousnessAware) {
+            const consciousnessLevel = this.binaryEngine.getConsciousnessLevel();
+            const emotionalState = this.binaryEngine.getEmotionalState();
+            
+            // Adjust rotation speed based on consciousness
+            let rotationSpeed = 20 * dt;
+            
+            if (consciousnessLevel > 0.7) {
+                rotationSpeed *= 1.5; // Faster rotation for high consciousness
+            } else if (consciousnessLevel < 0.3) {
+                rotationSpeed *= 0.5; // Slower rotation for low consciousness
+            }
+            
+            // Apply emotional effects to rotation
+            if (emotionalState === 'excited') {
+                rotationSpeed *= 2.0;
+            } else if (emotionalState === 'calm') {
+                rotationSpeed *= 0.3;
+            }
+            
+            entity.rotate(0, rotationSpeed, 0);
+        } else {
+            // Default animation
+            entity.rotate(0, 20 * dt, 0);
+        }
     }
 
     setupDragAndDrop() {
@@ -159,19 +264,59 @@ class PlayCanvasManager extends pc.events {
         
         const preview = new pc.Entity('DragPreview');
         preview.addComponent('model', { type: 'box' });
-        preview.setLocalScale(1, 1, 1);
         
-        const material = new pc.StandardMaterial();
-        material.diffuse = new pc.Color(0.2, 0.8, 0.9);
-        material.emissive = new pc.Color(0.1, 0.4, 0.5);
-        material.emissiveIntensity = 0.8;
-        material.opacity = 0.6;
-        material.blendType = pc.BLEND_NORMAL;
-        material.update();
+        // Apply binary-optimized scaling
+        if (this.binaryEngine) {
+            const binaryScale = this.binaryEngine.scale(1, 1, 1);
+            preview.setLocalScale(binaryScale.x, binaryScale.y, binaryScale.z);
+        } else {
+            preview.setLocalScale(1, 1, 1);
+        }
         
+        // Create consciousness-aware preview material
+        const material = this.createConsciousnessAwarePreviewMaterial();
         preview.model.material = material;
+        
         this.app.root.addChild(preview);
         this.dragState.dragPreview = preview;
+    }
+    
+    createConsciousnessAwarePreviewMaterial() {
+        const material = new pc.StandardMaterial();
+        
+        if (this.binaryEngine && this.consciousnessAware) {
+            const consciousnessLevel = this.binaryEngine.getConsciousnessLevel();
+            const quantumState = this.binaryEngine.getQuantumState();
+            
+            // Apply consciousness-aware preview colors
+            const previewColor = new pc.Color(
+                0.2 + (consciousnessLevel * 0.3),
+                0.8 - (consciousnessLevel * 0.2),
+                0.9 + (consciousnessLevel * 0.1)
+            );
+            
+            material.diffuse = previewColor;
+            material.emissive = previewColor;
+            material.emissiveIntensity = 0.8 + consciousnessLevel;
+            material.opacity = 0.6 + (quantumState * 0.2);
+            material.blendType = pc.BLEND_NORMAL;
+            
+            // Add quantum shimmer effect
+            if (quantumState > 0.5) {
+                material.opacity = 0.8;
+                material.emissiveIntensity *= 1.2;
+            }
+        } else {
+            // Default preview material
+            material.diffuse = new pc.Color(0.2, 0.8, 0.9);
+            material.emissive = new pc.Color(0.1, 0.4, 0.5);
+            material.emissiveIntensity = 0.8;
+            material.opacity = 0.6;
+            material.blendType = pc.BLEND_NORMAL;
+        }
+        
+        material.update();
+        return material;
     }
 
     updateDragPreview(e) {
@@ -219,51 +364,168 @@ class PlayCanvasManager extends pc.events {
     createContentEntity(data, position) {
         const entity = new pc.Entity(data.name || 'Content');
         
-        // Add model component based on type
+        // Apply binary-optimized positioning
+        if (this.binaryEngine) {
+            const binaryPosition = this.binaryEngine.translate(position.x, position.y, position.z);
+            entity.setPosition(binaryPosition);
+        } else {
+            entity.setPosition(position);
+        }
+        
+        // Add model component based on type with binary optimization
         switch (data.type) {
             case 'vehicle':
                 entity.addComponent('model', { type: 'box' });
-                entity.setLocalScale(2.2, 1, 4);
+                if (this.binaryEngine) {
+                    const binaryScale = this.binaryEngine.scale(2.2, 1, 4);
+                    entity.setLocalScale(binaryScale.x, binaryScale.y, binaryScale.z);
+                } else {
+                    entity.setLocalScale(2.2, 1, 4);
+                }
                 break;
             case 'hotspot':
                 entity.addComponent('model', { type: 'sphere' });
-                entity.setLocalScale(0.5, 0.5, 0.5);
+                if (this.binaryEngine) {
+                    const binaryScale = this.binaryEngine.scale(0.5, 0.5, 0.5);
+                    entity.setLocalScale(binaryScale.x, binaryScale.y, binaryScale.z);
+                } else {
+                    entity.setLocalScale(0.5, 0.5, 0.5);
+                }
                 break;
             case 'content':
             default:
                 entity.addComponent('model', { type: 'box' });
-                entity.setLocalScale(1, 1, 1);
+                if (this.binaryEngine) {
+                    const binaryScale = this.binaryEngine.scale(1, 1, 1);
+                    entity.setLocalScale(binaryScale.x, binaryScale.y, binaryScale.z);
+                } else {
+                    entity.setLocalScale(1, 1, 1);
+                }
                 break;
         }
         
-        entity.setPosition(position);
-        
-        // Apply material based on type
-        const material = new pc.StandardMaterial();
-        switch (data.type) {
-            case 'vehicle':
-                material.diffuse = new pc.Color(0.1, 0.9, 0.8);
-                material.emissive = new pc.Color(0.0, 1.0, 0.8);
-                material.emissiveIntensity = 1.5;
-                break;
-            case 'hotspot':
-                material.diffuse = new pc.Color(1.0, 0.5, 0.0);
-                material.emissive = new pc.Color(1.0, 0.5, 0.0);
-                material.emissiveIntensity = 2.0;
-                break;
-            default:
-                material.diffuse = new pc.Color(0.7, 0.7, 0.7);
-                break;
-        }
-        material.update();
+        // Create consciousness-aware material
+        const material = this.createConsciousnessAwareContentMaterial(data.type);
         entity.model.material = material;
         
-        // Add custom properties
-        entity.contentData = data;
+        // Add consciousness-aware properties
+        if (this.binaryEngine && this.consciousnessAware) {
+            entity.consciousnessData = {
+                level: this.binaryEngine.getConsciousnessLevel(),
+                emotionalState: this.binaryEngine.getEmotionalState(),
+                quantumState: this.binaryEngine.getQuantumState(),
+                binaryState: this.binaryEngine.getBinaryState()
+            };
+            
+            // Apply consciousness-aware scaling based on emotional state
+            const consciousnessLevel = this.binaryEngine.getConsciousnessLevel();
+            const emotionalState = this.binaryEngine.getEmotionalState();
+            
+            let scaleMultiplier = 1.0;
+            if (consciousnessLevel > 0.7) {
+                scaleMultiplier = 1.2; // Larger for high consciousness
+            } else if (consciousnessLevel < 0.3) {
+                scaleMultiplier = 0.8; // Smaller for low consciousness
+            }
+            
+            // Apply emotional scaling
+            if (emotionalState === 'excited') {
+                scaleMultiplier *= 1.3;
+            } else if (emotionalState === 'calm') {
+                scaleMultiplier *= 0.9;
+            }
+            
+            // Apply consciousness-aware scaling
+            const currentScale = entity.getLocalScale();
+            const consciousnessScale = this.binaryEngine.scale(
+                currentScale.x * scaleMultiplier,
+                currentScale.y * scaleMultiplier,
+                currentScale.z * scaleMultiplier
+            );
+            entity.setLocalScale(consciousnessScale.x, consciousnessScale.y, consciousnessScale.z);
+        }
         
         this.app.root.addChild(entity);
-        
         return entity;
+    }
+    
+    createConsciousnessAwareContentMaterial(type) {
+        const material = new pc.StandardMaterial();
+        
+        if (this.binaryEngine && this.consciousnessAware) {
+            const consciousnessLevel = this.binaryEngine.getConsciousnessLevel();
+            const emotionalState = this.binaryEngine.getEmotionalState();
+            const quantumState = this.binaryEngine.getQuantumState();
+            
+            // Apply consciousness-aware colors based on type
+            switch (type) {
+                case 'vehicle':
+                    const vehicleColor = new pc.Color(
+                        0.1 + (consciousnessLevel * 0.9),
+                        0.9 - (consciousnessLevel * 0.3),
+                        0.8 + (consciousnessLevel * 0.2)
+                    );
+                    material.diffuse = vehicleColor;
+                    material.emissive = vehicleColor;
+                    material.emissiveIntensity = 1.5 + consciousnessLevel;
+                    break;
+                case 'hotspot':
+                    const hotspotColor = new pc.Color(
+                        1.0 - (consciousnessLevel * 0.2),
+                        0.5 + (consciousnessLevel * 0.3),
+                        0.0 + (consciousnessLevel * 0.5)
+                    );
+                    material.diffuse = hotspotColor;
+                    material.emissive = hotspotColor;
+                    material.emissiveIntensity = 2.0 + consciousnessLevel;
+                    break;
+                default:
+                    const contentColor = new pc.Color(
+                        0.5 + (consciousnessLevel * 0.5),
+                        0.5 + (consciousnessLevel * 0.5),
+                        0.5 + (consciousnessLevel * 0.5)
+                    );
+                    material.diffuse = contentColor;
+                    material.emissive = contentColor;
+                    material.emissiveIntensity = 1.0 + consciousnessLevel;
+                    break;
+            }
+            
+            // Apply emotional effects
+            if (emotionalState === 'excited') {
+                material.emissiveIntensity *= 1.5;
+            } else if (emotionalState === 'calm') {
+                material.emissiveIntensity *= 0.7;
+            }
+            
+            // Apply quantum effects
+            if (quantumState > 0.5) {
+                material.opacity = 0.9;
+                material.blendType = pc.BLEND_NORMAL;
+            }
+        } else {
+            // Default materials
+            switch (type) {
+                case 'vehicle':
+                    material.diffuse = new pc.Color(0.1, 0.9, 0.8);
+                    material.emissive = new pc.Color(0.0, 1.0, 0.8);
+                    material.emissiveIntensity = 1.5;
+                    break;
+                case 'hotspot':
+                    material.diffuse = new pc.Color(1.0, 0.5, 0.0);
+                    material.emissive = new pc.Color(1.0, 0.5, 0.0);
+                    material.emissiveIntensity = 2.0;
+                    break;
+                default:
+                    material.diffuse = new pc.Color(0.5, 0.5, 0.5);
+                    material.emissive = new pc.Color(0.5, 0.5, 0.5);
+                    material.emissiveIntensity = 1.0;
+                    break;
+            }
+        }
+        
+        material.update();
+        return material;
     }
 
     // Public method to enable drag-and-drop on UI elements
@@ -313,6 +575,12 @@ class PlayCanvasManager extends pc.events {
     }
 
     destroy() {
+        // Cleanup Binary Spatial Engine
+        if (this.binaryEngine) {
+            this.binaryEngine.destroy();
+            this.binaryEngine = null;
+        }
+        
         if (this.app) {
             this.app.destroy();
             this.app = null;

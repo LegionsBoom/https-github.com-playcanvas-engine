@@ -61,6 +61,9 @@ class SMeditor {
                 // Initialize consciousness-aware features
                 this.initializeConsciousnessFeatures();
                 
+                // Initialize Binary Spatial Interface
+                this.initializeBinarySpatialInterface();
+                
                 console.log('✅ Advanced Spatial Intelligence Systems Active');
                 this.showFeedback('🧠 Spatial Intelligence Systems Online - Consciousness Level: ' + this.spatialIntelligence.getIntelligenceLevel());
             } else {
@@ -68,6 +71,51 @@ class SMeditor {
             }
         } catch (error) {
             console.error('Failed to initialize spatial intelligence:', error);
+        }
+    }
+    
+    initializeBinarySpatialInterface() {
+        console.log('🔢 Initializing Binary Spatial Interface...');
+        
+        try {
+            // Initialize Binary Spatial Interface
+            if (window.BinarySpatialInterface) {
+                this.binaryInterface = new window.BinarySpatialInterface();
+                
+                // Connect binary interface to spatial intelligence
+                if (this.spatialIntelligence && this.binaryInterface.getBinaryEngine()) {
+                    this.connectBinaryToSpatialIntelligence();
+                }
+                
+                console.log('✅ Binary Spatial Interface Active');
+                this.showFeedback('🔢 Binary Spatial Engine Online - Binary State: ' + this.binaryInterface.getBinaryEngine()?.getBinaryState().toString(2).padStart(8, '0'));
+            } else {
+                console.warn('Binary Spatial Interface not available');
+            }
+        } catch (error) {
+            console.error('Failed to initialize binary spatial interface:', error);
+        }
+    }
+    
+    connectBinaryToSpatialIntelligence() {
+        // Connect binary engine to spatial intelligence systems
+        const binaryEngine = this.binaryInterface.getBinaryEngine();
+        const spatialIntelligence = this.spatialIntelligence;
+        
+        if (binaryEngine && spatialIntelligence) {
+            // Sync consciousness levels
+            const consciousnessLevel = binaryEngine.getConsciousnessLevel();
+            spatialIntelligence.setConsciousnessLevel(consciousnessLevel);
+            
+            // Sync emotional states
+            const emotionalState = binaryEngine.getEmotionalState();
+            spatialIntelligence.setEmotionalState(emotionalState);
+            
+            // Sync quantum states
+            const quantumState = binaryEngine.getQuantumState();
+            spatialIntelligence.setQuantumState(quantumState);
+            
+            console.log('🔗 Binary Engine connected to Spatial Intelligence');
         }
     }
     
