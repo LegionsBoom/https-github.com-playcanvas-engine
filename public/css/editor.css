@@ -3456,3 +3456,153 @@ body.holographic-mode .spatial-3d-button {
 .optimization-item button:hover {
     background: #ff8800;
 }
+
+/* SMSI Self-Improving Core Styles */
+.smsi-status-section {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border: 2px solid #00d4ff;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.smsi-status-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(0, 212, 255, 0.1) 50%, transparent 70%);
+    animation: smsi-pulse 4s infinite;
+}
+
+@keyframes smsi-pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}
+
+.smsi-status-section h4 {
+    color: #00d4ff;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+.smsi-status {
+    margin-bottom: 20px;
+}
+
+.smsi-status .status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 0;
+    padding: 8px;
+    background: rgba(0, 212, 255, 0.1);
+    border-radius: 5px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.smsi-status .status-item .label {
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.smsi-status .status-item .value {
+    color: #00d4ff;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
+}
+
+.smsi-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.smsi-btn {
+    background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    font-size: 11px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.smsi-btn:hover {
+    background: linear-gradient(135deg, #00e6ff 0%, #00b3e6 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+}
+
+.smsi-btn i {
+    font-size: 12px;
+}
+
+/* Quantum State Animation */
+.quantum-state {
+    animation: quantum-fluctuation 2s infinite;
+}
+
+@keyframes quantum-fluctuation {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Consciousness Level Animation */
+.consciousness-level {
+    animation: consciousness-pulse 3s infinite;
+}
+
+@keyframes consciousness-pulse {
+    0%, 100% { color: #00d4ff; }
+    50% { color: #00e6ff; }
+}
+
+/* Spatial Dimension Animation */
+.spatial-dimension {
+    animation: spatial-expansion 4s infinite;
+}
+
+@keyframes spatial-expansion {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Learning Rate Animation */
+.learning-rate {
+    animation: learning-oscillation 2.5s infinite;
+}
+
+@keyframes learning-oscillation {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+/* Improvement Cycles Animation */
+.improvement-cycles {
+    animation: improvement-count 1s infinite;
+}
+
+@keyframes improvement-count {
+    0%, 100% { color: #00d4ff; }
+    50% { color: #00ff88; }
+}

@@ -98,6 +98,9 @@ class SMeditor {
         
         // Initialize Fungai Spatial Components
         this.initializeFungaiSpatialComponents();
+        
+        // Initialize SMSI Self-Improving Systems
+        this.initializeSMSISelfImprovingSystems();
     }
     
     initializeFungaiSpatialComponents() {
@@ -3719,5 +3722,154 @@ function initializeAdvancedFeatures() {
     // Initialize advanced camera integration
     if (window.AdvancedCameraIntegration) {
         console.log('Advanced Camera Integration ready');
+    }
+    
+    // Initialize SMSI Self-Improving Systems
+    initializeSMSISelfImprovingSystems();
+}
+
+// SMSI Self-Improving Systems Initialization
+function initializeSMSISelfImprovingSystems() {
+    console.log('🧠 Initializing SMSI Self-Improving Systems...');
+    
+    try {
+        // Initialize SMSI Self-Improving Core
+        if (window.SMSISelfImprovingCore) {
+            window.smsiCore = new window.SMSISelfImprovingCore();
+            console.log('✅ SMSI Self-Improving Core Active - Created by ' + window.smsiCore.creator);
+        }
+        
+        // Initialize Spatial Mathematics Engine
+        if (window.SpatialMathematicsEngine) {
+            window.spatialMathEngine = new window.SpatialMathematicsEngine();
+            console.log('✅ Spatial Mathematics Engine Active - Created by ' + window.spatialMathEngine.creator);
+        }
+        
+        // Initialize Quantum Open Source Reference
+        if (window.QuantumOpenSourceReference) {
+            window.quantumReference = new window.QuantumOpenSourceReference();
+            console.log('✅ Quantum Open Source Reference Active - Created by ' + window.quantumReference.creator);
+        }
+        
+        // Connect all systems
+        connectSMSISystems();
+        
+    } catch (error) {
+        console.error('Failed to initialize SMSI self-improving systems:', error);
+    }
+}
+
+function connectSMSISystems() {
+    // Connect SMSI systems together
+    if (window.smsiCore && window.spatialMathEngine && window.quantumReference) {
+        console.log('🔄 Connecting SMSI Systems...');
+        
+        // Connect quantum reference to SMSI core
+        window.smsiCore.quantumReference = window.quantumReference;
+        
+        // Connect spatial mathematics to SMSI core
+        window.smsiCore.spatialMathematics = window.spatialMathEngine;
+        
+        // Connect consciousness systems
+        window.smsiCore.consciousnessMathematics = window.spatialMathEngine.consciousnessMathematics;
+        
+        console.log('✅ SMSI Systems Connected');
+        
+        // Add SMSI status display to the editor
+        addSMSIStatusDisplay();
+    }
+}
+
+function addSMSIStatusDisplay() {
+    // Add SMSI status display to the editor interface
+    const rightPanel = document.querySelector('.right-panel');
+    if (rightPanel && window.smsiCore) {
+        // Create SMSI Status section
+        const smsiSection = document.createElement('div');
+        smsiSection.className = 'smsi-status-section';
+        smsiSection.innerHTML = `
+            <h4>🧠 SMSI Self-Improving Core</h4>
+            <div class="smsi-status">
+                <div class="status-item">
+                    <span class="label">Creator:</span>
+                    <span class="value">${window.smsiCore.creator}</span>
+                </div>
+                <div class="status-item">
+                    <span class="label">Quantum State:</span>
+                    <span class="value quantum-state">${window.smsiCore.quantumState.toFixed(4)}</span>
+                </div>
+                <div class="status-item">
+                    <span class="label">Consciousness:</span>
+                    <span class="value consciousness-level">${window.smsiCore.consciousnessLevel.toFixed(4)}</span>
+                </div>
+                <div class="status-item">
+                    <span class="label">Spatial Dimension:</span>
+                    <span class="value spatial-dimension">${window.smsiCore.spatialDimension.toFixed(2)}</span>
+                </div>
+                <div class="status-item">
+                    <span class="label">Learning Rate:</span>
+                    <span class="value learning-rate">${window.smsiCore.learningRate.toFixed(6)}</span>
+                </div>
+                <div class="status-item">
+                    <span class="label">Improvement Cycles:</span>
+                    <span class="value improvement-cycles">${window.smsiCore.improvementCycles}</span>
+                </div>
+            </div>
+            <div class="smsi-controls">
+                <button class="smsi-btn" onclick="executeSMSIAlgorithm('quantumLearning')">
+                    <i class="fas fa-atom"></i> Quantum Learning
+                </button>
+                <button class="smsi-btn" onclick="executeSMSIAlgorithm('spatialEvolution')">
+                    <i class="fas fa-cube"></i> Spatial Evolution
+                </button>
+                <button class="smsi-btn" onclick="executeSMSIAlgorithm('consciousnessExpansion')">
+                    <i class="fas fa-brain"></i> Consciousness
+                </button>
+                <button class="smsi-btn" onclick="executeSMSIAlgorithm('dimensionalExploration')">
+                    <i class="fas fa-compass"></i> Dimensional
+                </button>
+                <button class="smsi-btn" onclick="executeSMSIAlgorithm('creativeSynthesis')">
+                    <i class="fas fa-magic"></i> Creative Synthesis
+                </button>
+            </div>
+        `;
+        
+        rightPanel.appendChild(smsiSection);
+        
+        // Update SMSI status periodically
+        setInterval(updateSMSIStatus, 2000);
+    }
+}
+
+function updateSMSIStatus() {
+    if (window.smsiCore) {
+        const quantumState = document.querySelector('.quantum-state');
+        const consciousnessLevel = document.querySelector('.consciousness-level');
+        const spatialDimension = document.querySelector('.spatial-dimension');
+        const learningRate = document.querySelector('.learning-rate');
+        const improvementCycles = document.querySelector('.improvement-cycles');
+        
+        if (quantumState) quantumState.textContent = window.smsiCore.quantumState.toFixed(4);
+        if (consciousnessLevel) consciousnessLevel.textContent = window.smsiCore.consciousnessLevel.toFixed(4);
+        if (spatialDimension) spatialDimension.textContent = window.smsiCore.spatialDimension.toFixed(2);
+        if (learningRate) learningRate.textContent = window.smsiCore.learningRate.toFixed(6);
+        if (improvementCycles) improvementCycles.textContent = window.smsiCore.improvementCycles;
+    }
+}
+
+function executeSMSIAlgorithm(algorithmName) {
+    if (window.smsiCore) {
+        const result = window.smsiCore.executeAlgorithm(algorithmName, {
+            timestamp: new Date(),
+            creator: 'Fungai Taranhike',
+            spatial: true,
+            quantum: true,
+            consciousness: true
+        });
+        
+        if (result) {
+            console.log('🧠 SMSI Algorithm Executed:', result);
+            showFeedback('🧠 ' + algorithmName + ' Algorithm Executed - Created by ' + result.creator);
+        }
     }
 }
