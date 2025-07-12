@@ -2527,3 +2527,506 @@ body {
     50% { transform: scale(1.1); }
     100% { transform: scale(1); }
 }
+
+/* Spatial UI Components */
+.spatial-ui-layer {
+    pointer-events: none;
+}
+
+.spatial-ui-layer * {
+    pointer-events: auto;
+}
+
+/* Holographic Panel */
+.spatial-holographic-panel {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid var(--glow-color, #00ffe7);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0, 255, 231, 0.3);
+    font-family: 'Inter', sans-serif;
+    color: var(--glow-color, #00ffe7);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: holographicFloat 3s ease-in-out infinite;
+}
+
+.spatial-holographic-panel:hover {
+    box-shadow: 0 0 30px rgba(0, 255, 231, 0.5);
+    transform: scale(1.02);
+}
+
+.holographic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, rgba(0, 255, 231, 0.1), rgba(255, 0, 102, 0.1));
+    border-bottom: 1px solid rgba(0, 255, 231, 0.3);
+    cursor: grab;
+}
+
+.holographic-header:active {
+    cursor: grabbing;
+}
+
+.holographic-title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-shadow: 0 0 8px rgba(0, 255, 231, 0.5);
+}
+
+.holographic-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.holographic-btn {
+    background: none;
+    border: none;
+    color: var(--glow-color, #00ffe7);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.holographic-btn:hover {
+    background: rgba(0, 255, 231, 0.1);
+    text-shadow: 0 0 8px rgba(0, 255, 231, 0.8);
+}
+
+.holographic-content {
+    padding: 1rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.holographic-scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 231, 0.1) 2px,
+        rgba(0, 255, 231, 0.1) 4px
+    );
+    pointer-events: none;
+    animation: scanlines 0.1s linear infinite;
+}
+
+.holographic-glitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 0, 102, 0.1);
+    pointer-events: none;
+    animation: glitch 0.3s ease-in-out infinite;
+}
+
+/* 3D Button */
+.spatial-3d-button {
+    position: absolute;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+    border: 2px solid var(--glow-color, #00ffe7);
+    border-radius: 8px;
+    color: var(--glow-color, #00ffe7);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.spatial-3d-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent, rgba(0, 255, 231, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.spatial-3d-button:hover::before {
+    transform: translateX(100%);
+}
+
+.spatial-3d-button:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 255, 231, 0.4);
+}
+
+.spatial-3d-button.pressed {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.spatial-3d-button.clicked {
+    animation: buttonClick 0.2s ease-out;
+}
+
+.button-3d-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.button-icon {
+    font-size: 1.2rem;
+}
+
+.button-text {
+    font-size: 0.9rem;
+    text-shadow: 0 0 4px rgba(0, 255, 231, 0.5);
+}
+
+.button-3d-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 255, 231, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.spatial-3d-button:hover .button-3d-glow {
+    opacity: 1;
+}
+
+/* Button sizes */
+.spatial-3d-button.size-small {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+}
+
+.spatial-3d-button.size-medium {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+}
+
+.spatial-3d-button.size-large {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+}
+
+/* Floating Tooltip */
+.spatial-floating-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid var(--glow-color, #00ffe7);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    color: var(--glow-color, #00ffe7);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    max-width: 250px;
+    z-index: 1001;
+    animation: tooltipFadeIn 0.3s ease-out;
+}
+
+.tooltip-content {
+    position: relative;
+}
+
+.tooltip-text {
+    line-height: 1.4;
+}
+
+.tooltip-arrow {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--glow-color, #00ffe7);
+}
+
+/* Progress Indicator */
+.spatial-progress-indicator {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--glow-color, #00ffe7);
+    border-radius: 6px;
+    padding: 0.75rem;
+    color: var(--glow-color, #00ffe7);
+    font-family: 'Inter', sans-serif;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--glow-color, #00ffe7), #00d4ff);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: progressShine 2s ease-in-out infinite;
+}
+
+/* Mini-map */
+.spatial-mini-map {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--glow-color, #00ffe7);
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.minimap-header {
+    padding: 0.5rem;
+    background: rgba(0, 255, 231, 0.1);
+    border-bottom: 1px solid rgba(0, 255, 231, 0.3);
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--glow-color, #00ffe7);
+}
+
+.minimap-content {
+    position: relative;
+    padding: 0.5rem;
+}
+
+.minimap-canvas {
+    display: block;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.minimap-player {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    background: var(--glow-color, #00ffe7);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0, 255, 231, 0.8);
+    animation: playerPulse 2s ease-in-out infinite;
+}
+
+/* Interactive Menu */
+.spatial-interactive-menu {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid var(--glow-color, #00ffe7);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    animation: menuSlideIn 0.3s ease-out;
+}
+
+.menu-content {
+    padding: 0.5rem;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: var(--glow-color, #00ffe7);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+    background: rgba(0, 255, 231, 0.1);
+    transform: translateX(4px);
+}
+
+.menu-item-icon {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.menu-item-text {
+    font-weight: 500;
+}
+
+/* Menu orientations */
+.spatial-interactive-menu.orientation-vertical .menu-item {
+    flex-direction: row;
+}
+
+.spatial-interactive-menu.orientation-horizontal .menu-item {
+    flex-direction: column;
+    text-align: center;
+}
+
+/* Animations */
+@keyframes holographicFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes scanlines {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(4px); }
+}
+
+@keyframes glitch {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+@keyframes buttonClick {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+@keyframes tooltipFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes progressShine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes playerPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+@keyframes menuSlideIn {
+    from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Holographic mode */
+body.holographic-mode .spatial-holographic-panel {
+    animation: holographicFloat 2s ease-in-out infinite, holographicGlow 3s ease-in-out infinite;
+}
+
+body.holographic-mode .spatial-3d-button {
+    animation: holographicGlow 2s ease-in-out infinite;
+}
+
+@keyframes holographicGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 231, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(0, 255, 231, 0.6); }
+}
+
+/* Scene transition overlays */
+.scene-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.scene-transition-overlay.fade {
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.scene-transition-overlay.fade-out {
+    opacity: 1;
+}
+
+.scene-transition-overlay.slide-left,
+.scene-transition-overlay.slide-right {
+    background: linear-gradient(135deg, rgba(0, 255, 231, 0.2), rgba(255, 0, 102, 0.2));
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+}
+
+.scene-transition-overlay.slide-left.slide-out {
+    transform: translateX(-100%);
+}
+
+.scene-transition-overlay.slide-right.slide-out {
+    transform: translateX(100%);
+}
+
+.scene-transition-overlay.zoom {
+    background: radial-gradient(circle, rgba(0, 255, 231, 0.3), rgba(0, 0, 0, 0.8));
+    transform: scale(0);
+    transition: transform 0.4s ease;
+}
+
+.scene-transition-overlay.zoom-out {
+    transform: scale(1);
+}
+
+.scene-transition-overlay.holographic {
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(0, 255, 231, 0.1) 10px,
+        rgba(0, 255, 231, 0.1) 20px
+    );
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.scene-transition-overlay.holographic-out {
+    opacity: 1;
+}

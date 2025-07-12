@@ -35,6 +35,8 @@ class SMeditor {
         this.initPropertyInspector();
         this.initPostProcessingControls();
         this.initParticleEffectControls();
+        this.initSpatialUIControls();
+        this.initSceneGraphControls();
         this.showFeedback('🚀 SMeditor Cockpit Initialized - Ready for spatial content creation!');
     }
 
@@ -2313,6 +2315,206 @@ class SMeditor {
             window.PlayCanvasManager.createSmokeTrail(smokePos, 5.0);
             this.showFeedback('💨 Smoke trail effect triggered!');
             this.addFeedbackAnimation(document.getElementById('test-smoke'));
+        }
+    }
+
+    initSpatialUIControls() {
+        const holographicBtn = document.getElementById('test-holographic-panel');
+        const button3dBtn = document.getElementById('test-3d-button');
+        const minimapBtn = document.getElementById('test-minimap');
+        
+        if (holographicBtn) {
+            holographicBtn.addEventListener('click', () => {
+                this.testHolographicPanel();
+            });
+        }
+        
+        if (button3dBtn) {
+            button3dBtn.addEventListener('click', () => {
+                this.test3DButton();
+            });
+        }
+        
+        if (minimapBtn) {
+            minimapBtn.addEventListener('click', () => {
+                this.testMiniMap();
+            });
+        }
+    }
+    
+    initSceneGraphControls() {
+        // Scene management buttons
+        const newSceneBtn = document.createElement('button');
+        newSceneBtn.className = 'cockpit-btn';
+        newSceneBtn.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            New Scene
+        `;
+        newSceneBtn.addEventListener('click', () => {
+            this.createNewScene();
+        });
+        
+        const saveSceneBtn = document.createElement('button');
+        saveSceneBtn.className = 'cockpit-btn';
+        saveSceneBtn.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17,21 17,13 7,13 7,21"></polyline>
+                <polyline points="7,3 7,8 15,8"></polyline>
+            </svg>
+            Save Scene
+        `;
+        saveSceneBtn.addEventListener('click', () => {
+            this.saveCurrentScene();
+        });
+        
+        // Add buttons to the cockpit interface
+        const cockpitPanel = document.querySelector('.cockpit-panel');
+        if (cockpitPanel) {
+            const separator = document.createElement('div');
+            separator.className = 'separator';
+            
+            cockpitPanel.appendChild(separator);
+            cockpitPanel.appendChild(newSceneBtn);
+            cockpitPanel.appendChild(saveSceneBtn);
+        }
+    }
+    
+    testHolographicPanel() {
+        if (window.SpatialUI) {
+            const panelId = window.SpatialUI.createHolographicPanel({
+                title: 'Spatial UI Test',
+                content: `
+                    <div style="color: #00ffe7; font-size: 0.9rem;">
+                        <h4>🎮 Gaming-Grade UI</h4>
+                        <p>This is a holographic panel with:</p>
+                        <ul style="margin: 0.5rem 0; padding-left: 1rem;">
+                            <li>✨ Glowing effects</li>
+                            <li>📡 Scanlines animation</li>
+                            <li>🎯 Draggable interface</li>
+                            <li>🎨 Cyber theme</li>
+                        </ul>
+                        <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.8;">
+                            Try dragging this panel around!
+                        </p>
+                    </div>
+                `,
+                position: { x: 100, y: 100 },
+                size: { width: 350, height: 250 },
+                glowColor: '#00ffe7',
+                scanlines: true,
+                glitch: false
+            });
+            
+            this.showFeedback('✨ Holographic panel created!');
+            this.addFeedbackAnimation(document.getElementById('test-holographic-panel'));
+        }
+    }
+    
+    test3DButton() {
+        if (window.SpatialUI) {
+            const buttonId = window.SpatialUI.create3DButton({
+                text: '3D Button',
+                icon: '🎮',
+                size: 'large',
+                theme: 'cyber',
+                glowColor: '#00ffe7',
+                position: { x: 200, y: 200 },
+                onClick: (id, button) => {
+                    this.showFeedback('🎯 3D button clicked!');
+                    
+                    // Create a tooltip
+                    window.SpatialUI.createFloatingTooltip({
+                        text: 'This is a 3D button with gaming-grade effects!',
+                        position: { x: 250, y: 180 },
+                        autoHide: true,
+                        hideDelay: 3000
+                    });
+                }
+            });
+            
+            this.showFeedback('🎮 3D button created!');
+            this.addFeedbackAnimation(document.getElementById('test-3d-button'));
+        }
+    }
+    
+    testMiniMap() {
+        if (window.SpatialUI) {
+            const minimapId = window.SpatialUI.createMiniMap({
+                size: 150,
+                position: { x: 20, y: 20 },
+                theme: 'cyber',
+                glowColor: '#00ffe7',
+                showPlayer: true,
+                showWaypoints: true
+            });
+            
+            this.showFeedback('🗺️ Mini-map created!');
+            this.addFeedbackAnimation(document.getElementById('test-minimap'));
+        }
+    }
+    
+    createNewScene() {
+        if (window.SceneGraph) {
+            const sceneId = window.SceneGraph.createScene('default');
+            this.showFeedback('🎨 New scene created!');
+            
+            // Create a holographic panel to show scene info
+            if (window.SpatialUI) {
+                window.SpatialUI.createHolographicPanel({
+                    title: 'Scene Created',
+                    content: `
+                        <div style="color: #00ffe7; font-size: 0.9rem;">
+                            <h4>✅ New Scene Ready</h4>
+                            <p><strong>Scene ID:</strong> ${sceneId}</p>
+                            <p><strong>Template:</strong> Default</p>
+                            <p><strong>Status:</strong> Draft</p>
+                            <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.8;">
+                                Start adding content to your new scene!
+                            </p>
+                        </div>
+                    `,
+                    position: { x: 150, y: 150 },
+                    size: { width: 300, height: 200 }
+                });
+            }
+        }
+    }
+    
+    saveCurrentScene() {
+        if (window.SceneGraph && window.SceneGraph.getActiveScene()) {
+            const sceneId = window.SceneGraph.getActiveScene().id;
+            window.SceneGraph.saveScene(sceneId);
+            
+            // Show progress indicator
+            if (window.SpatialUI) {
+                const progressId = window.SpatialUI.createProgressIndicator({
+                    value: 0,
+                    max: 100,
+                    text: 'Saving Scene',
+                    position: { x: 50, y: 50 },
+                    size: { width: 250, height: 30 }
+                });
+                
+                // Animate progress
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 10;
+                    window.SpatialUI.updateComponent(progressId, { value: progress });
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            window.SpatialUI.destroyComponent(progressId);
+                        }, 500);
+                    }
+                }, 100);
+            }
+        } else {
+            this.showFeedback('No active scene to save', 'error');
         }
     }
 }
