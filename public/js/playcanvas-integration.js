@@ -74,6 +74,12 @@ class PlayCanvasManager extends pc.events {
             if (!this.walkthroughAnimating) box.rotate(0, 20 * dt, 0);
         });
 
+        // Initialize post-processing
+        this.initPostProcessing();
+        
+        // Initialize particle system
+        this.initParticleSystem();
+
         // Walkthrough click handler
         canvas.addEventListener('pointerdown', this.pointerHandler);
         
@@ -420,6 +426,60 @@ class PlayCanvasManager extends pc.events {
         line.model.model = model;
         this.app.root.addChild(line);
         this.walkthroughLine = line;
+    }
+
+    initPostProcessing() {
+        if (window.PostProcessingManager) {
+            this.postProcessing = new window.PostProcessingManager(this.app);
+            
+            // Enable cinematic mode by default
+            this.postProcessing.enableCinematicMode();
+            
+            // Add post-processing to render loop
+            this.app.on('postrender', () => {
+                if (this.postProcessing) {
+                    this.postProcessing.applyEffects();
+                }
+            });
+        }
+    }
+
+    initParticleSystem() {
+        if (window.ParticleSystem) {
+            this.particleSystem = new window.ParticleSystem(this.app);
+            
+            // Add particle system to update loop
+            this.app.on('update', (dt) => {
+                if (this.particleSystem) {
+                    this.particleSystem.update(dt);
+                }
+            });
+        }
+    }
+    
+    // Particle effect methods
+    createCarReveal(position, scale = 1.0) {
+        if (this.particleSystem) {
+            return this.particleSystem.createCarReveal(position, scale);
+        }
+    }
+    
+    createSparkleBurst(position, intensity = 1.0) {
+        if (this.particleSystem) {
+            return this.particleSystem.createSparkleBurst(position, intensity);
+        }
+    }
+    
+    createSmokeTrail(position, duration = 3.0) {
+        if (this.particleSystem) {
+            return this.particleSystem.createSmokeTrail(position, duration);
+        }
+    }
+    
+    createLightRay(position, direction, intensity = 1.0) {
+        if (this.particleSystem) {
+            return this.particleSystem.createLightRay(position, direction, intensity);
+        }
     }
 }
 

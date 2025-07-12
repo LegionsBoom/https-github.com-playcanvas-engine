@@ -32,6 +32,9 @@ class SMeditor {
         this.updateSceneStats();
         this.initializeValidation();
         this.setupUndoRedoListeners();
+        this.initPropertyInspector();
+        this.initPostProcessingControls();
+        this.initParticleEffectControls();
         this.showFeedback('🚀 SMeditor Cockpit Initialized - Ready for spatial content creation!');
     }
 
@@ -2103,6 +2106,214 @@ class SMeditor {
         
         this.updateBrandPreview();
         this.showFeedback(`Brand ${key} updated to ${value}`);
+    }
+
+    initPropertyInspector() {
+        const toggleBtn = document.getElementById('toggle-inspector');
+        if (!toggleBtn) return;
+        
+        let inspectorVisible = false;
+        
+        toggleBtn.addEventListener('click', () => {
+            inspectorVisible = !inspectorVisible;
+            
+            if (inspectorVisible) {
+                window.PropertyInspector.show();
+                toggleBtn.classList.add('active');
+                toggleBtn.style.background = 'rgba(0, 255, 231, 0.2)';
+                toggleBtn.style.boxShadow = '0 0 8px rgba(0, 255, 231, 0.4)';
+            } else {
+                window.PropertyInspector.hide();
+                toggleBtn.classList.remove('active');
+                toggleBtn.style.background = '';
+                toggleBtn.style.boxShadow = '';
+            }
+        });
+        
+        // Keyboard shortcut for inspector (I key)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'i' || e.key === 'I') {
+                if (!e.ctrlKey && !e.altKey && !e.metaKey) {
+                    e.preventDefault();
+                    toggleBtn.click();
+                }
+            }
+        });
+        
+        // Auto-hide inspector when clicking outside
+        document.addEventListener('click', (e) => {
+            if (inspectorVisible && 
+                !e.target.closest('.property-inspector') && 
+                !e.target.closest('#toggle-inspector')) {
+                // Don't auto-hide if clicking on entity selection
+                if (!e.target.closest('[data-entity-id]')) {
+                    toggleBtn.click();
+                }
+            }
+        });
+    }
+
+    initPostProcessingControls() {
+        const bloomBtn = document.getElementById('toggle-bloom');
+        const ssaoBtn = document.getElementById('toggle-ssao');
+        const motionBlurBtn = document.getElementById('toggle-motion-blur');
+        const holographicBtn = document.getElementById('toggle-holographic');
+        
+        if (bloomBtn) {
+            bloomBtn.addEventListener('click', () => {
+                this.togglePostProcessingEffect('bloom', bloomBtn);
+            });
+        }
+        
+        if (ssaoBtn) {
+            ssaoBtn.addEventListener('click', () => {
+                this.togglePostProcessingEffect('ssao', ssaoBtn);
+            });
+        }
+        
+        if (motionBlurBtn) {
+            motionBlurBtn.addEventListener('click', () => {
+                this.togglePostProcessingEffect('motionBlur', motionBlurBtn);
+            });
+        }
+        
+        if (holographicBtn) {
+            holographicBtn.addEventListener('click', () => {
+                this.toggleHolographicMode(holographicBtn);
+            });
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey) {
+                switch (e.key) {
+                    case 'p':
+                        e.preventDefault();
+                        this.togglePostProcessingEffect('bloom', bloomBtn);
+                        break;
+                    case 'o':
+                        e.preventDefault();
+                        this.togglePostProcessingEffect('ssao', ssaoBtn);
+                        break;
+                    case 'i':
+                        e.preventDefault();
+                        this.togglePostProcessingEffect('motionBlur', motionBlurBtn);
+                        break;
+                }
+            }
+        });
+    }
+    
+    togglePostProcessingEffect(effectName, button) {
+        if (window.PlayCanvasManager && window.PlayCanvasManager.postProcessing) {
+            window.PlayCanvasManager.postProcessing.toggleEffect(effectName);
+            
+            // Update button state
+            if (button) {
+                const isEnabled = window.PlayCanvasManager.postProcessing.effects.get(effectName).enabled;
+                button.classList.toggle('active', isEnabled);
+                
+                // Visual feedback
+                this.addFeedbackAnimation(button);
+                this.showFeedback(`${effectName} effect ${isEnabled ? 'enabled' : 'disabled'}`);
+            }
+        }
+    }
+    
+    toggleHolographicMode(button) {
+        if (window.PlayCanvasManager && window.PlayCanvasManager.postProcessing) {
+            const holographic = window.PlayCanvasManager.postProcessing.effects.get('holographic');
+            const neonGlow = window.PlayCanvasManager.postProcessing.effects.get('neonGlow');
+            
+            const isEnabled = holographic.enabled;
+            
+            if (isEnabled) {
+                // Disable holographic mode
+                holographic.enabled = false;
+                neonGlow.enabled = false;
+                button.classList.remove('active');
+                this.showFeedback('Holographic mode disabled');
+            } else {
+                // Enable holographic mode
+                window.PlayCanvasManager.postProcessing.enableHolographicMode();
+                button.classList.add('active');
+                this.showFeedback('Holographic mode enabled');
+            }
+            
+            this.addFeedbackAnimation(button);
+        }
+    }
+
+    initParticleEffectControls() {
+        const carRevealBtn = document.getElementById('test-car-reveal');
+        const sparklesBtn = document.getElementById('test-sparkles');
+        const smokeBtn = document.getElementById('test-smoke');
+        
+        if (carRevealBtn) {
+            carRevealBtn.addEventListener('click', () => {
+                this.testCarRevealEffect();
+            });
+        }
+        
+        if (sparklesBtn) {
+            sparklesBtn.addEventListener('click', () => {
+                this.testSparkleEffect();
+            });
+        }
+        
+        if (smokeBtn) {
+            smokeBtn.addEventListener('click', () => {
+                this.testSmokeEffect();
+            });
+        }
+    }
+    
+    testCarRevealEffect() {
+        if (window.PlayCanvasManager) {
+            // Get camera position for effect
+            const camera = window.PlayCanvasManager.camera;
+            const position = camera.getPosition().clone();
+            position.z += 3; // In front of camera
+            
+            window.PlayCanvasManager.createCarReveal(position, 1.5);
+            this.showFeedback('🎬 Car reveal effect triggered!');
+            this.addFeedbackAnimation(document.getElementById('test-car-reveal'));
+        }
+    }
+    
+    testSparkleEffect() {
+        if (window.PlayCanvasManager) {
+            // Create sparkles around the car
+            const carPosition = new pc.Vec3(0, 0, 0);
+            
+            // Multiple sparkle bursts
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const offset = new pc.Vec3(
+                        (Math.random() - 0.5) * 4,
+                        Math.random() * 2,
+                        (Math.random() - 0.5) * 4
+                    );
+                    const sparklePos = carPosition.clone().add(offset);
+                    window.PlayCanvasManager.createSparkleBurst(sparklePos, 1.0);
+                }, i * 200);
+            }
+            
+            this.showFeedback('✨ Sparkle burst effect triggered!');
+            this.addFeedbackAnimation(document.getElementById('test-sparkles'));
+        }
+    }
+    
+    testSmokeEffect() {
+        if (window.PlayCanvasManager) {
+            // Create smoke trail behind the car
+            const carPosition = new pc.Vec3(0, 0, 0);
+            const smokePos = carPosition.clone().add(new pc.Vec3(0, 0, -2));
+            
+            window.PlayCanvasManager.createSmokeTrail(smokePos, 5.0);
+            this.showFeedback('💨 Smoke trail effect triggered!');
+            this.addFeedbackAnimation(document.getElementById('test-smoke'));
+        }
     }
 }
 
