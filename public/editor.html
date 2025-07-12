@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="css/undo-redo.css">
     <link rel="stylesheet" href="css/scene-graph.css">
     <link rel="stylesheet" href="css/automotive-features.css">
+    <link rel="stylesheet" href="css/3d-scanner.css">
 </head>
 <body>
     <div id="smeditor" class="cockpit-theme">
@@ -133,6 +134,10 @@
                         <button id="advanced-camera-btn" class="feature-btn" title="Advanced Camera">
                             <span class="icon">📹</span>
                             <span class="label">Advanced Camera</span>
+                        </button>
+                        <button id="3d-scanner-btn" class="feature-btn" title="3D Scanner">
+                            <span class="icon">📷</span>
+                            <span class="label">3D Scanner</span>
                         </button>
                     </div>
                 </div>
@@ -276,7 +281,9 @@
     <script src="https://cdn.playcanvas.com/playcanvas-stable.min.js"></script>
     
     <!-- Core Scripts -->
+    <script src="js/supabase-config.js"></script>
     <script src="js/supabase-integration.js"></script>
+    <script src="js/meshroom-integration.js"></script>
     <script src="js/spatial-audio-integration.js"></script>
     <script src="js/ai-features-integration.js"></script>
     <script src="js/mobile-ar-integration.js"></script>
@@ -298,6 +305,8 @@
     <script src="js/undo-redo.js"></script>
     <script src="js/playcanvas-manager.js"></script>
     <script src="js/automotive-features.js"></script>
+    <script src="js/3d-scanner-integration.js"></script>
+    <script src="js/test-integration.js"></script>
     <script src="js/editor.js"></script>
 </body>
 </html>

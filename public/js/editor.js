@@ -2527,11 +2527,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // Initialize Supabase and all integrations
 document.addEventListener('DOMContentLoaded', async function() {
-    // Initialize Supabase client
-    window.supabase = supabase.createClient(
-        'https://your-project.supabase.co',
-        'your-anon-key'
-    );
+    // Initialize Supabase client with configuration
+    const config = window.getSupabaseConfig?.() || {
+        url: 'https://your-project.supabase.co',
+        anonKey: 'your-anon-key'
+    };
+    
+    window.supabase = supabase.createClient(config.url, config.anonKey);
 
     // Initialize all integrations
     await initializeIntegrations();
@@ -2544,6 +2546,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // Initialize advanced features
     initializeAdvancedFeatures();
+    
+    // Add 3D scanner button functionality
+    document.getElementById('3d-scanner-btn')?.addEventListener('click', () => {
+        if (window.Scanner3DIntegration) {
+            window.Scanner3DIntegration.showScanner();
+        }
+    });
 });
 
 async function initializeIntegrations() {
