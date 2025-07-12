@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="css/scene-graph.css">
     <link rel="stylesheet" href="css/automotive-features.css">
     <link rel="stylesheet" href="css/3d-scanner.css">
+    <link rel="stylesheet" href="css/industry-cockpits.css">
 </head>
 <body>
     <div id="smeditor" class="cockpit-theme">
@@ -48,6 +49,31 @@
                 <div class="scene-info">
                     <span id="scene-title">Untitled Scene</span>
                     <span id="scene-type">Automotive</span>
+                </div>
+                
+                <!-- Industry Mode Selector -->
+                <div class="industry-selector">
+                    <span class="selector-label">Industry:</span>
+                    <button id="automotive-mode" class="mode-btn" data-industry="automotive" title="Automotive">
+                        <span class="icon">🚗</span>
+                        <span class="label">Auto</span>
+                    </button>
+                    <button id="realestate-mode" class="mode-btn" data-industry="realestate" title="Real Estate">
+                        <span class="icon">🏠</span>
+                        <span class="label">Real Estate</span>
+                    </button>
+                    <button id="fashion-mode" class="mode-btn" data-industry="fashion" title="Fashion & Retail">
+                        <span class="icon">👗</span>
+                        <span class="label">Fashion</span>
+                    </button>
+                    <button id="education-mode" class="mode-btn" data-industry="education" title="Education">
+                        <span class="icon">🎓</span>
+                        <span class="label">Education</span>
+                    </button>
+                    <button id="general-mode" class="mode-btn active" data-industry="general" title="General">
+                        <span class="icon">⚙️</span>
+                        <span class="label">General</span>
+                    </button>
                 </div>
             </div>
             
@@ -336,6 +362,7 @@
     <script src="js/advanced-physics.js"></script>
     <script src="js/advanced-materials.js"></script>
     <script src="js/advanced-animation.js"></script>
+    <script src="js/industry-cockpits.js"></script>
     <script src="js/test-integration.js"></script>
     <script src="js/editor.js"></script>
 </body>

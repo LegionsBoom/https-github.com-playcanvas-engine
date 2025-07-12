@@ -2757,6 +2757,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Initialize PlayCanvas Manager
     window.PlayCanvasManager = new PlayCanvasManager();
     
+    // Initialize Industry Cockpit Manager
+    window.IndustryCockpitManager = new IndustryCockpitManager();
+    
     // Initialize advanced features
     initializeAdvancedFeatures();
     

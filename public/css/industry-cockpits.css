@@ -1,0 +1,415 @@
+/**
+ * Industry-Specific Cockpit Themes
+ * Dynamic theming based on industry selection
+ */
+
+/* Base Cockpit Theme */
+.cockpit-container {
+    --primary-color: #6366f1;
+    --accent-color: #10b981;
+    --background-color: #0f172a;
+    --surface-color: #1e293b;
+    --text-color: #f8fafc;
+    --border-color: #334155;
+    --glow-color: #6366f1;
+    transition: all 0.3s ease;
+}
+
+/* Automotive Theme - Cyber Blue */
+.cockpit-container.theme-cyber-blue {
+    --primary-color: #00ccff;
+    --accent-color: #ff6b35;
+    --background-color: #0a0a0f;
+    --surface-color: #1a1a2e;
+    --text-color: #e6f3ff;
+    --border-color: #00ccff;
+    --glow-color: #00ccff;
+}
+
+.theme-cyber-blue .feature-btn {
+    background: linear-gradient(135deg, #00ccff20, #ff6b3520);
+    border: 1px solid #00ccff40;
+    color: #00ccff;
+}
+
+.theme-cyber-blue .feature-btn:hover {
+    background: linear-gradient(135deg, #00ccff40, #ff6b3540);
+    border-color: #00ccff;
+    box-shadow: 0 0 20px #00ccff40;
+}
+
+.theme-cyber-blue .sidebar-section {
+    background: linear-gradient(180deg, #1a1a2e, #0a0a0f);
+    border: 1px solid #00ccff30;
+}
+
+.theme-cyber-blue .panel-section {
+    background: linear-gradient(135deg, #1a1a2e80, #0a0a0f80);
+    border: 1px solid #00ccff20;
+}
+
+/* Real Estate Theme - Luxury Gold */
+.cockpit-container.theme-luxury-gold {
+    --primary-color: #ffd700;
+    --accent-color: #8b4513;
+    --background-color: #1a1a1a;
+    --surface-color: #2d2d2d;
+    --text-color: #f5f5dc;
+    --border-color: #ffd700;
+    --glow-color: #ffd700;
+}
+
+.theme-luxury-gold .feature-btn {
+    background: linear-gradient(135deg, #ffd70020, #8b451320);
+    border: 1px solid #ffd70040;
+    color: #ffd700;
+}
+
+.theme-luxury-gold .feature-btn:hover {
+    background: linear-gradient(135deg, #ffd70040, #8b451340);
+    border-color: #ffd700;
+    box-shadow: 0 0 20px #ffd70040;
+}
+
+.theme-luxury-gold .sidebar-section {
+    background: linear-gradient(180deg, #2d2d2d, #1a1a1a);
+    border: 1px solid #ffd70030;
+}
+
+.theme-luxury-gold .panel-section {
+    background: linear-gradient(135deg, #2d2d2d80, #1a1a1a80);
+    border: 1px solid #ffd70020;
+}
+
+/* Fashion Theme - Fashion Pink */
+.cockpit-container.theme-fashion-pink {
+    --primary-color: #ff69b4;
+    --accent-color: #ff1493;
+    --background-color: #1a0a1a;
+    --surface-color: #2d1a2d;
+    --text-color: #ffe6f0;
+    --border-color: #ff69b4;
+    --glow-color: #ff69b4;
+}
+
+.theme-fashion-pink .feature-btn {
+    background: linear-gradient(135deg, #ff69b420, #ff149320);
+    border: 1px solid #ff69b440;
+    color: #ff69b4;
+}
+
+.theme-fashion-pink .feature-btn:hover {
+    background: linear-gradient(135deg, #ff69b440, #ff149340);
+    border-color: #ff69b4;
+    box-shadow: 0 0 20px #ff69b440;
+}
+
+.theme-fashion-pink .sidebar-section {
+    background: linear-gradient(180deg, #2d1a2d, #1a0a1a);
+    border: 1px solid #ff69b430;
+}
+
+.theme-fashion-pink .panel-section {
+    background: linear-gradient(135deg, #2d1a2d80, #1a0a1a80);
+    border: 1px solid #ff69b420;
+}
+
+/* Education Theme - Academic Blue */
+.cockpit-container.theme-academic-blue {
+    --primary-color: #1e40af;
+    --accent-color: #059669;
+    --background-color: #0f1a2e;
+    --surface-color: #1e2a3e;
+    --text-color: #e6f3ff;
+    --border-color: #1e40af;
+    --glow-color: #1e40af;
+}
+
+.theme-academic-blue .feature-btn {
+    background: linear-gradient(135deg, #1e40af20, #05966920);
+    border: 1px solid #1e40af40;
+    color: #1e40af;
+}
+
+.theme-academic-blue .feature-btn:hover {
+    background: linear-gradient(135deg, #1e40af40, #05966940);
+    border-color: #1e40af;
+    box-shadow: 0 0 20px #1e40af40;
+}
+
+.theme-academic-blue .sidebar-section {
+    background: linear-gradient(180deg, #1e2a3e, #0f1a2e);
+    border: 1px solid #1e40af30;
+}
+
+.theme-academic-blue .panel-section {
+    background: linear-gradient(135deg, #1e2a3e80, #0f1a2e80);
+    border: 1px solid #1e40af20;
+}
+
+/* General Theme - Modern Dark */
+.cockpit-container.theme-modern-dark {
+    --primary-color: #6366f1;
+    --accent-color: #10b981;
+    --background-color: #0f172a;
+    --surface-color: #1e293b;
+    --text-color: #f8fafc;
+    --border-color: #334155;
+    --glow-color: #6366f1;
+}
+
+.theme-modern-dark .feature-btn {
+    background: linear-gradient(135deg, #6366f120, #10b98120);
+    border: 1px solid #6366f140;
+    color: #6366f1;
+}
+
+.theme-modern-dark .feature-btn:hover {
+    background: linear-gradient(135deg, #6366f140, #10b98140);
+    border-color: #6366f1;
+    box-shadow: 0 0 20px #6366f140;
+}
+
+.theme-modern-dark .sidebar-section {
+    background: linear-gradient(180deg, #1e293b, #0f172a);
+    border: 1px solid #6366f130;
+}
+
+.theme-modern-dark .panel-section {
+    background: linear-gradient(135deg, #1e293b80, #0f172a80);
+    border: 1px solid #6366f120;
+}
+
+/* Industry-Specific UI Elements */
+
+/* Automotive UI Elements */
+.industry-automotive .vehicle-configurator {
+    display: block;
+}
+
+.industry-automotive .color-picker {
+    display: block;
+}
+
+.industry-automotive .specs-panel {
+    display: block;
+}
+
+.industry-automotive .pricing-calculator {
+    display: block;
+}
+
+/* Real Estate UI Elements */
+.industry-realestate .floor-plan {
+    display: block;
+}
+
+.industry-realestate .property-details {
+    display: block;
+}
+
+.industry-realestate .neighborhood-info {
+    display: block;
+}
+
+.industry-realestate .virtual-staging {
+    display: block;
+}
+
+/* Fashion UI Elements */
+.industry-fashion .product-catalog {
+    display: block;
+}
+
+.industry-fashion .size-guide {
+    display: block;
+}
+
+.industry-fashion .virtual-try-on {
+    display: block;
+}
+
+.industry-fashion .wishlist {
+    display: block;
+}
+
+/* Education UI Elements */
+.industry-education .lesson-plans {
+    display: block;
+}
+
+.industry-education .interactive-quizzes {
+    display: block;
+}
+
+.industry-education .virtual-labs {
+    display: block;
+}
+
+.industry-education .student-progress {
+    display: block;
+}
+
+/* Feature Visibility Controls */
+.feature-disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.feature-enabled {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Industry Mode Buttons */
+.mode-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border-color);
+    background: var(--surface-color);
+    color: var(--text-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 2px;
+}
+
+.mode-btn:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px var(--glow-color);
+}
+
+.mode-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+/* Industry-Specific Content Types */
+.content-type-btn {
+    padding: 6px 12px;
+    border: 1px solid var(--border-color);
+    background: var(--surface-color);
+    color: var(--text-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 2px;
+    font-size: 0.8rem;
+}
+
+.content-type-btn:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 8px var(--glow-color);
+}
+
+.content-type-btn.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Industry Feedback Messages */
+.industry-feedback {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--surface-color);
+    border: 1px solid var(--primary-color);
+    color: var(--text-color);
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Industry Tips */
+.industry-tip {
+    background: linear-gradient(135deg, var(--primary-color)20, var(--accent-color)20);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 12px;
+    margin: 8px 0;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+/* Industry-Specific Templates */
+.template-option {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    background: var(--surface-color);
+    color: var(--text-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 2px;
+}
+
+.template-option:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.template-option.selected {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px var(--glow-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mode-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .content-type-btn {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
+    
+    .industry-feedback {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .cockpit-container {
+        --background-color: #0a0a0a;
+        --surface-color: #1a1a1a;
+        --text-color: #ffffff;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .cockpit-container {
+        --border-color: #ffffff;
+        --text-color: #ffffff;
+    }
+    
+    .feature-btn {
+        border-width: 2px;
+    }
+    
+    .mode-btn {
+        border-width: 2px;
+    }
+} 
