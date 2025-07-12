@@ -3,377 +3,396 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMeditor - Spatial Content Editor</title>
+    <title>Static Motion - Spatial Editor</title>
     <link rel="stylesheet" href="css/editor.css">
-    <link rel="stylesheet" href="css/cockpit-theme.css">
-    <link rel="stylesheet" href="css/spatial-ui.css">
-    <link rel="stylesheet" href="css/gaming-components.css">
-    <link rel="stylesheet" href="css/post-processing.css">
-    <link rel="stylesheet" href="css/particle-systems.css">
-    <link rel="stylesheet" href="css/spatial-audio.css">
-    <link rel="stylesheet" href="css/ai-features.css">
-    <link rel="stylesheet" href="css/mobile-ar.css">
-    <link rel="stylesheet" href="css/advanced-camera.css">
-    <link rel="stylesheet" href="css/color-picker.css">
-    <link rel="stylesheet" href="css/tooltips.css">
-    <link rel="stylesheet" href="css/property-inspector.css">
-    <link rel="stylesheet" href="css/undo-redo.css">
-    <link rel="stylesheet" href="css/scene-graph.css">
-    <link rel="stylesheet" href="css/automotive-features.css">
-    <link rel="stylesheet" href="css/3d-scanner.css">
-    <link rel="stylesheet" href="css/industry-cockpits.css">
+    <link rel="stylesheet" href="css/cockpit.css">
+    <link rel="stylesheet" href="css/automotive.css">
+    <link rel="stylesheet" href="css/real-estate.css">
+    <link rel="stylesheet" href="css/fashion.css">
+    <link rel="stylesheet" href="css/education.css">
+    <link rel="stylesheet" href="css/makeup.css">
+    <link rel="stylesheet" href="css/general.css">
     <link rel="stylesheet" href="css/industry-dashboards.css">
+    <link rel="stylesheet" href="css/live-commerce.css">
+    <link rel="stylesheet" href="css/multi-user-collaboration.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/playcanvas@1.75.0/build/playcanvas-stable.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 </head>
-<body>
-    <div id="smeditor" class="cockpit-theme">
+<body class="cockpit-theme">
+    <div id="editor-container">
         <!-- Top Navigation Bar -->
         <nav class="top-nav">
             <div class="nav-left">
-                <h1 class="logo">SMeditor</h1>
-                <div class="nav-controls">
-                    <button id="new-scene" class="nav-btn" title="New Scene">
-                        <span class="icon">+</span>
-                        <span class="label">New</span>
-                    </button>
-                    <button id="save-scene" class="nav-btn" title="Save Scene">
-                        <span class="icon">💾</span>
-                        <span class="label">Save</span>
-                    </button>
-                    <button id="load-scene" class="nav-btn" title="Load Scene">
-                        <span class="icon">📁</span>
-                        <span class="label">Load</span>
-                    </button>
+                <div class="logo">
+                    <i class="fas fa-cube"></i>
+                    <span>Static Motion</span>
+                </div>
+                <div class="industry-selector">
+                    <select id="industry-select">
+                        <option value="automotive">Automotive</option>
+                        <option value="real-estate">Real Estate</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="education">Education</option>
+                        <option value="makeup">Makeup</option>
+                        <option value="general">General</option>
+                    </select>
                 </div>
             </div>
             
             <div class="nav-center">
-                <div class="scene-info">
-                    <span id="scene-title">Untitled Scene</span>
-                    <span id="scene-type">Automotive</span>
-                </div>
-                
-                <!-- Industry Mode Selector -->
-                <div class="industry-selector">
-                    <span class="selector-label">Industry:</span>
-                    <button id="automotive-mode" class="mode-btn" data-industry="automotive" title="Automotive">
-                        <span class="icon">🚗</span>
-                        <span class="label">Auto</span>
+                <div class="file-controls">
+                    <button class="nav-btn" id="new-scene">
+                        <i class="fas fa-plus"></i>
+                        New Scene
                     </button>
-                    <button id="realestate-mode" class="mode-btn" data-industry="realestate" title="Real Estate">
-                        <span class="icon">🏠</span>
-                        <span class="label">Real Estate</span>
+                    <button class="nav-btn" id="open-scene">
+                        <i class="fas fa-folder-open"></i>
+                        Open
                     </button>
-                    <button id="fashion-mode" class="mode-btn" data-industry="fashion" title="Fashion & Retail">
-                        <span class="icon">👗</span>
-                        <span class="label">Fashion</span>
-                    </button>
-                    <button id="makeup-mode" class="mode-btn" data-industry="makeup" title="Makeup & Beauty">
-                        <span class="icon">💄</span>
-                        <span class="label">Beauty</span>
-                    </button>
-                    <button id="education-mode" class="mode-btn" data-industry="education" title="Education">
-                        <span class="icon">🎓</span>
-                        <span class="label">Education</span>
-                    </button>
-                    <button id="general-mode" class="mode-btn active" data-industry="general" title="General">
-                        <span class="icon">⚙️</span>
-                        <span class="label">General</span>
+                    <button class="nav-btn" id="save-scene">
+                        <i class="fas fa-save"></i>
+                        Save
                     </button>
                 </div>
             </div>
             
             <div class="nav-right">
-                <div class="user-controls">
-                    <button id="user-profile" class="nav-btn" title="User Profile">
-                        <span class="icon">👤</span>
-                    </button>
-                    <button id="settings" class="nav-btn" title="Settings">
-                        <span class="icon">⚙️</span>
-                    </button>
-                    <button id="help" class="nav-btn" title="Help">
-                        <span class="icon">❓</span>
-                    </button>
-                    <button id="dashboard-btn" class="nav-btn" title="Industry Dashboard">
-                        <span class="icon">📊</span>
-                        <span class="label">Dashboard</span>
-                    </button>
-                </div>
+                <button class="nav-btn" id="collaboration-btn">
+                    <i class="fas fa-users"></i>
+                    Collaborate
+                </button>
+                <button class="nav-btn" id="dashboard-btn">
+                    <i class="fas fa-chart-line"></i>
+                    Dashboard
+                </button>
+                <button class="nav-btn" id="settings-btn">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </button>
             </div>
         </nav>
 
-        <!-- Main Content Area -->
-        <div class="main-content">
-            <!-- Left Sidebar - Tools Panel -->
-            <aside class="left-sidebar">
-                <div class="sidebar-section">
-                    <h3>Tools</h3>
-                    <div class="tool-buttons">
-                        <button id="select-tool" class="tool-btn active" title="Select Tool">
-                            <span class="icon">👆</span>
-                        </button>
-                        <button id="move-tool" class="tool-btn" title="Move Tool">
-                            <span class="icon">✋</span>
-                        </button>
-                        <button id="rotate-tool" class="tool-btn" title="Rotate Tool">
-                            <span class="icon">🔄</span>
-                        </button>
-                        <button id="scale-tool" class="tool-btn" title="Scale Tool">
-                            <span class="icon">📏</span>
-                        </button>
-                    </div>
+        <!-- Main Editor Layout -->
+        <div class="editor-layout">
+            <!-- Left Panel - Tools -->
+            <div class="left-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-tools"></i> Tools</h3>
                 </div>
-
-                <div class="sidebar-section">
-                    <h3>Content</h3>
-                    <div class="content-tabs">
-                        <button class="tab-btn active" data-tab="templates">Templates</button>
-                        <button class="tab-btn" data-tab="assets">Assets</button>
-                        <button class="tab-btn" data-tab="audio">Audio</button>
-                        <button class="tab-btn" data-tab="effects">Effects</button>
+                
+                <div class="tool-sections">
+                    <!-- Basic Tools -->
+                    <div class="tool-section">
+                        <h4>Basic Tools</h4>
+                        <div class="tool-grid">
+                            <button class="tool-btn" data-tool="select">
+                                <i class="fas fa-mouse-pointer"></i>
+                                Select
+                            </button>
+                            <button class="tool-btn" data-tool="move">
+                                <i class="fas fa-arrows-alt"></i>
+                                Move
+                            </button>
+                            <button class="tool-btn" data-tool="rotate">
+                                <i class="fas fa-redo"></i>
+                                Rotate
+                            </button>
+                            <button class="tool-btn" data-tool="scale">
+                                <i class="fas fa-expand-arrows-alt"></i>
+                                Scale
+                            </button>
+                        </div>
                     </div>
-                    
-                    <div class="tab-content active" id="templates-tab">
-                        <div class="template-grid">
-                            <div class="template-item" data-template="grid-3x3">
-                                <div class="template-preview">3x3</div>
-                                <span>Grid Layout</span>
-                            </div>
-                            <div class="template-item" data-template="hero">
-                                <div class="template-preview">H</div>
-                                <span>Hero Layout</span>
-                            </div>
-                            <div class="template-item" data-template="carousel">
-                                <div class="template-preview">C</div>
-                                <span>Carousel</span>
-                            </div>
+
+                    <!-- 3D Tools -->
+                    <div class="tool-section">
+                        <h4>3D Tools</h4>
+                        <div class="tool-grid">
+                            <button class="tool-btn" data-tool="camera">
+                                <i class="fas fa-camera"></i>
+                                Camera
+                            </button>
+                            <button class="tool-btn" data-tool="light">
+                                <i class="fas fa-lightbulb"></i>
+                                Light
+                            </button>
+                            <button class="tool-btn" data-tool="material">
+                                <i class="fas fa-palette"></i>
+                                Material
+                            </button>
+                            <button class="tool-btn" data-tool="physics">
+                                <i class="fas fa-atom"></i>
+                                Physics
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Content Tools -->
+                    <div class="tool-section">
+                        <h4>Content</h4>
+                        <div class="tool-grid">
+                            <button class="tool-btn" data-tool="model">
+                                <i class="fas fa-cube"></i>
+                                Model
+                            </button>
+                            <button class="tool-btn" data-tool="text">
+                                <i class="fas fa-font"></i>
+                                Text
+                            </button>
+                            <button class="tool-btn" data-tool="image">
+                                <i class="fas fa-image"></i>
+                                Image
+                            </button>
+                            <button class="tool-btn" data-tool="video">
+                                <i class="fas fa-video"></i>
+                                Video
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Tools -->
+                    <div class="tool-section">
+                        <h4>Advanced</h4>
+                        <div class="tool-grid">
+                            <button class="tool-btn" data-tool="animation">
+                                <i class="fas fa-play"></i>
+                                Animation
+                            </button>
+                            <button class="tool-btn" data-tool="particles">
+                                <i class="fas fa-star"></i>
+                                Particles
+                            </button>
+                            <button class="tool-btn" data-tool="audio">
+                                <i class="fas fa-music"></i>
+                                Audio
+                            </button>
+                            <button class="tool-btn" data-tool="ai">
+                                <i class="fas fa-brain"></i>
+                                AI
+                            </button>
                         </div>
                     </div>
                 </div>
-
-                <!-- Advanced Features Panel -->
-                <div class="sidebar-section">
-                    <h3>Advanced Features</h3>
-                    <div class="advanced-features">
-                        <button id="spatial-audio-btn" class="feature-btn" title="Spatial Audio">
-                            <span class="icon">🎵</span>
-                            <span class="label">Spatial Audio</span>
-                        </button>
-                        <button id="ai-features-btn" class="feature-btn" title="AI Features">
-                            <span class="icon">🤖</span>
-                            <span class="label">AI Features</span>
-                        </button>
-                        <button id="mobile-ar-btn" class="feature-btn" title="Mobile AR">
-                            <span class="icon">📱</span>
-                            <span class="label">Mobile AR</span>
-                        </button>
-                        <button id="advanced-camera-btn" class="feature-btn" title="Advanced Camera">
-                            <span class="icon">📹</span>
-                            <span class="label">Advanced Camera</span>
-                        </button>
-                        <button id="3d-scanner-btn" class="feature-btn" title="3D Scanner">
-                            <span class="icon">📷</span>
-                            <span class="label">3D Scanner</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- PlayCanvas Advanced Features Panel -->
-                <div class="sidebar-section">
-                    <h3>PlayCanvas Advanced</h3>
-                    <div class="advanced-features">
-                        <button id="physics-btn" class="feature-btn" title="Advanced Physics">
-                            <span class="icon">⚡</span>
-                            <span class="label">Physics</span>
-                        </button>
-                        <button id="materials-btn" class="feature-btn" title="Advanced Materials">
-                            <span class="icon">🎨</span>
-                            <span class="label">Materials</span>
-                        </button>
-                        <button id="animation-btn" class="feature-btn" title="Advanced Animation">
-                            <span class="icon">🎭</span>
-                            <span class="label">Animation</span>
-                        </button>
-                        <button id="lighting-btn" class="feature-btn" title="Advanced Lighting">
-                            <span class="icon">💡</span>
-                            <span class="label">Lighting</span>
-                        </button>
-                        <button id="particles-btn" class="feature-btn" title="Particle Systems">
-                            <span class="icon">✨</span>
-                            <span class="label">Particles</span>
-                        </button>
-                    </div>
-                </div>
-            </aside>
+            </div>
 
             <!-- Center Panel - 3D Viewport -->
-            <main class="center-panel">
+            <div class="center-panel">
+                <div class="viewport-header">
+                    <div class="viewport-controls">
+                        <button class="viewport-btn" id="perspective-view">
+                            <i class="fas fa-cube"></i>
+                            Perspective
+                        </button>
+                        <button class="viewport-btn" id="orthographic-view">
+                            <i class="fas fa-square"></i>
+                            Orthographic
+                        </button>
+                        <button class="viewport-btn" id="wireframe-view">
+                            <i class="fas fa-border-all"></i>
+                            Wireframe
+                        </button>
+                    </div>
+                    
+                    <div class="viewport-info">
+                        <span class="fps-counter">60 FPS</span>
+                        <span class="polygon-count">0 Polygons</span>
+                    </div>
+                </div>
+                
                 <div class="viewport-container">
-                    <canvas id="playcanvas-canvas" class="playcanvas-viewport"></canvas>
+                    <canvas id="playcanvas-canvas"></canvas>
                     
                     <!-- Overlay UI -->
                     <div class="viewport-overlay">
-                        <div class="viewport-controls">
-                            <button id="reset-camera" class="overlay-btn" title="Reset Camera">
-                                <span class="icon">🏠</span>
-                            </button>
-                            <button id="orbit-camera" class="overlay-btn" title="Orbit Camera">
-                                <span class="icon">🌍</span>
-                            </button>
-                            <button id="walkthrough-camera" class="overlay-btn" title="Walkthrough Camera">
-                                <span class="icon">🚶</span>
-                            </button>
+                        <div class="camera-info">
+                            <span>Camera: 0, 0, 5</span>
                         </div>
-                        
-                        <div class="viewport-info">
-                            <span id="camera-mode">Orbit</span>
-                            <span id="fps-counter">60 FPS</span>
+                        <div class="selection-info">
+                            <span>Selected: None</span>
                         </div>
                     </div>
                 </div>
-            </main>
+            </div>
 
-            <!-- Right Sidebar - Properties Panel -->
-            <aside class="right-sidebar">
-                <div class="sidebar-section">
-                    <h3>Properties</h3>
-                    <div id="property-inspector" class="property-panel">
+            <!-- Right Panel - Properties -->
+            <div class="right-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-sliders-h"></i> Properties</h3>
+                </div>
+                
+                <div class="property-sections">
+                    <!-- Transform Properties -->
+                    <div class="property-section">
+                        <h4>Transform</h4>
                         <div class="property-group">
-                            <label>Transform</label>
-                            <div class="property-row">
-                                <span>Position</span>
+                            <label>Position</label>
+                            <div class="vector-inputs">
                                 <input type="number" id="pos-x" placeholder="X" step="0.1">
                                 <input type="number" id="pos-y" placeholder="Y" step="0.1">
                                 <input type="number" id="pos-z" placeholder="Z" step="0.1">
                             </div>
-                            <div class="property-row">
-                                <span>Rotation</span>
+                        </div>
+                        <div class="property-group">
+                            <label>Rotation</label>
+                            <div class="vector-inputs">
                                 <input type="number" id="rot-x" placeholder="X" step="1">
                                 <input type="number" id="rot-y" placeholder="Y" step="1">
                                 <input type="number" id="rot-z" placeholder="Z" step="1">
                             </div>
-                            <div class="property-row">
-                                <span>Scale</span>
-                                <input type="number" id="scale-x" placeholder="X" step="0.1">
-                                <input type="number" id="scale-y" placeholder="Y" step="0.1">
-                                <input type="number" id="scale-z" placeholder="Z" step="0.1">
+                        </div>
+                        <div class="property-group">
+                            <label>Scale</label>
+                            <div class="vector-inputs">
+                                <input type="number" id="scale-x" placeholder="X" step="0.1" value="1">
+                                <input type="number" id="scale-y" placeholder="Y" step="0.1" value="1">
+                                <input type="number" id="scale-z" placeholder="Z" step="0.1" value="1">
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Scene Graph Panel -->
-                <div class="sidebar-section">
-                    <h3>Scene Graph</h3>
-                    <div id="scene-hierarchy" class="scene-hierarchy">
-                        <div class="hierarchy-item root">
-                            <span class="icon">🌳</span>
-                            <span>Scene Root</span>
+                    <!-- Material Properties -->
+                    <div class="property-section">
+                        <h4>Material</h4>
+                        <div class="property-group">
+                            <label>Color</label>
+                            <input type="color" id="material-color" value="#ffffff">
+                        </div>
+                        <div class="property-group">
+                            <label>Metallic</label>
+                            <input type="range" id="material-metallic" min="0" max="1" step="0.1" value="0">
+                        </div>
+                        <div class="property-group">
+                            <label>Roughness</label>
+                            <input type="range" id="material-roughness" min="0" max="1" step="0.1" value="0.5">
+                        </div>
+                    </div>
+
+                    <!-- Light Properties -->
+                    <div class="property-section">
+                        <h4>Light</h4>
+                        <div class="property-group">
+                            <label>Type</label>
+                            <select id="light-type">
+                                <option value="directional">Directional</option>
+                                <option value="point">Point</option>
+                                <option value="spot">Spot</option>
+                            </select>
+                        </div>
+                        <div class="property-group">
+                            <label>Color</label>
+                            <input type="color" id="light-color" value="#ffffff">
+                        </div>
+                        <div class="property-group">
+                            <label>Intensity</label>
+                            <input type="range" id="light-intensity" min="0" max="10" step="0.1" value="1">
+                        </div>
+                    </div>
+
+                    <!-- Camera Properties -->
+                    <div class="property-section">
+                        <h4>Camera</h4>
+                        <div class="property-group">
+                            <label>FOV</label>
+                            <input type="range" id="camera-fov" min="10" max="120" step="1" value="60">
+                        </div>
+                        <div class="property-group">
+                            <label>Near</label>
+                            <input type="number" id="camera-near" min="0.1" max="10" step="0.1" value="0.1">
+                        </div>
+                        <div class="property-group">
+                            <label>Far</label>
+                            <input type="number" id="camera-far" min="100" max="10000" step="100" value="1000">
                         </div>
                     </div>
                 </div>
-
-                <!-- Undo/Redo Panel -->
-                <div class="sidebar-section">
-                    <h3>History</h3>
-                    <div class="history-controls">
-                        <button id="undo-btn" class="history-btn" title="Undo (Ctrl+Z)">
-                            <span class="icon">↶</span>
-                            <span>Undo</span>
-                        </button>
-                        <button id="redo-btn" class="history-btn" title="Redo (Ctrl+Y)">
-                            <span class="icon">↷</span>
-                            <span>Redo</span>
-                        </button>
-                    </div>
-                    <div id="history-list" class="history-list">
-                        <!-- History items will be populated here -->
-                    </div>
-                </div>
-            </aside>
+            </div>
         </div>
 
         <!-- Bottom Panel - Timeline -->
         <div class="bottom-panel">
-            <div class="timeline-header">
-                <h3>Timeline</h3>
+            <div class="panel-header">
+                <h3><i class="fas fa-clock"></i> Timeline</h3>
+            </div>
+            
+            <div class="timeline-container">
                 <div class="timeline-controls">
-                    <button id="play-timeline" class="timeline-btn" title="Play">
-                        <span class="icon">▶️</span>
+                    <button class="timeline-btn" id="play-timeline">
+                        <i class="fas fa-play"></i>
                     </button>
-                    <button id="pause-timeline" class="timeline-btn" title="Pause">
-                        <span class="icon">⏸️</span>
+                    <button class="timeline-btn" id="pause-timeline">
+                        <i class="fas fa-pause"></i>
                     </button>
-                    <button id="stop-timeline" class="timeline-btn" title="Stop">
-                        <span class="icon">⏹️</span>
+                    <button class="timeline-btn" id="stop-timeline">
+                        <i class="fas fa-stop"></i>
+                    </button>
+                    <button class="timeline-btn" id="record-timeline">
+                        <i class="fas fa-circle"></i>
                     </button>
                 </div>
-            </div>
-            <div id="timeline" class="timeline">
-                <!-- Timeline tracks will be populated here -->
+                
+                <div class="timeline-track">
+                    <div class="timeline-ruler">
+                        <span>0s</span>
+                        <span>5s</span>
+                        <span>10s</span>
+                        <span>15s</span>
+                        <span>20s</span>
+                    </div>
+                    <div class="timeline-playhead"></div>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Modals -->
-    <div id="modal-overlay" class="modal-overlay hidden">
-        <div class="modal">
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modal-title">Modal</h3>
-                <button id="close-modal" class="close-btn">×</button>
+                <h3 id="modal-title">Modal Title</h3>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            <div id="modal-content" class="modal-content">
-                <!-- Modal content will be populated here -->
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content will be inserted here -->
             </div>
         </div>
     </div>
 
-    <!-- Tooltips -->
-    <div id="tooltip" class="tooltip hidden">
-        <div class="tooltip-content"></div>
-        <div class="tooltip-arrow"></div>
-    </div>
-
-    <!-- Context Menu -->
-    <div id="context-menu" class="context-menu hidden">
-        <!-- Context menu items will be populated here -->
-    </div>
-
     <!-- Scripts -->
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    <script src="https://cdn.playcanvas.com/playcanvas-stable.min.js"></script>
-    
-    <!-- Core Scripts -->
-    <script src="js/supabase-config.js"></script>
-    <script src="js/supabase-integration.js"></script>
-    <script src="js/meshroom-integration.js"></script>
-    <script src="js/spatial-audio-integration.js"></script>
-    <script src="js/ai-features-integration.js"></script>
-    <script src="js/mobile-ar-integration.js"></script>
-    <script src="js/advanced-camera-integration.js"></script>
-    
-    <!-- Feature Scripts -->
+    <script src="js/playcanvas-manager.js"></script>
+    <script src="js/editor.js"></script>
+    <script src="js/automotive-features.js"></script>
+    <script src="js/real-estate-features.js"></script>
+    <script src="js/fashion-features.js"></script>
+    <script src="js/education-features.js"></script>
+    <script src="js/makeup-features.js"></script>
+    <script src="js/general-features.js"></script>
+    <script src="js/industry-dashboards.js"></script>
+    <script src="js/live-commerce.js"></script>
+    <script src="js/multi-user-collaboration.js"></script>
+    <script src="js/undo-redo-manager.js"></script>
+    <script src="js/property-inspector.js"></script>
+    <script src="js/post-processing.js"></script>
+    <script src="js/particle-system.js"></script>
+    <script src="js/scene-graph.js"></script>
+    <script src="js/spatial-ui.js"></script>
     <script src="js/spatial-audio.js"></script>
     <script src="js/ai-features.js"></script>
     <script src="js/mobile-ar.js"></script>
     <script src="js/advanced-camera.js"></script>
-    <script src="js/post-processing.js"></script>
-    <script src="js/particle-systems.js"></script>
-    <script src="js/scene-graph.js"></script>
-    <script src="js/spatial-ui.js"></script>
-    <script src="js/gaming-components.js"></script>
-    <script src="js/color-picker.js"></script>
-    <script src="js/tooltips.js"></script>
-    <script src="js/property-inspector.js"></script>
-    <script src="js/undo-redo.js"></script>
-    <script src="js/playcanvas-manager.js"></script>
-    <script src="js/automotive-features.js"></script>
-    <script src="js/3d-scanner-integration.js"></script>
     <script src="js/advanced-physics.js"></script>
     <script src="js/advanced-materials.js"></script>
     <script src="js/advanced-animation.js"></script>
-    <script src="js/industry-cockpits.js"></script>
-    <script src="js/industry-dashboards.js"></script>
-    <script src="js/test-integration.js"></script>
-    <script src="js/editor.js"></script>
+    <script src="js/3d-scanner.js"></script>
+    <script src="js/meshroom-integration.js"></script>
+    <script src="js/supabase-integration.js"></script>
+    <script src="js/supabase-spatial-audio.js"></script>
+    <script src="js/supabase-ai-features.js"></script>
+    <script src="js/supabase-mobile-ar.js"></script>
+    <script src="js/supabase-advanced-camera.js"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/integration-tests.js"></script>
 </body>
 </html>

@@ -1,0 +1,587 @@
+/* Multi-User Collaboration CSS - Cockpit Theme */
+
+/* Main Layout */
+.spatial-collaboration-layout {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    border: 2px solid #00d4ff;
+    border-radius: 10px;
+    box-shadow: 
+        0 0 20px rgba(0, 212, 255, 0.3),
+        inset 0 0 20px rgba(0, 212, 255, 0.1);
+    overflow: hidden;
+    font-family: 'Courier New', monospace;
+    z-index: 1000;
+}
+
+/* Container Base Styles */
+.collaboration-container {
+    border: 1px solid #00d4ff;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 0 15px rgba(0, 212, 255, 0.2),
+        inset 0 0 15px rgba(0, 212, 255, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.collaboration-container:hover {
+    border-color: #00ff88;
+    box-shadow: 
+        0 0 25px rgba(0, 255, 136, 0.4),
+        inset 0 0 25px rgba(0, 255, 136, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Video Containers */
+.video-container {
+    position: relative;
+}
+
+.host-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #00d4ff;
+    transition: all 0.3s ease;
+}
+
+.host-video:hover {
+    border-color: #00ff88;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
+.user-info {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #00d4ff;
+    color: #00d4ff;
+    font-size: 12px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+    z-index: 10;
+}
+
+.user-name {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.user-status {
+    font-size: 10px;
+    opacity: 0.8;
+}
+
+.spatial-audio-indicator {
+    width: 8px;
+    height: 8px;
+    background: #00ff88;
+    border-radius: 50%;
+    margin-left: 5px;
+    animation: audio-pulse 1s infinite;
+    display: inline-block;
+}
+
+@keyframes audio-pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Video Controls */
+.video-controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.video-controls button {
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid #00d4ff;
+    color: #00d4ff;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.video-controls button:hover {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: #00ff88;
+    transform: scale(1.1);
+}
+
+.video-controls button.muted {
+    background: rgba(255, 0, 0, 0.3);
+    border-color: #ff0000;
+    color: #ff0000;
+}
+
+.video-controls button.disabled {
+    background: rgba(255, 0, 0, 0.3);
+    border-color: #ff0000;
+    color: #ff0000;
+}
+
+.video-controls button.sharing {
+    background: rgba(0, 255, 136, 0.3);
+    border-color: #00ff88;
+    color: #00ff88;
+}
+
+/* Collaborative Notes */
+.collaborative-container {
+    position: relative;
+}
+
+.collaborative-notes {
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.9);
+    color: #00d4ff;
+    border: none;
+    outline: none;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    resize: none;
+    overflow-y: auto;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.collaborative-notes:focus {
+    border: 2px solid #00ff88;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+    background: rgba(0, 0, 0, 0.95);
+}
+
+.collaborative-notes::-webkit-scrollbar {
+    width: 8px;
+}
+
+.collaborative-notes::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+.collaborative-notes::-webkit-scrollbar-thumb {
+    background: #00d4ff;
+    border-radius: 4px;
+}
+
+.collaborative-notes::-webkit-scrollbar-thumb:hover {
+    background: #00ff88;
+}
+
+/* Notes Toolbar */
+.notes-toolbar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 5px;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #00d4ff;
+    backdrop-filter: blur(5px);
+    z-index: 10;
+}
+
+.notes-toolbar button {
+    background: transparent;
+    border: 1px solid #00d4ff;
+    color: #00d4ff;
+    padding: 6px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 12px;
+}
+
+.notes-toolbar button:hover {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: #00ff88;
+    transform: scale(1.05);
+}
+
+.notes-toolbar button.active {
+    background: rgba(0, 255, 136, 0.3);
+    border-color: #00ff88;
+    color: #00ff88;
+}
+
+/* Controls Container */
+.controls-container {
+    position: relative;
+}
+
+.collaboration-controls {
+    padding: 15px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.collaboration-controls::-webkit-scrollbar {
+    width: 6px;
+}
+
+.collaboration-controls::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+}
+
+.collaboration-controls::-webkit-scrollbar-thumb {
+    background: #00d4ff;
+    border-radius: 3px;
+}
+
+.collaboration-controls::-webkit-scrollbar-thumb:hover {
+    background: #00ff88;
+}
+
+.control-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    border: 1px solid #00d4ff;
+    backdrop-filter: blur(5px);
+}
+
+.control-section h3 {
+    color: #00d4ff;
+    margin: 0 0 15px 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+.control-btn {
+    display: block;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #00d4ff;
+    color: #00d4ff;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    backdrop-filter: blur(5px);
+}
+
+.control-btn:hover {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: #00ff88;
+    transform: translateX(5px);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+.control-btn:active {
+    transform: translateX(5px) scale(0.98);
+}
+
+.control-btn i {
+    margin-right: 8px;
+    width: 16px;
+    text-align: center;
+}
+
+/* Remote Cursors */
+.remote-cursors {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.remote-cursor {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #00ff88;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+    animation: pulse 2s infinite;
+    pointer-events: none;
+    z-index: 1001;
+}
+
+.remote-cursor::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 1px solid #00ff88;
+    border-radius: 50%;
+    animation: ripple 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes ripple {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+/* Notifications */
+.collaboration-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 212, 255, 0.9);
+    color: #000;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: 1px solid #00ff88;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+    z-index: 10000;
+    animation: slideIn 0.3s ease;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    backdrop-filter: blur(10px);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Connection Status */
+.connection-status {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #00d4ff;
+    color: #00d4ff;
+    font-size: 12px;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.connection-status.connected {
+    border-color: #00ff88;
+    color: #00ff88;
+}
+
+.connection-status.disconnected {
+    border-color: #ff0000;
+    color: #ff0000;
+}
+
+/* User List */
+.user-list {
+    position: fixed;
+    top: 50px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #00d4ff;
+    color: #00d4ff;
+    font-size: 12px;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    max-width: 200px;
+}
+
+.user-list h4 {
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.user-item:hover {
+    background: rgba(0, 212, 255, 0.1);
+}
+
+.user-indicator {
+    width: 8px;
+    height: 8px;
+    background: #00ff88;
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: pulse 2s infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .spatial-collaboration-layout {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 10000;
+    }
+    
+    .collaboration-container {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        margin-bottom: 10px;
+    }
+    
+    .video-controls {
+        position: relative;
+        top: auto;
+        right: auto;
+        justify-content: center;
+        margin-top: 10px;
+    }
+    
+    .notes-toolbar {
+        position: relative;
+        top: auto;
+        left: auto;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+}
+
+/* Loading States */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #00d4ff;
+    border-top: 3px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error States */
+.error-message {
+    background: rgba(255, 0, 0, 0.2);
+    border: 1px solid #ff0000;
+    color: #ff0000;
+    padding: 10px;
+    border-radius: 6px;
+    margin: 10px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+}
+
+/* Success States */
+.success-message {
+    background: rgba(0, 255, 136, 0.2);
+    border: 1px solid #00ff88;
+    color: #00ff88;
+    padding: 10px;
+    border-radius: 6px;
+    margin: 10px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+}
+
+/* Accessibility */
+.collaboration-container:focus-within {
+    outline: 2px solid #00ff88;
+    outline-offset: 2px;
+}
+
+.control-btn:focus {
+    outline: 2px solid #00ff88;
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .collaboration-container {
+        border-width: 2px;
+    }
+    
+    .control-btn {
+        border-width: 2px;
+    }
+    
+    .video-controls button {
+        border-width: 2px;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .collaboration-container,
+    .control-btn,
+    .video-controls button,
+    .remote-cursor {
+        animation: none;
+        transition: none;
+    }
+} 

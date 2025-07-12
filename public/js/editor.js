@@ -200,6 +200,16 @@ class SMeditor {
             this.openIndustryDashboard();
         });
 
+        // Live Commerce Button
+        document.getElementById('live-commerce-btn').addEventListener('click', () => {
+            this.openLiveCommerce();
+        });
+
+        // AI Cleaner Button
+        document.getElementById('ai-cleaner-btn').addEventListener('click', () => {
+            this.openAIImageCleaner();
+        });
+
         // Interface Toggle
         document.getElementById('simple-mode').addEventListener('click', () => {
             this.switchInterfaceMode('simple');
@@ -227,6 +237,23 @@ class SMeditor {
 
         // Add tooltips to cockpit interface
         this.setupTooltips();
+
+        // Initialize collaboration system
+        let collaborationSystem = null;
+
+        // Collaboration button handler
+        document.getElementById('collaboration-btn').addEventListener('click', () => {
+            if (!collaborationSystem) {
+                collaborationSystem = new MultiUserCollaboration();
+                document.getElementById('collaboration-btn').classList.add('active');
+                showNotification('Collaboration mode activated!', 'success');
+            } else {
+                collaborationSystem.destroy();
+                collaborationSystem = null;
+                document.getElementById('collaboration-btn').classList.remove('active');
+                showNotification('Collaboration mode deactivated!', 'info');
+            }
+        });
     }
 
     setupTooltips() {
@@ -1215,6 +1242,153 @@ class SMeditor {
             this.showFeedback(`Opening ${this.currentIndustry} dashboard`);
         } else {
             this.showFeedback('Dashboard system not available');
+        }
+    }
+
+    openLiveCommerce() {
+        if (window.LiveCommerceTemplates) {
+            // Show template selection for current industry
+            this.showLiveCommerceTemplates();
+            this.showFeedback(`Opening live commerce for ${this.currentIndustry}`);
+        } else {
+            this.showFeedback('Live commerce system not available');
+        }
+    }
+
+    openAIImageCleaner() {
+        if (window.AIImageCleaner) {
+            window.AIImageCleaner.createCleanerUI();
+            this.showFeedback('Opening AI Image Cleaner');
+        } else {
+            this.showFeedback('AI Image Cleaner not available');
+        }
+    }
+
+    showLiveCommerceTemplates() {
+        const modal = document.getElementById('modal-overlay');
+        const title = document.getElementById('modal-title');
+        const content = document.getElementById('modal-content');
+
+        title.textContent = 'Live Commerce Templates';
+        content.innerHTML = `
+            <div class="live-commerce-templates">
+                <div class="templates-header">
+                    <h3>Choose Live Commerce Template</h3>
+                    <p>Select a template to start your live commerce session</p>
+                </div>
+                
+                <div class="templates-grid">
+                    ${this.createLiveCommerceTemplatesHTML()}
+                </div>
+                
+                <div class="template-preview">
+                    <h4>Template Preview</h4>
+                    <div class="preview-container" id="template-preview">
+                        <div class="preview-placeholder">Select a template to see preview</div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        modal.classList.remove('hidden');
+        this.setupTemplateSelection();
+    }
+
+    createLiveCommerceTemplatesHTML() {
+        if (!window.LiveCommerceTemplates) return '';
+
+        const templates = window.LiveCommerceTemplates.getAvailableTemplates(this.currentIndustry);
+        return templates.map(templateName => {
+            const template = window.LiveCommerceTemplates.getTemplateDetails(this.currentIndustry, templateName);
+            return `
+                <div class="template-card" data-template="${templateName}">
+                    <div class="template-icon">${this.getTemplateIcon(templateName)}</div>
+                    <div class="template-info">
+                        <h5>${template.name}</h5>
+                        <p>${template.features.join(', ')}</p>
+                    </div>
+                    <button class="start-template-btn" data-template="${templateName}">Start Template</button>
+                </div>
+            `;
+        }).join('');
+    }
+
+    getTemplateIcon(templateName) {
+        const icons = {
+            'car-showroom': '🚗',
+            'dealership-tour': '🏢',
+            'test-drive-live': '🏁',
+            'property-showcase': '🏠',
+            'neighborhood-tour': '🗺️',
+            'open-house-live': '🏡',
+            'runway-show': '👗',
+            'boutique-tour': '🛍️',
+            'styling-session': '💄',
+            'beauty-showcase': '💄',
+            'tutorial-live': '📚',
+            'consultation-live': '👩‍⚕️',
+            'course-showcase': '🎓',
+            'virtual-campus': '🏫',
+            'live-lecture': '📖',
+            'product-showcase': '📦',
+            'brand-story': '📖',
+            'interactive-event': '🎉'
+        };
+        return icons[templateName] || '📋';
+    }
+
+    setupTemplateSelection() {
+        document.querySelectorAll('.template-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                const templateName = e.currentTarget.dataset.template;
+                this.selectLiveCommerceTemplate(templateName);
+            });
+        });
+
+        document.querySelectorAll('.start-template-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const templateName = e.currentTarget.dataset.template;
+                this.startLiveCommerceTemplate(templateName);
+            });
+        });
+    }
+
+    selectLiveCommerceTemplate(templateName) {
+        // Update preview
+        const preview = document.getElementById('template-preview');
+        if (preview) {
+            const template = window.LiveCommerceTemplates.getTemplateDetails(this.currentIndustry, templateName);
+            preview.innerHTML = `
+                <div class="template-preview-content">
+                    <h5>${template.name}</h5>
+                    <div class="template-features">
+                        <h6>Features:</h6>
+                        <ul>
+                            ${template.features.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="template-hotspots">
+                        <h6>Interactive Elements:</h6>
+                        <ul>
+                            ${template.hotspots.map(hotspot => `<li>${hotspot.label}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Update selected state
+        document.querySelectorAll('.template-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+        document.querySelector(`[data-template="${templateName}"]`).classList.add('selected');
+    }
+
+    startLiveCommerceTemplate(templateName) {
+        if (window.LiveCommerceTemplates) {
+            window.LiveCommerceTemplates.startLiveCommerce(this.currentIndustry, templateName);
+            this.showFeedback(`Starting live commerce with ${templateName} template`);
         }
     }
 
