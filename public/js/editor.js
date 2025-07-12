@@ -19,6 +19,9 @@ class SMeditor {
             logo: null
         };
         
+        // Initialize undo manager
+        this.undoManager = window.UndoManager;
+        
         this.init();
     }
 
@@ -28,7 +31,56 @@ class SMeditor {
         this.setupDragAndDrop();
         this.updateSceneStats();
         this.initializeValidation();
+        this.setupUndoRedoListeners();
         this.showFeedback('🚀 SMeditor Cockpit Initialized - Ready for spatial content creation!');
+    }
+
+    setupUndoRedoListeners() {
+        // Undo/Redo button listeners
+        const undoBtn = document.getElementById('undo-btn');
+        const redoBtn = document.getElementById('redo-btn');
+        
+        if (undoBtn) {
+            undoBtn.addEventListener('click', () => {
+                this.undoManager.undo();
+                this.addFeedbackAnimation(undoBtn);
+            });
+        }
+        
+        if (redoBtn) {
+            redoBtn.addEventListener('click', () => {
+                this.undoManager.redo();
+                this.addFeedbackAnimation(redoBtn);
+            });
+        }
+        
+        // Load undo history from localStorage
+        this.undoManager.loadFromLocalStorage();
+    }
+    
+    addFeedbackAnimation(button) {
+        button.classList.add('feedback');
+        setTimeout(() => {
+            button.classList.remove('feedback');
+        }, 300);
+    }
+
+    // Test method for undo/redo system
+    testUndoSystem() {
+        console.log('Undo System Stats:', this.undoManager.getStats());
+        this.showFeedback(`Undo system: ${this.undoManager.history.length} actions, can undo: ${this.undoManager.canUndo()}, can redo: ${this.undoManager.canRedo()}`);
+    }
+
+    // Debug method to show undo history
+    showUndoHistory() {
+        const stats = this.undoManager.getStats();
+        const history = this.undoManager.history.map((action, index) => {
+            const isCurrent = index === this.undoManager.currentIndex;
+            return `${isCurrent ? '→' : ' '} ${action.description}`;
+        }).join('\n');
+        
+        console.log('Undo History:', history);
+        console.log('Stats:', stats);
     }
 
     setupEventListeners() {
@@ -50,13 +102,11 @@ class SMeditor {
 
         // Brand settings
         document.getElementById('primary-color').addEventListener('change', (e) => {
-            this.brandSettings.primaryColor = e.target.value;
-            this.updateBrandPreview();
+            this.updateBrandSettings('primaryColor', e.target.value);
         });
 
         document.getElementById('company-name').addEventListener('input', (e) => {
-            this.brandSettings.companyName = e.target.value;
-            this.validateScene();
+            this.updateBrandSettings('companyName', e.target.value);
         });
 
         document.getElementById('logo-upload').addEventListener('change', (e) => {
@@ -127,25 +177,127 @@ class SMeditor {
         document.getElementById('realestate-mode').addEventListener('click', () => {
             this.switchIndustryMode('realestate');
         });
+
+        // Interface Toggle
+        document.getElementById('simple-mode').addEventListener('click', () => {
+            this.switchInterfaceMode('simple');
+        });
+
+        document.getElementById('advanced-mode').addEventListener('click', () => {
+            this.switchInterfaceMode('advanced');
+        });
+
+        // Simple Content Buttons
+        document.querySelectorAll('.content-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const contentType = e.currentTarget.dataset.type;
+                this.handleContentButtonClick(contentType);
+            });
+        });
+
+        // File Upload
+        document.getElementById('upload-content').addEventListener('click', () => {
+            this.openFileUpload();
+        });
+
+        // File Upload Drop Zone
+        this.setupFileUploadDropZone();
+
+        // Add tooltips to cockpit interface
+        this.setupTooltips();
+    }
+
+    setupTooltips() {
+        // Add tooltips to key interface elements
+        const tooltipElements = [
+            {
+                selector: '#undo-btn',
+                text: 'Undo last action (Ctrl+Z)',
+                position: 'top'
+            },
+            {
+                selector: '#redo-btn',
+                text: 'Redo last undone action (Ctrl+Shift+Z)',
+                position: 'top'
+            },
+            {
+                selector: '#start-walkthrough',
+                text: 'Start creating a guided 3D walkthrough by placing waypoints',
+                position: 'top'
+            },
+            {
+                selector: '#finish-walkthrough',
+                text: 'Complete the walkthrough and save the camera path',
+                position: 'top'
+            },
+            {
+                selector: '#play-walkthrough',
+                text: 'Play the recorded walkthrough animation',
+                position: 'top'
+            },
+            {
+                selector: '#open-color-picker',
+                text: 'Open advanced color picker for vehicle customization',
+                position: 'left'
+            },
+            {
+                selector: '#add-hotspot',
+                text: 'Add interactive hotspots to highlight vehicle features',
+                position: 'left'
+            },
+            {
+                selector: '#preview-hotspots',
+                text: 'Show all hotspots in the 3D scene',
+                position: 'left'
+            },
+            {
+                selector: '#launch-ar',
+                text: 'Launch AR experience for mobile devices',
+                position: 'left'
+            },
+            {
+                selector: '#playcanvas-canvas',
+                text: '3D scene view - drag content here or click to place waypoints',
+                position: 'top'
+            }
+        ];
+
+        tooltipElements.forEach(({ selector, text, position }) => {
+            const element = document.querySelector(selector);
+            if (element && window.TooltipManager) {
+                window.TooltipManager.addTooltip(element, text, position);
+            }
+        });
     }
 
     switchTemplate(template) {
-        // Update active template
+        if (template === this.currentTemplate) return;
+        
+        // Store old state for undo
+        const oldTemplate = this.currentTemplate;
+        
+        this.currentTemplate = template;
+        
+        // Update active template visual
         document.querySelectorAll('.template-item').forEach(item => {
             item.classList.remove('active');
         });
         document.querySelector(`[data-template="${template}"]`).classList.add('active');
         
-        this.currentTemplate = template;
         this.generateContainers();
         this.updateSceneStats();
         this.updateContainerList();
         this.validateScene();
-        this.showFeedback(`Template changed to ${template.replace('-', ' ')}`);
         
         // Reset selected container
         this.selectedContainer = null;
         this.showContentEditor(null);
+        
+        // Record undo action
+        const action = new TemplateAction(oldTemplate, template);
+        this.undoManager.recordAction(action);
+        
+        this.showFeedback(`Template switched to ${template}`);
     }
 
     switchWorld(world) {
@@ -431,6 +583,9 @@ class SMeditor {
         const containerData = this.containers.get(index);
         const content = {};
         
+        // Store old content for undo
+        const oldContent = containerData ? { ...containerData.content } : {};
+        
         // Gather content based on type
         switch (containerData.type) {
             case 'image':
@@ -486,12 +641,18 @@ class SMeditor {
                 }
                 break;
         }
+        
+        // Record undo action for content changes
+        const action = new ContentAction(index, 'content', oldContent, content);
+        this.undoManager.recordAction(action);
     }
 
     updateContainerData(index, content) {
         const containerData = this.containers.get(index);
-        containerData.content = content;
-        this.containers.set(index, containerData);
+        if (containerData) {
+            containerData.content = content;
+            this.containers.set(index, containerData);
+        }
         
         // Update cockpit systems
         this.updateSceneStats();
@@ -518,16 +679,39 @@ class SMeditor {
         }
     }
 
-    async uploadLogo(file) {
-        const path = await this.uploadFile(file);
-        if (path) {
-            this.brandSettings.logo = path;
+    uploadLogo(file) {
+        // Store old logo for undo
+        const oldLogo = this.brandSettings.logo;
+        
+        // Simulate logo upload
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            this.brandSettings.logo = e.target.result;
+            
+            // Record undo action
+            const action = new BrandAction('logo', oldLogo, e.target.result);
+            this.undoManager.recordAction(action);
+            
             this.updateBrandPreview();
-        }
+            this.showFeedback('Logo uploaded successfully');
+        };
+        reader.readAsDataURL(file);
     }
 
     updateBrandPreview() {
-        document.documentElement.style.setProperty('--brand-color', this.brandSettings.primaryColor);
+        // Update brand preview in UI
+        const brandPreview = document.getElementById('brand-preview');
+        if (brandPreview) {
+            brandPreview.style.setProperty('--primary-color', this.brandSettings.primaryColor);
+        }
+        
+        // Update company name display
+        const companyNameDisplay = document.getElementById('company-name-display');
+        if (companyNameDisplay) {
+            companyNameDisplay.textContent = this.brandSettings.companyName || 'Your Company';
+        }
+        
+        this.validateScene();
     }
 
     openPreview() {
@@ -670,38 +854,44 @@ class SMeditor {
     }
 
     async publishScene() {
-        const sceneData = {
-            template: this.currentTemplate,
-            world: this.currentWorld,
-            containers: Object.fromEntries(this.containers),
-            brandSettings: this.brandSettings
-        };
+        // Use the scene manager to handle publishing if available
+        if (window.sceneManager) {
+            await window.sceneManager.publishScene();
+        } else {
+            // Fallback to original method
+            const sceneData = {
+                template: this.currentTemplate,
+                world: this.currentWorld,
+                containers: Object.fromEntries(this.containers),
+                brandSettings: this.brandSettings
+            };
 
-        try {
-            const response = await fetch('/api/scenes', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(sceneData)
-            });
+            try {
+                const response = await fetch('/api/scenes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(sceneData)
+                });
 
-            const result = await response.json();
-            
-            // Generate QR code
-            const qrResponse = await fetch(`/api/qrcode/${result.sceneId}`, {
-                method: 'POST'
-            });
-            const qrResult = await qrResponse.json();
-            
-            // Show publish modal
-            document.getElementById('qr-code').innerHTML = `<img src="${qrResult.qrCode}" alt="QR Code">`;
-            document.getElementById('share-link').value = qrResult.url;
-            document.getElementById('publish-modal').style.display = 'block';
-            
-        } catch (error) {
-            console.error('Publish failed:', error);
-            alert('Failed to publish scene. Please try again.');
+                const result = await response.json();
+                
+                // Generate QR code
+                const qrResponse = await fetch(`/api/qrcode/${result.sceneId}`, {
+                    method: 'POST'
+                });
+                const qrResult = await qrResponse.json();
+                
+                // Show publish modal
+                document.getElementById('qr-code').innerHTML = `<img src="${qrResult.qrCode}" alt="QR Code">`;
+                document.getElementById('share-link').value = qrResult.url;
+                document.getElementById('publish-modal').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Publish failed:', error);
+                alert('Failed to publish scene. Please try again.');
+            }
         }
     }
 
@@ -909,21 +1099,25 @@ class SMeditor {
     }
 
     clearAllContainers() {
-        if (this.containers.size === 0) {
-            this.showFeedback('No containers to clear');
-            return;
-        }
+        // Store old state for undo
+        const oldContainers = new Map(this.containers);
         
-        if (confirm('Are you sure you want to clear all containers? This action cannot be undone.')) {
-            this.containers.clear();
-            this.selectedContainer = null;
-            this.generateContainers();
-            this.updateSceneStats();
-            this.updateContainerList();
-            this.validateScene();
-            this.showContentEditor(null);
-            this.showFeedback('🗑️ All containers cleared');
-        }
+        this.containers.clear();
+        this.selectedContainer = null;
+        
+        // Clear visual containers
+        document.querySelectorAll('.container-slot').forEach(slot => {
+            slot.innerHTML = '';
+            slot.classList.remove('filled', 'selected');
+        });
+        
+        // Record undo action
+        const action = new ContainerAction(0, 'clear', oldContainers, null);
+        this.undoManager.recordAction(action);
+        
+        this.updateSceneStats();
+        this.validateScene();
+        this.showFeedback('All containers cleared');
     }
 
     autoFillContainers() {
@@ -981,43 +1175,311 @@ class SMeditor {
 
     // Industry Mode Management
     switchIndustryMode(industry) {
-        // Update mode buttons
+        // Update active mode
         document.querySelectorAll('.mode-btn').forEach(btn => {
             btn.classList.remove('active');
         });
         document.getElementById(`${industry}-mode`).classList.add('active');
-
-        // Update data ball visibility
+        
         this.currentIndustry = industry;
         this.updateDataBallVisibility();
-        
-        // Clear existing containers when switching industries
-        this.clearAllContainers();
-        
+        this.updateIndustryContent();
         this.showFeedback(`Switched to ${industry} mode`);
     }
 
-    updateDataBallVisibility() {
-        // Hide all industry-specific balls first
-        document.querySelectorAll('.automotive-mode-ball, .realestate-mode-ball').forEach(ball => {
-            ball.style.display = 'none';
+    switchInterfaceMode(mode) {
+        // Update interface toggle buttons
+        document.querySelectorAll('.mode-toggle').forEach(btn => {
+            btn.classList.remove('active');
         });
-
-        // Show general balls for general mode
-        document.querySelectorAll('.general-mode-ball').forEach(ball => {
-            ball.style.display = this.currentIndustry === 'general' ? 'flex' : 'none';
+        document.getElementById(`${mode}-mode`).classList.add('active');
+        
+        // Update interface visibility
+        document.querySelectorAll('.content-interface').forEach(interface => {
+            interface.classList.remove('active');
         });
+        document.getElementById(`${mode}-content`).classList.add('active');
+        
+        this.showFeedback(`Switched to ${mode} interface`);
+    }
 
-        // Show industry-specific balls
+    updateIndustryContent() {
+        // Hide all industry content
+        document.querySelectorAll('.industry-content').forEach(content => {
+            content.style.display = 'none';
+        });
+        
+        // Show relevant industry content
         if (this.currentIndustry === 'automotive') {
-            document.querySelectorAll('.automotive-mode-ball').forEach(ball => {
-                ball.style.display = 'flex';
-            });
+            document.getElementById('automotive-content').style.display = 'block';
         } else if (this.currentIndustry === 'realestate') {
-            document.querySelectorAll('.realestate-mode-ball').forEach(ball => {
-                ball.style.display = 'flex';
-            });
+            document.getElementById('realestate-content').style.display = 'block';
         }
+    }
+
+    handleContentButtonClick(contentType) {
+        if (this.selectedContainer !== null) {
+            // Add content to selected container
+            this.addDataToContainer(this.selectedContainer, contentType);
+        } else {
+            // Show container selection prompt
+            this.showFeedback('Please select a container first, then click a content type');
+            this.highlightEmptyContainers();
+        }
+    }
+
+    highlightEmptyContainers() {
+        document.querySelectorAll('.container-slot').forEach(slot => {
+            if (!slot.classList.contains('filled')) {
+                slot.classList.add('highlight');
+                setTimeout(() => {
+                    slot.classList.remove('highlight');
+                }, 2000);
+            }
+        });
+    }
+
+    openFileUpload() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.multiple = true;
+        input.accept = 'image/*,video/*,.pdf,.doc,.docx,.txt';
+        
+        input.addEventListener('change', (e) => {
+            Array.from(e.target.files).forEach(file => {
+                this.handleFileUpload(file);
+            });
+        });
+        
+        input.click();
+    }
+
+    setupFileUploadDropZone() {
+        const uploadBtn = document.getElementById('upload-content');
+        
+        uploadBtn.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadBtn.classList.add('drag-over');
+        });
+        
+        uploadBtn.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadBtn.classList.remove('drag-over');
+        });
+        
+        uploadBtn.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadBtn.classList.remove('drag-over');
+            
+            Array.from(e.dataTransfer.files).forEach(file => {
+                this.handleFileUpload(file);
+            });
+        });
+    }
+
+    async handleFileUpload(file) {
+        try {
+            this.showFeedback(`Processing ${file.name}...`);
+            
+            // Auto-detect content type
+            const contentType = this.autoDetectContentType(file);
+            
+            // Find next empty container
+            const emptyContainer = this.findEmptyContainer();
+            if (!emptyContainer) {
+                this.showFeedback('No empty containers available. Please clear some content first.');
+                return;
+            }
+            
+            // Upload file
+            const uploadResult = await this.uploadFile(file);
+            if (!uploadResult.success) {
+                this.showFeedback('File upload failed. Please try again.');
+                return;
+            }
+            
+            // Add content to container
+            const containerIndex = parseInt(emptyContainer.dataset.index);
+            this.addDataToContainer(containerIndex, contentType, {
+                file: file,
+                url: uploadResult.url,
+                filename: file.name
+            });
+            
+            this.showFeedback(`${contentType} content added from ${file.name}`);
+            
+        } catch (error) {
+            console.error('File upload error:', error);
+            this.showFeedback('Error processing file. Please try again.');
+        }
+    }
+
+    autoDetectContentType(file) {
+        const mimeType = file.type.toLowerCase();
+        const fileName = file.name.toLowerCase();
+        
+        // Image files
+        if (mimeType.startsWith('image/')) {
+            return 'image';
+        }
+        
+        // Video files
+        if (mimeType.startsWith('video/')) {
+            return 'video';
+        }
+        
+        // 3D model files
+        if (fileName.includes('.gltf') || fileName.includes('.glb') || 
+            fileName.includes('.obj') || fileName.includes('.fbx')) {
+            return '3d-model';
+        }
+        
+        // Document files
+        if (mimeType.includes('pdf') || fileName.includes('.pdf')) {
+            return 'text';
+        }
+        
+        if (mimeType.includes('document') || fileName.includes('.doc') || 
+            fileName.includes('.docx') || fileName.includes('.txt')) {
+            return 'text';
+        }
+        
+        // Default to text for unknown types
+        return 'text';
+    }
+
+    findEmptyContainer() {
+        const containers = document.querySelectorAll('.container-slot');
+        for (let container of containers) {
+            if (!container.classList.contains('filled')) {
+                return container;
+            }
+        }
+        return null;
+    }
+
+    addDataToContainer(containerIndex, dataType, fileData = null) {
+        const container = document.querySelector(`[data-index="${containerIndex}"]`);
+        
+        if (!container) return;
+        
+        // Store old state for undo
+        const oldData = this.containers.get(containerIndex);
+        
+        // Create content based on type
+        let content = this.createContentForType(dataType, fileData);
+        
+        // Update container visual
+        container.innerHTML = content.html;
+        container.classList.add('filled');
+        
+        // Store container data
+        this.containers.set(containerIndex, {
+            type: dataType,
+            content: content.data
+        });
+
+        // Record undo action
+        const action = new ContainerAction(containerIndex, 'add', oldData, {
+            html: content.html,
+            containerData: {
+                type: dataType,
+                content: content.data
+            }
+        });
+        this.undoManager.recordAction(action);
+
+        // Update cockpit systems
+        this.updateSceneStats();
+        this.updateContainerList();
+        this.validateScene();
+
+        // Auto-select for editing
+        this.selectContainer(containerIndex);
+        
+        this.showFeedback(`${dataType.replace('-', ' ').toUpperCase()} content added to container ${containerIndex + 1}`);
+    }
+
+
+
+    createContentForType(dataType, fileData = null) {
+        const contentMap = {
+            'image': {
+                html: `<div class="slot-content">
+                    <div class="slot-ball" style="background: linear-gradient(135deg, #ff6b6b, #ee5a24)"></div>
+                    <span>IMAGE</span>
+                    ${fileData ? `<small>${fileData.filename}</small>` : ''}
+                </div>`,
+                data: fileData ? { url: fileData.url, filename: fileData.filename } : {}
+            },
+            'text': {
+                html: `<div class="slot-content">
+                    <div class="slot-ball" style="background: linear-gradient(135deg, #4ecdc4, #44a08d)"></div>
+                    <span>TEXT</span>
+                    ${fileData ? `<small>${fileData.filename}</small>` : ''}
+                </div>`,
+                data: fileData ? { url: fileData.url, filename: fileData.filename } : {}
+            },
+            'video': {
+                html: `<div class="slot-content">
+                    <div class="slot-ball" style="background: linear-gradient(135deg, #5f27cd, #00d2d3)"></div>
+                    <span>VIDEO</span>
+                    ${fileData ? `<small>${fileData.filename}</small>` : ''}
+                </div>`,
+                data: fileData ? { url: fileData.url, filename: fileData.filename } : {}
+            },
+            'contact': {
+                html: `<div class="slot-content">
+                    <div class="slot-ball" style="background: linear-gradient(135deg, #feca57, #ff9ff3)"></div>
+                    <span>CONTACT</span>
+                </div>`,
+                data: {}
+            },
+            'car-model': {
+                html: `<div class="slot-content">
+                    <div class="slot-ball" style="background: linear-gradient(135deg, #e74c3c, #c0392b)"></div>
+                    <span>🚗 CAR MODEL</span>
+                </div>`,
+                data: {}
+            },
+            'car-specs': {
+                html: `<div class="slot-content">
+                    <div class="slot-ball" style="background: linear-gradient(135deg, #3498db, #2980b9)"></div>
+                    <span>📊 SPECS</span>
+                </div>`,
+                data: {}
+            },
+            'price-calc': {
+                html: `<div class="slot-content">
+                    <div class="slot-ball" style="background: linear-gradient(135deg, #27ae60, #229954)"></div>
+                    <span>💰 PRICING</span>
+                </div>`,
+                data: {}
+            },
+            'property-info': {
+                html: `<div class="slot-content">
+                    <div class="slot-ball" style="background: linear-gradient(135deg, #2ecc71, #27ae60)"></div>
+                    <span>🏠 PROPERTY</span>
+                </div>`,
+                data: {}
+            },
+            'virtual-tour': {
+                html: `<div class="slot-content">
+                    <div class="slot-ball" style="background: linear-gradient(135deg, #e67e22, #d35400)"></div>
+                    <span>🎥 TOUR</span>
+                </div>`,
+                data: {}
+            },
+            'floor-plan': {
+                html: `<div class="slot-content">
+                    <div class="slot-ball" style="background: linear-gradient(135deg, #34495e, #2c3e50)"></div>
+                    <span>📐 FLOOR PLAN</span>
+                </div>`,
+                data: {}
+            }
+        };
+        
+        return contentMap[dataType] || contentMap['text'];
     }
 
     // Industry-Specific Content Forms
@@ -1036,72 +1498,6 @@ class SMeditor {
 
     generateAutomotiveForm(type) {
         switch (type) {
-            case 'vehicle-specs':
-                return `
-                    <div class="automotive-form">
-                        <div class="form-section">
-                            <h4>🚗 Vehicle Information</h4>
-                            <div class="form-row">
-                                <div class="form-field">
-                                    <label>Make</label>
-                                    <input type="text" id="vehicle-make" placeholder="e.g., Toyota">
-                                </div>
-                                <div class="form-field">
-                                    <label>Model</label>
-                                    <input type="text" id="vehicle-model" placeholder="e.g., Camry">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-field">
-                                    <label>Year</label>
-                                    <input type="number" id="vehicle-year" min="1990" max="2024" value="2024">
-                                </div>
-                                <div class="form-field">
-                                    <label>Mileage</label>
-                                    <input type="number" id="vehicle-mileage" placeholder="0">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-field">
-                                    <label>Engine</label>
-                                    <input type="text" id="vehicle-engine" placeholder="e.g., 2.5L I4">
-                                </div>
-                                <div class="form-field">
-                                    <label>Transmission</label>
-                                    <select id="vehicle-transmission">
-                                        <option value="">Select...</option>
-                                        <option value="automatic">Automatic</option>
-                                        <option value="manual">Manual</option>
-                                        <option value="cvt">CVT</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-field">
-                                    <label>Fuel Type</label>
-                                    <select id="vehicle-fuel">
-                                        <option value="">Select...</option>
-                                        <option value="gasoline">Gasoline</option>
-                                        <option value="hybrid">Hybrid</option>
-                                        <option value="electric">Electric</option>
-                                        <option value="diesel">Diesel</option>
-                                    </select>
-                                </div>
-                                <div class="form-field">
-                                    <label>Drivetrain</label>
-                                    <select id="vehicle-drivetrain">
-                                        <option value="">Select...</option>
-                                        <option value="fwd">Front-Wheel Drive</option>
-                                        <option value="rwd">Rear-Wheel Drive</option>
-                                        <option value="awd">All-Wheel Drive</option>
-                                        <option value="4wd">4-Wheel Drive</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
             case 'color-picker':
                 return `
                     <div class="automotive-form">
@@ -1694,6 +2090,20 @@ class SMeditor {
              monthlyPaymentEst.value = Math.round(totalMonthly).toLocaleString();
          }
      }
+
+    updateBrandSettings(key, value) {
+        // Store old value for undo
+        const oldValue = this.brandSettings[key];
+        
+        this.brandSettings[key] = value;
+        
+        // Record undo action
+        const action = new BrandAction(key, oldValue, value);
+        this.undoManager.recordAction(action);
+        
+        this.updateBrandPreview();
+        this.showFeedback(`Brand ${key} updated to ${value}`);
+    }
 }
 
 // Initialize the editor when the page loads

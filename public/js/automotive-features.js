@@ -205,6 +205,14 @@ class AutomotiveFeatures {
             });
         });
 
+        // Color picker button
+        const colorPickerBtn = document.getElementById('open-color-picker');
+        if (colorPickerBtn) {
+            colorPickerBtn.addEventListener('click', () => {
+                this.openColorPicker();
+            });
+        }
+
         // Vehicle options
         document.getElementById('wheel-options').addEventListener('change', (e) => {
             this.changeWheels(e.target.value);
@@ -236,24 +244,74 @@ class AutomotiveFeatures {
         });
     }
 
-    changeVehicleColor(type, color, name) {
-        // This would integrate with the 3D model in the viewer
-        this.smeditor.showFeedback(`${type.charAt(0).toUpperCase() + type.slice(1)} color changed to ${name}`);
+    initializeColorPicker() {
+        // Create color picker container
+        const pickerContainer = document.createElement('div');
+        pickerContainer.id = 'color-picker-container';
+        document.body.appendChild(pickerContainer);
         
-        // Update active selection
-        document.querySelectorAll(`.color-option[data-type="${type}"]`).forEach(opt => {
-            opt.classList.remove('selected');
+        this.colorPicker = new ColorPicker(pickerContainer, {
+            initialColor: this.vehicleConfigurator.color,
+            theme: 'automotive',
+            onChange: (color) => {
+                this.changeVehicleColor('exterior', color, 'Custom Color');
+            },
+            onClose: () => {
+                // Optional: handle close event
+            }
         });
-        document.querySelector(`.color-option[data-color="${color}"][data-type="${type}"]`).classList.add('selected');
-        
-        // Store color change for the vehicle configurator
-        if (!this.vehicleConfigurator) {
-            this.vehicleConfigurator = {};
+    }
+
+    openColorPicker() {
+        if (this.colorPicker) {
+            this.colorPicker.setColor(this.vehicleConfigurator.color);
+            this.colorPicker.open();
         }
-        this.vehicleConfigurator[type + 'Color'] = { color, name };
+    }
+
+    changeVehicleColor(type, color, name) {
+        this.vehicleConfigurator.color = color;
         
-        // Broadcast color change to viewer if active
-        this.broadcastToViewer('colorChange', { type, color, name });
+        // Update UI
+        const colorDisplay = document.querySelector('.current-color');
+        if (colorDisplay) {
+            colorDisplay.style.backgroundColor = color;
+            colorDisplay.textContent = name;
+        }
+        
+        // Update 3D scene
+        this.updateVehicleInScene(color);
+        
+        // Update pricing
+        this.updatePricing();
+        
+        this.smeditor.showFeedback(`Vehicle color changed to ${name}`);
+        
+        // Broadcast to viewer
+        this.broadcastToViewer('colorChange', {
+            type: type,
+            color: color,
+            name: name
+        });
+    }
+
+    updateVehicleInScene(color) {
+        // Update the vehicle entity in the 3D scene
+        const manager = window.PlayCanvasManager;
+        if (manager && manager.app) {
+            // Find vehicle entities and update their materials
+            const vehicleEntities = manager.app.root.findByTag('vehicle');
+            vehicleEntities.forEach(entity => {
+                if (entity.model && entity.model.material) {
+                    entity.model.material.diffuse = new pc.Color(
+                        parseInt(color.slice(1, 3), 16) / 255,
+                        parseInt(color.slice(3, 5), 16) / 255,
+                        parseInt(color.slice(5, 7), 16) / 255
+                    );
+                    entity.model.material.update();
+                }
+            });
+        }
     }
 
     changeWheels(wheelModel) {

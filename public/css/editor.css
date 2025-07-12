@@ -1420,3 +1420,734 @@ body {
 .realestate-validation {
     border-left-color: #2ecc71;
 }
+
+/* Content Interface Styles */
+.interface-toggle {
+    display: flex;
+    gap: 4px;
+    margin-left: auto;
+}
+
+.mode-toggle {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mode-toggle.active {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.content-interface {
+    display: none;
+}
+
+.content-interface.active {
+    display: block;
+}
+
+.content-types {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 1rem;
+}
+
+.content-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.content-btn:hover {
+    border-color: #007bff;
+    background: #f8f9ff;
+    transform: translateY(-1px);
+}
+
+.content-btn:active {
+    transform: translateY(0);
+}
+
+.content-icon {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+}
+
+.content-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.industry-content {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.industry-content .content-types {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.content-actions {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.content-actions .btn-secondary {
+    width: 100%;
+    padding: 12px;
+    border: 2px dashed #d1d5db;
+    background: #f9fafb;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.content-actions .btn-secondary:hover {
+    border-color: #007bff;
+    background: #f0f8ff;
+}
+
+.content-note {
+    display: block;
+    text-align: center;
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+/* Industry-specific button colors */
+.image-btn:hover { border-color: #ff6b6b; background: #fff5f5; }
+.text-btn:hover { border-color: #4ecdc4; background: #f0fffd; }
+.video-btn:hover { border-color: #5f27cd; background: #f8f5ff; }
+.contact-btn:hover { border-color: #feca57; background: #fffbeb; }
+
+.car-btn:hover { border-color: #e74c3c; background: #fef2f2; }
+.specs-btn:hover { border-color: #3498db; background: #f0f8ff; }
+.price-btn:hover { border-color: #27ae60; background: #f0fff4; }
+
+.property-btn:hover { border-color: #2ecc71; background: #f0fff4; }
+.tour-btn:hover { border-color: #e67e22; background: #fff7ed; }
+.floor-btn:hover { border-color: #34495e; background: #f8f9fa; }
+
+/* File upload drop zone */
+.upload-drop-zone {
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    background: #f9fafb;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.upload-drop-zone.drag-over {
+    border-color: #007bff;
+    background: #f0f8ff;
+}
+
+.upload-drop-zone .upload-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #6b7280;
+}
+
+.upload-drop-zone .upload-text {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+/* Container highlight effect */
+.container-slot.highlight {
+    animation: pulse-highlight 2s ease-in-out;
+    border: 2px solid #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
+@keyframes pulse-highlight {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+    }
+}
+
+/* Improved content button states */
+.content-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.content-btn.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.content-btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 2px solid #007bff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* File upload improvements */
+.upload-drop-zone {
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-drop-zone input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Content type indicators */
+.content-type-indicator {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #007bff;
+    border: 2px solid white;
+}
+
+/* Industry content transitions */
+.industry-content {
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.industry-content.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Interface toggle improvements */
+.interface-toggle {
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 2px;
+}
+
+.mode-toggle {
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.mode-toggle.active {
+    background: white;
+    color: #007bff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Content interface transitions */
+.content-interface {
+    transition: opacity 0.3s ease;
+}
+
+.content-interface:not(.active) {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .content-types {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    
+    .content-btn {
+        padding: 16px 12px;
+        min-height: 80px;
+    }
+    
+    .content-icon {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+    }
+    
+    .content-label {
+        font-size: 0.875rem;
+        line-height: 1.2;
+    }
+    
+    .interface-toggle {
+        margin-top: 8px;
+    }
+    
+    .mode-toggle {
+        padding: 6px 12px;
+        font-size: 0.875rem;
+    }
+}
+
+/* Color Picker Styles */
+.color-picker {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(24, 31, 42, 0.95);
+    border: 2px solid var(--primary-color, #00ffe7);
+    border-radius: 12px;
+    box-shadow: 0 0 32px 8px rgba(0, 255, 231, 0.3);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    min-width: 320px;
+    display: none;
+    font-family: 'Inter', sans-serif;
+}
+
+.color-picker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(0, 255, 231, 0.2);
+    background: linear-gradient(135deg, rgba(0, 255, 231, 0.1), rgba(255, 0, 102, 0.1));
+}
+
+.color-picker-title {
+    color: var(--primary-color, #00ffe7);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-shadow: 0 0 8px rgba(0, 255, 231, 0.5);
+}
+
+.color-picker-close {
+    background: none;
+    border: none;
+    color: var(--primary-color, #00ffe7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.color-picker-close:hover {
+    background: rgba(0, 255, 231, 0.1);
+    text-shadow: 0 0 8px rgba(0, 255, 231, 0.8);
+}
+
+.color-picker-content {
+    padding: 1.5rem;
+}
+
+.color-preview {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 231, 0.2);
+}
+
+.color-swatch {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 16px rgba(0, 255, 231, 0.3);
+    flex-shrink: 0;
+}
+
+.color-hex {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 231, 0.3);
+    border-radius: 6px;
+    padding: 0.5rem;
+    color: var(--primary-color, #00ffe7);
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9rem;
+    width: 100%;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.color-hex:focus {
+    border-color: var(--primary-color, #00ffe7);
+    box-shadow: 0 0 8px rgba(0, 255, 231, 0.4);
+}
+
+.color-controls {
+    margin-bottom: 1.5rem;
+}
+
+.color-controls > div {
+    margin-bottom: 1rem;
+}
+
+.color-controls label {
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.color-controls input[type="range"] {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.color-controls input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--primary-color, #00ffe7);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(0, 255, 231, 0.6);
+    transition: all 0.2s ease;
+}
+
+.color-controls input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 12px rgba(0, 255, 231, 0.8);
+}
+
+.color-controls input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--primary-color, #00ffe7);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 8px rgba(0, 255, 231, 0.6);
+}
+
+.color-presets {
+    margin-bottom: 1.5rem;
+}
+
+.preset-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.preset-color {
+    width: 100%;
+    height: 32px;
+    border-radius: 6px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.preset-color::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.preset-color:hover::before {
+    transform: translateX(100%);
+}
+
+.preset-color:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(0, 255, 231, 0.4);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.color-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.color-actions .cockpit-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Theme variations */
+.color-picker.automotive-theme {
+    border-color: var(--primary-color, #ffaa00);
+    box-shadow: 0 0 32px 8px rgba(255, 170, 0, 0.3);
+}
+
+.color-picker.automotive-theme .color-picker-header {
+    background: linear-gradient(135deg, rgba(255, 170, 0, 0.1), rgba(0, 255, 136, 0.1));
+}
+
+.color-picker.branding-theme {
+    border-color: var(--primary-color, #8800ff);
+    box-shadow: 0 0 32px 8px rgba(136, 0, 255, 0.3);
+}
+
+.color-picker.branding-theme .color-picker-header {
+    background: linear-gradient(135deg, rgba(136, 0, 255, 0.1), rgba(255, 0, 136, 0.1));
+}
+
+/* Tooltip Styles */
+.cockpit-tooltip {
+    position: fixed;
+    background: rgba(24, 31, 42, 0.95);
+    border: 1px solid var(--primary-color, #00ffe7);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    z-index: 10000;
+    pointer-events: none;
+    box-shadow: 0 0 16px 4px rgba(0, 255, 231, 0.2);
+    backdrop-filter: blur(8px);
+    max-width: 280px;
+    word-wrap: break-word;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: none;
+}
+
+.cockpit-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cockpit-tooltip::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+}
+
+.cockpit-tooltip[data-position="top"]::before {
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--primary-color, #00ffe7);
+    border-bottom: none;
+}
+
+.cockpit-tooltip[data-position="bottom"]::before {
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: var(--primary-color, #00ffe7);
+    border-top: none;
+}
+
+.cockpit-tooltip[data-position="left"]::before {
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: var(--primary-color, #00ffe7);
+    border-right: none;
+}
+
+.cockpit-tooltip[data-position="right"]::before {
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: var(--primary-color, #00ffe7);
+    border-left: none;
+}
+
+/* Tooltip content styling */
+.cockpit-tooltip strong {
+    color: var(--primary-color, #00ffe7);
+    font-weight: 600;
+}
+
+.cockpit-tooltip code {
+    background: rgba(0, 255, 231, 0.1);
+    padding: 0.125rem 0.25rem;
+    border-radius: 3px;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.8em;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .cockpit-tooltip {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .cockpit-tooltip {
+        background: rgba(0, 0, 0, 0.95);
+        border-width: 2px;
+        box-shadow: 0 0 8px rgba(0, 255, 231, 0.8);
+    }
+}
+
+/* Undo/Redo Button Styles */
+.cockpit-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(0, 255, 231, 0.1);
+    border: 1px solid rgba(0, 255, 231, 0.3);
+    border-radius: 8px;
+    color: var(--primary-color, #00ffe7);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    text-shadow: 0 0 8px rgba(0, 255, 231, 0.3);
+}
+
+.cockpit-btn:hover:not(.disabled) {
+    background: rgba(0, 255, 231, 0.2);
+    border-color: rgba(0, 255, 231, 0.5);
+    box-shadow: 0 0 12px rgba(0, 255, 231, 0.3);
+    transform: translateY(-1px);
+}
+
+.cockpit-btn:active:not(.disabled) {
+    transform: translateY(0);
+    box-shadow: 0 0 8px rgba(0, 255, 231, 0.4);
+}
+
+.cockpit-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.cockpit-btn.disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.cockpit-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+}
+
+/* Separator between button groups */
+.separator {
+    width: 1px;
+    height: 24px;
+    background: rgba(0, 255, 231, 0.3);
+    margin: 0 0.5rem;
+}
+
+/* Keyboard shortcut hints */
+.shortcut-hint {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* Undo/Redo specific styles */
+#undo-btn, #redo-btn {
+    position: relative;
+    min-width: 80px;
+    justify-content: center;
+}
+
+#undo-btn::after,
+#redo-btn::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+}
+
+#undo-btn:hover::after,
+#redo-btn:hover::after {
+    opacity: 1;
+}
+
+/* Animation for undo/redo feedback */
+@keyframes undoRedoFeedback {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.cockpit-btn.feedback {
+    animation: undoRedoFeedback 0.3s ease;
+}

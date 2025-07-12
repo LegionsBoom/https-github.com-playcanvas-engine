@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - Static Motion</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <style>
+        .auth-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-tab.active {
+            border-bottom-color: #007bff;
+            color: #007bff;
+        }
+        
+        .auth-form {
+            display: none;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 0.75rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+        
+        .btn-primary:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .loading-spinner.show {
+            display: block;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+        
+        .success-message {
+            color: #155724;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .auth-footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <h1 style="text-align: center; margin-bottom: 2rem;">Static Motion</h1>
+        
+        <div class="auth-tabs">
+            <div class="auth-tab active" data-tab="signin">Sign In</div>
+            <div class="auth-tab" data-tab="signup">Sign Up</div>
+        </div>
+        
+        <!-- Sign In Form -->
+        <form id="signin-form" class="auth-form active">
+            <div class="form-group">
+                <label for="signin-email">Email</label>
+                <input type="email" id="signin-email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="signin-password">Password</label>
+                <input type="password" id="signin-password" name="password" required>
+            </div>
+            
+            <button type="submit" class="btn-primary">Sign In</button>
+        </form>
+        
+        <!-- Sign Up Form -->
+        <form id="signup-form" class="auth-form">
+            <div class="form-group">
+                <label for="signup-full-name">Full Name</label>
+                <input type="text" id="signup-full-name" name="full_name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="signup-email">Email</label>
+                <input type="email" id="signup-email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" name="password" required minlength="6">
+            </div>
+            
+            <div class="form-group">
+                <label for="signup-company">Company Name</label>
+                <input type="text" id="signup-company" name="company_name">
+            </div>
+            
+            <div class="form-group">
+                <label for="signup-industry">Industry</label>
+                <select id="signup-industry" name="user_type" required>
+                    <option value="">Select Industry</option>
+                    <option value="automotive">🚗 Automotive</option>
+                    <option value="realestate">🏠 Real Estate</option>
+                    <option value="enterprise">🏢 Enterprise</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="signup-phone">Phone (Optional)</label>
+                <input type="tel" id="signup-phone" name="phone">
+            </div>
+            
+            <button type="submit" class="btn-primary">Create Account</button>
+        </form>
+        
+        <div class="loading-spinner">
+            <div>Loading...</div>
+        </div>
+        
+        <div class="auth-footer">
+            <a href="/">← Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Supabase Client -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script>
+        // Initialize Supabase client
+        window.supabase = supabase.createClient(
+            'YOUR_SUPABASE_URL',
+            'YOUR_SUPABASE_ANON_KEY'
+        );
+    </script>
+    
+    <!-- Auth Scripts -->
+    <script src="/js/supabase-client.js"></script>
+    <script src="/js/auth.js"></script>
+    
+    <script>
+        // Tab switching
+        document.querySelectorAll('.auth-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabName = tab.dataset.tab;
+                
+                // Update active tab
+                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Update active form
+                document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+                document.getElementById(`${tabName}-form`).classList.add('active');
+            });
+        });
+        
+        // Form submission
+        document.getElementById('signin-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const email = formData.get('email');
+            const password = formData.get('password');
+            
+            try {
+                const result = await window.supabaseClient.signIn(email, password);
+                
+                if (result.success) {
+                    window.location.href = '/editor';
+                } else {
+                    showError(result.error);
+                }
+            } catch (error) {
+                showError('An unexpected error occurred');
+            }
+        });
+        
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const userData = {
+                full_name: formData.get('full_name'),
+                user_type: formData.get('user_type'),
+                company_name: formData.get('company_name'),
+                phone: formData.get('phone')
+            };
+            
+            const email = formData.get('email');
+            const password = formData.get('password');
+            
+            try {
+                const result = await window.supabaseClient.signUp(email, password, userData);
+                
+                if (result.success) {
+                    showSuccess('Account created successfully! Please check your email to verify your account.');
+                    // Switch to signin tab
+                    document.querySelector('[data-tab="signin"]').click();
+                } else {
+                    showError(result.error);
+                }
+            } catch (error) {
+                showError('An unexpected error occurred');
+            }
+        });
+        
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            
+            const activeForm = document.querySelector('.auth-form.active');
+            activeForm.insertBefore(errorDiv, activeForm.firstChild);
+            
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+        }
+        
+        function showSuccess(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message';
+            successDiv.textContent = message;
+            
+            const activeForm = document.querySelector('.auth-form.active');
+            activeForm.insertBefore(successDiv, activeForm.firstChild);
+            
+            setTimeout(() => {
+                successDiv.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html> 
