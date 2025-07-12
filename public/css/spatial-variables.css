@@ -1,0 +1,663 @@
+/**
+ * Spatial Variables CSS
+ * Styles for Spatial Variables and Communication Interface
+ * Developed by Fungai Taranhike
+ */
+
+/* Spatial Variables Panel */
+.spatial-variables-panel {
+    background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #16213e 100%);
+    border: 2px solid #00bcd4;
+    border-radius: 12px;
+    margin: 10px;
+    padding: 15px;
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 8px 32px rgba(0, 188, 212, 0.3);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.spatial-variables-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(0, 188, 212, 0.1) 50%, transparent 70%);
+    animation: spatialShimmer 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes spatialShimmer {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+}
+
+/* Panel Header */
+.spatial-variables-panel .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(0, 188, 212, 0.3);
+}
+
+.spatial-variables-panel .panel-header h3 {
+    margin: 0;
+    color: #00bcd4;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.spatial-variables-panel .panel-header h3 i {
+    margin-right: 8px;
+    color: #ff5722;
+}
+
+.creator-signature {
+    font-size: 12px;
+    color: #4caf50;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Variable Sections */
+.variable-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 188, 212, 0.2);
+}
+
+.variable-section h4 {
+    margin: 0 0 15px 0;
+    color: #ff5722;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(255, 87, 34, 0.3);
+    padding-bottom: 5px;
+}
+
+/* Variable Creation */
+.variable-creation {
+    display: grid;
+    gap: 15px;
+}
+
+.variable-creation .input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.variable-creation label {
+    color: #4caf50;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.variable-creation input,
+.variable-creation select {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(0, 188, 212, 0.3);
+    border-radius: 6px;
+    color: #ffffff;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    transition: all 0.3s ease;
+}
+
+.variable-creation input:focus,
+.variable-creation select:focus {
+    outline: none;
+    border-color: #00bcd4;
+    box-shadow: 0 0 15px rgba(0, 188, 212, 0.3);
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.variable-creation input:hover,
+.variable-creation select:hover {
+    border-color: #4caf50;
+}
+
+.create-btn {
+    background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.create-btn:hover {
+    background: linear-gradient(135deg, #0097a7 0%, #00695c 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 188, 212, 0.4);
+}
+
+.create-btn i {
+    margin-right: 8px;
+}
+
+/* Operation Groups */
+.operation-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* Variable Operations */
+.var-btn {
+    background: linear-gradient(135deg, #3f51b5 0%, #303f9f 100%);
+    border: 2px solid #00bcd4;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 10px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.var-btn:hover {
+    background: linear-gradient(135deg, #303f9f 0%, #1a237e 100%);
+    border-color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(63, 81, 181, 0.4);
+}
+
+.var-btn i {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #ff9800;
+}
+
+/* Communication Operations */
+.comm-btn {
+    background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+    border: 2px solid #00bcd4;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 10px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.comm-btn:hover {
+    background: linear-gradient(135deg, #388e3c 0%, #2e7d32 100%);
+    border-color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.comm-btn i {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #ffeb3b;
+}
+
+/* Quantum Operations */
+.quantum-btn {
+    background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%);
+    border: 2px solid #00bcd4;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 10px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.quantum-btn:hover {
+    background: linear-gradient(135deg, #7b1fa2 0%, #4a148c 100%);
+    border-color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+}
+
+.quantum-btn i {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #e1bee7;
+}
+
+/* Consciousness Operations */
+.consciousness-btn {
+    background: linear-gradient(135deg, #ff5722 0%, #e64a19 100%);
+    border: 2px solid #00bcd4;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 10px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.consciousness-btn:hover {
+    background: linear-gradient(135deg, #e64a19 0%, #bf360c 100%);
+    border-color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
+}
+
+.consciousness-btn i {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #ffcc02;
+}
+
+/* Dimensional Operations */
+.dimensional-btn {
+    background: linear-gradient(135deg, #607d8b 0%, #455a64 100%);
+    border: 2px solid #00bcd4;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 10px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dimensional-btn:hover {
+    background: linear-gradient(135deg, #455a64 0%, #263238 100%);
+    border-color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(96, 125, 139, 0.4);
+}
+
+.dimensional-btn i {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #b0bec5;
+}
+
+/* Variable Display */
+.variable-display {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid rgba(0, 188, 212, 0.2);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.variable-list {
+    display: grid;
+    gap: 10px;
+}
+
+.variable-item {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 188, 212, 0.2);
+    border-radius: 6px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.variable-name {
+    color: #00bcd4;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.variable-type {
+    color: #ff5722;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.variable-value {
+    color: #4caf50;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+}
+
+.variable-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.action-btn {
+    background: rgba(0, 188, 212, 0.2);
+    border: 1px solid rgba(0, 188, 212, 0.3);
+    border-radius: 4px;
+    color: #ffffff;
+    padding: 4px 8px;
+    font-size: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: rgba(0, 188, 212, 0.4);
+    border-color: #00bcd4;
+}
+
+.no-variables {
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Communication Status */
+.communication-status {
+    display: grid;
+    gap: 8px;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    border: 1px solid rgba(0, 188, 212, 0.2);
+}
+
+.status-label {
+    color: #4caf50;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-value {
+    color: #ffffff;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+}
+
+/* Results Display */
+.results-display {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid rgba(0, 188, 212, 0.2);
+}
+
+.result-text {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #ffffff;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    border-left: 4px solid #00bcd4;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+    min-height: 20px;
+}
+
+.result-text.success {
+    border-left-color: #4caf50;
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.result-text.error {
+    border-left-color: #f44336;
+    background: rgba(244, 67, 54, 0.1);
+    color: #ffcdd2;
+}
+
+/* Visualization Container */
+.visualization-container {
+    min-height: 100px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    padding: 10px;
+    border: 1px solid rgba(0, 188, 212, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .spatial-variables-panel {
+        margin: 5px;
+        padding: 10px;
+    }
+    
+    .operation-group {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 8px;
+    }
+    
+    .var-btn,
+    .comm-btn,
+    .quantum-btn,
+    .consciousness-btn,
+    .dimensional-btn {
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+    
+    .var-btn i,
+    .comm-btn i,
+    .quantum-btn i,
+    .consciousness-btn i,
+    .dimensional-btn i {
+        font-size: 12px;
+    }
+    
+    .variable-item {
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+    
+    .variable-actions {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .operation-group {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .var-btn,
+    .comm-btn,
+    .quantum-btn,
+    .consciousness-btn,
+    .dimensional-btn {
+        padding: 6px 4px;
+        font-size: 10px;
+    }
+    
+    .var-btn i,
+    .comm-btn i,
+    .quantum-btn i,
+    .consciousness-btn i,
+    .dimensional-btn i {
+        font-size: 10px;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Special Effects */
+.glow {
+    box-shadow: 0 0 20px rgba(0, 188, 212, 0.5);
+}
+
+.neon-border {
+    border: 2px solid #00bcd4;
+    box-shadow: 
+        0 0 5px rgba(0, 188, 212, 0.5),
+        0 0 10px rgba(0, 188, 212, 0.3),
+        0 0 15px rgba(0, 188, 212, 0.1);
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 188, 212, 0.2), transparent);
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Error States */
+.error-state {
+    border-color: #f44336;
+    background: rgba(244, 67, 54, 0.1);
+}
+
+.error-state .var-btn,
+.error-state .comm-btn,
+.error-state .quantum-btn,
+.error-state .consciousness-btn,
+.error-state .dimensional-btn {
+    border-color: #f44336;
+    color: #ffcdd2;
+}
+
+/* Success States */
+.success-state {
+    border-color: #4caf50;
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.success-state .var-btn,
+.success-state .comm-btn,
+.success-state .quantum-btn,
+.success-state .consciousness-btn,
+.success-state .dimensional-btn {
+    border-color: #4caf50;
+    color: #c8e6c9;
+}
+
+/* Communication Effects */
+.communication-effect {
+    position: relative;
+}
+
+.communication-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(0, 188, 212, 0.1) 0%, transparent 70%);
+    animation: communicationPulse 2s ease-in-out infinite;
+}
+
+@keyframes communicationPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+/* Quantum Effects */
+.quantum-effect {
+    background: linear-gradient(135deg, rgba(156, 39, 176, 0.1) 0%, rgba(0, 188, 212, 0.1) 100%);
+    border: 2px solid rgba(156, 39, 176, 0.3);
+}
+
+.quantum-effect .quantum-btn {
+    background: linear-gradient(135deg, rgba(156, 39, 176, 0.2) 0%, rgba(0, 188, 212, 0.2) 100%);
+    border-color: rgba(156, 39, 176, 0.5);
+}
+
+/* Consciousness Effects */
+.consciousness-effect {
+    background: linear-gradient(135deg, rgba(255, 87, 34, 0.1) 0%, rgba(0, 188, 212, 0.1) 100%);
+    border: 2px solid rgba(255, 87, 34, 0.3);
+}
+
+.consciousness-effect .consciousness-btn {
+    background: linear-gradient(135deg, rgba(255, 87, 34, 0.2) 0%, rgba(0, 188, 212, 0.2) 100%);
+    border-color: rgba(255, 87, 34, 0.5);
+}
+
+/* Dimensional Effects */
+.dimensional-effect {
+    background: linear-gradient(135deg, rgba(96, 125, 139, 0.1) 0%, rgba(0, 188, 212, 0.1) 100%);
+    border: 2px solid rgba(96, 125, 139, 0.3);
+}
+
+.dimensional-effect .dimensional-btn {
+    background: linear-gradient(135deg, rgba(96, 125, 139, 0.2) 0%, rgba(0, 188, 212, 0.2) 100%);
+    border-color: rgba(96, 125, 139, 0.5);
+} 

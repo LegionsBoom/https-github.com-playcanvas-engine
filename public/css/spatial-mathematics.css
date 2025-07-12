@@ -1,0 +1,526 @@
+/**
+ * Spatial Mathematics CSS
+ * Styles for SMSI (Spatial Mathematics and Self-Improving Intelligence) Interface
+ * Developed by Fungai Taranhike
+ */
+
+/* Spatial Mathematics Panel */
+.spatial-math-panel {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border: 2px solid #00d4ff;
+    border-radius: 12px;
+    margin: 10px;
+    padding: 15px;
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.spatial-math-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(0, 212, 255, 0.1) 50%, transparent 70%);
+    animation: shimmer 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+}
+
+/* Panel Header */
+.spatial-math-panel .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+}
+
+.spatial-math-panel .panel-header h3 {
+    margin: 0;
+    color: #00d4ff;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.spatial-math-panel .panel-header h3 i {
+    margin-right: 8px;
+    color: #ff6b6b;
+}
+
+.creator-signature {
+    font-size: 12px;
+    color: #64ffda;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Math Sections */
+.math-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.math-section h4 {
+    margin: 0 0 15px 0;
+    color: #ff6b6b;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(255, 107, 107, 0.3);
+    padding-bottom: 5px;
+}
+
+/* Operation Grid */
+.operation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.math-btn {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    border: 2px solid #00d4ff;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 12px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.math-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.math-btn:hover::before {
+    left: 100%;
+}
+
+.math-btn:hover {
+    background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+    border-color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+}
+
+.math-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+}
+
+.math-btn i {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #ff6b6b;
+}
+
+.math-btn:hover i {
+    color: #ffffff;
+}
+
+/* Input Controls */
+.input-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    color: #64ffda;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input-group input {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(0, 212, 255, 0.3);
+    border-radius: 6px;
+    color: #ffffff;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #00d4ff;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.input-group input:hover {
+    border-color: #64ffda;
+}
+
+/* Results Display */
+.results-display {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.result-text {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #ffffff;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    border-left: 4px solid #00d4ff;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+    min-height: 20px;
+}
+
+.result-text.success {
+    border-left-color: #4CAF50;
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.result-text.error {
+    border-left-color: #F44336;
+    background: rgba(244, 67, 54, 0.1);
+    color: #ffcdd2;
+}
+
+@keyframes resultPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+/* Visualization Container */
+.visualization-container {
+    min-height: 100px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    padding: 10px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+/* Visualization Components */
+.viz-bar-chart {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    height: 120px;
+    gap: 10px;
+}
+
+.viz-bar {
+    background: linear-gradient(to top, #00d4ff, #0099cc);
+    border-radius: 4px 4px 0 0;
+    min-width: 30px;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 212, 255, 0.3);
+}
+
+.viz-bar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 20px rgba(0, 212, 255, 0.5);
+}
+
+.viz-label {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: #64ffda;
+    font-weight: bold;
+}
+
+.viz-multi-chart {
+    display: flex;
+    align-items: end;
+    justify-content: space-around;
+    height: 100px;
+    gap: 5px;
+}
+
+.viz-multi-chart .viz-bar {
+    flex: 1;
+    min-width: 20px;
+}
+
+.viz-object {
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+}
+
+.viz-title {
+    color: #ff6b6b;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.viz-properties {
+    display: grid;
+    gap: 5px;
+}
+
+.viz-property {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+    border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.viz-key {
+    color: #64ffda;
+    font-weight: bold;
+}
+
+.viz-value {
+    color: #ffffff;
+}
+
+/* Status Display */
+.status-display {
+    display: grid;
+    gap: 8px;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.status-label {
+    color: #64ffda;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-value {
+    color: #ffffff;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .spatial-math-panel {
+        margin: 5px;
+        padding: 10px;
+    }
+    
+    .operation-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 8px;
+    }
+    
+    .math-btn {
+        padding: 10px 6px;
+        font-size: 11px;
+    }
+    
+    .math-btn i {
+        font-size: 14px;
+    }
+    
+    .input-controls {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .result-text {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .operation-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .math-btn {
+        padding: 8px 4px;
+        font-size: 10px;
+    }
+    
+    .math-btn i {
+        font-size: 12px;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Special Effects */
+.glow {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+.neon-border {
+    border: 2px solid #00d4ff;
+    box-shadow: 
+        0 0 5px rgba(0, 212, 255, 0.5),
+        0 0 10px rgba(0, 212, 255, 0.3),
+        0 0 15px rgba(0, 212, 255, 0.1);
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Error States */
+.error-state {
+    border-color: #F44336;
+    background: rgba(244, 67, 54, 0.1);
+}
+
+.error-state .math-btn {
+    border-color: #F44336;
+    color: #ffcdd2;
+}
+
+/* Success States */
+.success-state {
+    border-color: #4CAF50;
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.success-state .math-btn {
+    border-color: #4CAF50;
+    color: #c8e6c9;
+}
+
+/* Quantum Effects */
+.quantum-effect {
+    position: relative;
+}
+
+.quantum-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+    animation: quantumPulse 2s ease-in-out infinite;
+}
+
+@keyframes quantumPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+/* Consciousness Effects */
+.consciousness-effect {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+    border: 2px solid rgba(255, 107, 107, 0.3);
+}
+
+.consciousness-effect .math-btn {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.2) 0%, rgba(0, 212, 255, 0.2) 100%);
+    border-color: rgba(255, 107, 107, 0.5);
+}
+
+/* Evolution Effects */
+.evolution-effect {
+    background: linear-gradient(135deg, rgba(100, 255, 218, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+    border: 2px solid rgba(100, 255, 218, 0.3);
+}
+
+.evolution-effect .math-btn {
+    background: linear-gradient(135deg, rgba(100, 255, 218, 0.2) 0%, rgba(0, 212, 255, 0.2) 100%);
+    border-color: rgba(100, 255, 218, 0.5);
+} 

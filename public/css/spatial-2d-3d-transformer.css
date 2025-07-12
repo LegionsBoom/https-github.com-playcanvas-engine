@@ -1,0 +1,635 @@
+/**
+ * Spatial 2D to 3D Transformer CSS
+ * Modern scientific design for spatial transformation interface
+ * Developed by Fungai Taranhike
+ */
+
+/* Spatial 2D to 3D Transformer Panel */
+.spatial-2d3d-panel {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border: 1px solid #4a90e2;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 15px;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.spatial-2d3d-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #4a90e2, #7b68ee, #4a90e2);
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Panel Header */
+.spatial-2d3d-panel .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #4a90e2;
+}
+
+.spatial-2d3d-panel .panel-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #4a90e2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.spatial-2d3d-panel .panel-header h3 i {
+    color: #7b68ee;
+}
+
+.spatial-2d3d-panel .creator-signature {
+    font-size: 12px;
+    color: #7b68ee;
+    font-style: italic;
+}
+
+/* Transformer Sections */
+.spatial-2d3d-panel .transformer-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(26, 26, 46, 0.6);
+    border: 1px solid #2a4a6b;
+    border-radius: 6px;
+    backdrop-filter: blur(10px);
+}
+
+.spatial-2d3d-panel .transformer-section h4 {
+    margin: 0 0 15px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a90e2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.spatial-2d3d-panel .transformer-section h4::before {
+    content: '🔄';
+    font-size: 16px;
+}
+
+/* Data Inputs */
+.spatial-2d3d-panel .data-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.spatial-2d3d-panel .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.spatial-2d3d-panel .input-group label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #7b68ee;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.spatial-2d3d-panel .input-group textarea,
+.spatial-2d3d-panel .input-group input,
+.spatial-2d3d-panel .input-group select {
+    background: rgba(15, 52, 96, 0.8);
+    border: 1px solid #4a90e2;
+    border-radius: 4px;
+    padding: 8px 12px;
+    color: #ffffff;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    transition: all 0.3s ease;
+}
+
+.spatial-2d3d-panel .input-group textarea:focus,
+.spatial-2d3d-panel .input-group input:focus,
+.spatial-2d3d-panel .input-group select:focus {
+    outline: none;
+    border-color: #7b68ee;
+    box-shadow: 0 0 0 2px rgba(123, 104, 238, 0.2);
+    background: rgba(15, 52, 96, 0.9);
+}
+
+.spatial-2d3d-panel .input-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.spatial-2d3d-panel .input-group textarea::placeholder {
+    color: #7b68ee;
+    opacity: 0.6;
+}
+
+/* Algorithm and Method Selection */
+.spatial-2d3d-panel .algorithm-selection,
+.spatial-2d3d-panel .method-selection {
+    display: flex;
+    gap: 10px;
+}
+
+.spatial-2d3d-panel .algorithm-selection select,
+.spatial-2d3d-panel .method-selection select {
+    flex: 1;
+    background: rgba(15, 52, 96, 0.8);
+    border: 1px solid #4a90e2;
+    border-radius: 4px;
+    padding: 10px 12px;
+    color: #ffffff;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.spatial-2d3d-panel .algorithm-selection select:hover,
+.spatial-2d3d-panel .method-selection select:hover {
+    border-color: #7b68ee;
+    background: rgba(15, 52, 96, 0.9);
+}
+
+/* Parameter Inputs */
+.spatial-2d3d-panel .parameter-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.spatial-2d3d-panel .parameter-inputs .input-group {
+    margin-bottom: 0;
+}
+
+/* Training Actions */
+.spatial-2d3d-panel .training-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.spatial-2d3d-panel .train-btn,
+.spatial-2d3d-panel .transform-btn,
+.spatial-2d3d-panel .validate-btn,
+.spatial-2d3d-panel .compare-btn {
+    background: linear-gradient(135deg, #4a90e2 0%, #7b68ee 100%);
+    border: none;
+    border-radius: 6px;
+    padding: 12px 16px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.spatial-2d3d-panel .train-btn:hover,
+.spatial-2d3d-panel .transform-btn:hover,
+.spatial-2d3d-panel .validate-btn:hover,
+.spatial-2d3d-panel .compare-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+    background: linear-gradient(135deg, #7b68ee 0%, #4a90e2 100%);
+}
+
+.spatial-2d3d-panel .train-btn:active,
+.spatial-2d3d-panel .transform-btn:active,
+.spatial-2d3d-panel .validate-btn:active,
+.spatial-2d3d-panel .compare-btn:active {
+    transform: translateY(0);
+}
+
+/* Model Management */
+.spatial-2d3d-panel .model-management {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.spatial-2d3d-panel .model-selection select {
+    width: 100%;
+    background: rgba(15, 52, 96, 0.8);
+    border: 1px solid #4a90e2;
+    border-radius: 4px;
+    padding: 10px 12px;
+    color: #ffffff;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.spatial-2d3d-panel .model-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+}
+
+.spatial-2d3d-panel .model-btn {
+    background: rgba(74, 144, 226, 0.2);
+    border: 1px solid #4a90e2;
+    border-radius: 4px;
+    padding: 8px 12px;
+    color: #4a90e2;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.spatial-2d3d-panel .model-btn:hover {
+    background: rgba(74, 144, 226, 0.3);
+    border-color: #7b68ee;
+    color: #7b68ee;
+}
+
+/* Results Display */
+.spatial-2d3d-panel .results-display {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.spatial-2d3d-panel .result-text {
+    background: rgba(15, 52, 96, 0.8);
+    border: 1px solid #4a90e2;
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    color: #ffffff;
+    min-height: 60px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.spatial-2d3d-panel .metrics-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.spatial-2d3d-panel .metric-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(26, 26, 46, 0.6);
+    border: 1px solid #2a4a6b;
+    border-radius: 4px;
+}
+
+.spatial-2d3d-panel .metric-label {
+    font-size: 11px;
+    color: #7b68ee;
+    font-weight: 500;
+}
+
+.spatial-2d3d-panel .metric-value {
+    font-size: 11px;
+    color: #4a90e2;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+}
+
+/* Validation Display */
+.spatial-2d3d-panel .validation-display {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.spatial-2d3d-panel .validation-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.spatial-2d3d-panel .validation-group h5 {
+    margin: 0 0 15px 0;
+    font-size: 13px;
+    color: #4a90e2;
+    font-weight: 600;
+}
+
+.spatial-2d3d-panel .validation-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.spatial-2d3d-panel .validation-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.spatial-2d3d-panel .bar-label {
+    font-size: 11px;
+    color: #7b68ee;
+    font-weight: 500;
+}
+
+.spatial-2d3d-panel .bar-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 20px;
+}
+
+.spatial-2d3d-panel .bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(74, 144, 226, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.spatial-2d3d-panel .bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #4a90e2, #7b68ee);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.spatial-2d3d-panel .spatial-accuracy-bar::before { width: 0%; }
+.spatial-2d3d-panel .dimensional-precision-bar::before { width: 0%; }
+.spatial-2d3d-panel .quantum-fidelity-bar::before { width: 0%; }
+.spatial-2d3d-panel .consciousness-alignment-bar::before { width: 0%; }
+.spatial-2d3d-panel .transformation-efficiency-bar::before { width: 0%; }
+
+.spatial-2d3d-panel .bar-value {
+    font-size: 10px;
+    color: #4a90e2;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    min-width: 35px;
+    text-align: right;
+}
+
+.spatial-2d3d-panel .overall-score {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.1) 0%, rgba(123, 104, 238, 0.1) 100%);
+    border: 1px solid #4a90e2;
+    border-radius: 6px;
+}
+
+.spatial-2d3d-panel .score-label {
+    font-size: 13px;
+    color: #4a90e2;
+    font-weight: 600;
+}
+
+.spatial-2d3d-panel .score-value {
+    font-size: 16px;
+    color: #7b68ee;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+}
+
+/* History Display */
+.spatial-2d3d-panel .history-display {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.spatial-2d3d-panel .history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.spatial-2d3d-panel .history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(26, 26, 46, 0.6);
+    border: 1px solid #2a4a6b;
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+.spatial-2d3d-panel .history-model {
+    color: #4a90e2;
+    font-weight: 600;
+}
+
+.spatial-2d3d-panel .history-id {
+    color: #7b68ee;
+    font-family: 'Courier New', monospace;
+}
+
+.spatial-2d3d-panel .history-time {
+    color: #7b68ee;
+    font-size: 10px;
+}
+
+.spatial-2d3d-panel .no-history {
+    text-align: center;
+    color: #7b68ee;
+    font-style: italic;
+    padding: 20px;
+}
+
+/* Status Display */
+.spatial-2d3d-panel .status-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.spatial-2d3d-panel .status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(26, 26, 46, 0.6);
+    border: 1px solid #2a4a6b;
+    border-radius: 4px;
+}
+
+.spatial-2d3d-panel .status-label {
+    font-size: 11px;
+    color: #7b68ee;
+    font-weight: 500;
+}
+
+.spatial-2d3d-panel .status-value {
+    font-size: 11px;
+    color: #4a90e2;
+    font-weight: 600;
+}
+
+/* Result Items */
+.spatial-2d3d-panel .transformation-result {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.spatial-2d3d-panel .result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 12px;
+    background: rgba(26, 26, 46, 0.6);
+    border: 1px solid #2a4a6b;
+    border-radius: 4px;
+}
+
+.spatial-2d3d-panel .result-label {
+    font-size: 11px;
+    color: #7b68ee;
+    font-weight: 500;
+    min-width: 80px;
+}
+
+.spatial-2d3d-panel .result-value {
+    font-size: 11px;
+    color: #4a90e2;
+    font-family: 'Courier New', monospace;
+    word-break: break-all;
+    text-align: right;
+    flex: 1;
+    margin-left: 10px;
+}
+
+/* Comparison Results */
+.spatial-2d3d-panel .comparison-result {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.spatial-2d3d-panel .comparison-result h5 {
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    color: #4a90e2;
+    font-weight: 600;
+}
+
+.spatial-2d3d-panel .comparison-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+    background: rgba(26, 26, 46, 0.6);
+    border: 1px solid #2a4a6b;
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+.spatial-2d3d-panel .method-name {
+    color: #7b68ee;
+    font-weight: 500;
+}
+
+.spatial-2d3d-panel .method-accuracy {
+    color: #4a90e2;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+}
+
+/* Success and Error Messages */
+.spatial-2d3d-panel .success-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px solid #4caf50;
+    border-radius: 4px;
+    color: #4caf50;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.spatial-2d3d-panel .error-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid #f44336;
+    border-radius: 4px;
+    color: #f44336;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .spatial-2d3d-panel .parameter-inputs {
+        grid-template-columns: 1fr;
+    }
+    
+    .spatial-2d3d-panel .training-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    .spatial-2d3d-panel .model-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    .spatial-2d3d-panel .metrics-display {
+        grid-template-columns: 1fr;
+    }
+    
+    .spatial-2d3d-panel .status-display {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Scrollbar Styling */
+.spatial-2d3d-panel ::-webkit-scrollbar {
+    width: 6px;
+}
+
+.spatial-2d3d-panel ::-webkit-scrollbar-track {
+    background: rgba(26, 26, 46, 0.6);
+    border-radius: 3px;
+}
+
+.spatial-2d3d-panel ::-webkit-scrollbar-thumb {
+    background: #4a90e2;
+    border-radius: 3px;
+}
+
+.spatial-2d3d-panel ::-webkit-scrollbar-thumb:hover {
+    background: #7b68ee;
+} 
