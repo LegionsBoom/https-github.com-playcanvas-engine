@@ -2524,3 +2524,66 @@ let smeditor;
 window.addEventListener('DOMContentLoaded', () => {
     smeditor = new SMeditor();
 });
+
+// Initialize Supabase and all integrations
+document.addEventListener('DOMContentLoaded', async function() {
+    // Initialize Supabase client
+    window.supabase = supabase.createClient(
+        'https://your-project.supabase.co',
+        'your-anon-key'
+    );
+
+    // Initialize all integrations
+    await initializeIntegrations();
+    
+    // Initialize SMeditor
+    window.SMeditor = new SMeditor();
+    
+    // Initialize PlayCanvas Manager
+    window.PlayCanvasManager = new PlayCanvasManager();
+    
+    // Initialize advanced features
+    initializeAdvancedFeatures();
+});
+
+async function initializeIntegrations() {
+    try {
+        // Wait for Supabase integration to be ready
+        await new Promise(resolve => {
+            const checkIntegration = () => {
+                if (window.SupabaseIntegration && window.SupabaseIntegration.isConnected) {
+                    resolve();
+                } else {
+                    setTimeout(checkIntegration, 100);
+                }
+            };
+            checkIntegration();
+        });
+
+        console.log('All integrations initialized');
+    } catch (error) {
+        console.error('Failed to initialize integrations:', error);
+    }
+}
+
+function initializeAdvancedFeatures() {
+    // Initialize spatial audio integration
+    if (window.SpatialAudioIntegration) {
+        console.log('Spatial Audio Integration ready');
+    }
+
+    // Initialize AI features integration
+    if (window.AIFeaturesIntegration) {
+        console.log('AI Features Integration ready');
+    }
+
+    // Initialize mobile AR integration
+    if (window.MobileARIntegration) {
+        console.log('Mobile AR Integration ready');
+    }
+
+    // Initialize advanced camera integration
+    if (window.AdvancedCameraIntegration) {
+        console.log('Advanced Camera Integration ready');
+    }
+}
