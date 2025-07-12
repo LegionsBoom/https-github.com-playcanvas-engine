@@ -183,6 +183,23 @@ class SMeditor {
             this.switchIndustryMode('realestate');
         });
 
+        document.getElementById('fashion-mode').addEventListener('click', () => {
+            this.switchIndustryMode('fashion');
+        });
+
+        document.getElementById('makeup-mode').addEventListener('click', () => {
+            this.switchIndustryMode('makeup');
+        });
+
+        document.getElementById('education-mode').addEventListener('click', () => {
+            this.switchIndustryMode('education');
+        });
+
+        // Dashboard Button
+        document.getElementById('dashboard-btn').addEventListener('click', () => {
+            this.openIndustryDashboard();
+        });
+
         // Interface Toggle
         document.getElementById('simple-mode').addEventListener('click', () => {
             this.switchInterfaceMode('simple');
@@ -1190,6 +1207,15 @@ class SMeditor {
         this.updateDataBallVisibility();
         this.updateIndustryContent();
         this.showFeedback(`Switched to ${industry} mode`);
+    }
+
+    openIndustryDashboard() {
+        if (window.IndustryDashboardManager) {
+            window.IndustryDashboardManager.showDashboard(this.currentIndustry);
+            this.showFeedback(`Opening ${this.currentIndustry} dashboard`);
+        } else {
+            this.showFeedback('Dashboard system not available');
+        }
     }
 
     switchInterfaceMode(mode) {

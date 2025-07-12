@@ -81,8 +81,41 @@
     border: 1px solid #ffd70020;
 }
 
-/* Fashion Theme - Fashion Pink */
-.cockpit-container.theme-fashion-pink {
+/* Fashion Theme - Elegant Purple */
+.cockpit-container.theme-fashion-purple {
+    --primary-color: #8a2be2;
+    --accent-color: #9370db;
+    --background-color: #1a0a2e;
+    --surface-color: #2d1a4e;
+    --text-color: #f0e6ff;
+    --border-color: #8a2be2;
+    --glow-color: #8a2be2;
+}
+
+.theme-fashion-purple .feature-btn {
+    background: linear-gradient(135deg, #8a2be220, #9370db20);
+    border: 1px solid #8a2be240;
+    color: #8a2be2;
+}
+
+.theme-fashion-purple .feature-btn:hover {
+    background: linear-gradient(135deg, #8a2be240, #9370db40);
+    border-color: #8a2be2;
+    box-shadow: 0 0 20px #8a2be240;
+}
+
+.theme-fashion-purple .sidebar-section {
+    background: linear-gradient(180deg, #2d1a4e, #1a0a2e);
+    border: 1px solid #8a2be230;
+}
+
+.theme-fashion-purple .panel-section {
+    background: linear-gradient(135deg, #2d1a4e80, #1a0a2e80);
+    border: 1px solid #8a2be220;
+}
+
+/* Beauty Theme - Beauty Pink */
+.cockpit-container.theme-beauty-pink {
     --primary-color: #ff69b4;
     --accent-color: #ff1493;
     --background-color: #1a0a1a;
@@ -92,24 +125,24 @@
     --glow-color: #ff69b4;
 }
 
-.theme-fashion-pink .feature-btn {
+.theme-beauty-pink .feature-btn {
     background: linear-gradient(135deg, #ff69b420, #ff149320);
     border: 1px solid #ff69b440;
     color: #ff69b4;
 }
 
-.theme-fashion-pink .feature-btn:hover {
+.theme-beauty-pink .feature-btn:hover {
     background: linear-gradient(135deg, #ff69b440, #ff149340);
     border-color: #ff69b4;
     box-shadow: 0 0 20px #ff69b440;
 }
 
-.theme-fashion-pink .sidebar-section {
+.theme-beauty-pink .sidebar-section {
     background: linear-gradient(180deg, #2d1a2d, #1a0a1a);
     border: 1px solid #ff69b430;
 }
 
-.theme-fashion-pink .panel-section {
+.theme-beauty-pink .panel-section {
     background: linear-gradient(135deg, #2d1a2d80, #1a0a1a80);
     border: 1px solid #ff69b420;
 }

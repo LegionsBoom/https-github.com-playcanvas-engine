@@ -138,9 +138,9 @@ class IndustryCockpitManager {
         // Fashion/Retail Industry Configuration
         this.industryConfigs.set('fashion', {
             name: 'Fashion & Retail',
-            theme: 'fashion-pink',
-            primaryColor: '#ff69b4',
-            accentColor: '#ff1493',
+            theme: 'fashion-purple',
+            primaryColor: '#8a2be2',
+            accentColor: '#9370db',
             features: {
                 physics: false,
                 materials: true,
@@ -170,6 +170,45 @@ class IndustryCockpitManager {
                 trendAnalysis: true,
                 sizeRecommendation: true,
                 socialShopping: true
+            }
+        });
+
+        // Makeup & Beauty Industry Configuration
+        this.industryConfigs.set('makeup', {
+            name: 'Makeup & Beauty',
+            theme: 'beauty-pink',
+            primaryColor: '#ff69b4',
+            accentColor: '#ff1493',
+            features: {
+                physics: false,
+                materials: true,
+                animation: true,
+                lighting: 'beauty',
+                particles: true,
+                spatialAudio: true,
+                aiFeatures: true,
+                mobileAR: true,
+                advancedCamera: true,
+                threeDScanner: true
+            },
+            ui: {
+                showVirtualTryOn: true,
+                showColorMatching: true,
+                showTutorials: true,
+                showProductReviews: true,
+                showBeautyQuiz: true,
+                showLiveShopping: true,
+                showBeautyTips: true
+            },
+            templates: ['beauty-showcase', 'virtual-makeup', 'tutorial-studio'],
+            contentTypes: ['makeup', 'tutorial', 'review', 'quiz', 'live-shopping', 'tips'],
+            advancedFeatures: {
+                virtualMakeup: true,
+                skinToneMatching: true,
+                beautyAI: true,
+                liveStreaming: true,
+                productVisualization: true,
+                beautyAnalytics: true
             }
         });
 
