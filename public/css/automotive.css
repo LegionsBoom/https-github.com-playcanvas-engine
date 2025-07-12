@@ -1,0 +1,464 @@
+/* Automotive Features Styling */
+
+.automotive-section {
+    border: 2px solid rgba(220, 53, 69, 0.2);
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.05), rgba(255, 193, 7, 0.05));
+    animation: automotivePulse 3s ease-in-out infinite;
+}
+
+@keyframes automotivePulse {
+    0%, 100% { border-color: rgba(220, 53, 69, 0.2); }
+    50% { border-color: rgba(220, 53, 69, 0.4); }
+}
+
+.automotive-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Color Palette Styling */
+.color-section h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.75rem;
+    margin-top: 1rem;
+}
+
+.color-section h4:first-child {
+    margin-top: 0;
+}
+
+.color-palette {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.color-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.color-option.selected {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+    transform: scale(1.05);
+}
+
+.color-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.metallic-indicator {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    animation: metallicShine 2s ease-in-out infinite;
+}
+
+@keyframes metallicShine {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* Vehicle Options */
+.options-section h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.options-section h4::before {
+    content: '⚙️';
+    font-size: 1rem;
+}
+
+/* Hotspot Controls */
+.hotspot-section h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hotspot-section h4::before {
+    content: '📍';
+    font-size: 1rem;
+}
+
+.hotspot-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.hotspot-list {
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 0.5rem;
+}
+
+.hotspot-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+    margin-bottom: 0.25rem;
+}
+
+.hotspot-item:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.hotspot-info {
+    flex: 1;
+}
+
+.hotspot-title {
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: #333;
+}
+
+.hotspot-type {
+    font-size: 0.75rem;
+    color: #666;
+    text-transform: capitalize;
+}
+
+.hotspot-actions {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.hotspot-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.hotspot-btn.edit {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+}
+
+.hotspot-btn.edit:hover {
+    background: rgba(102, 126, 234, 0.2);
+}
+
+.hotspot-btn.delete {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+.hotspot-btn.delete:hover {
+    background: rgba(220, 53, 69, 0.2);
+}
+
+/* Hotspot Editor Modal */
+.hotspot-editor-modal .modal-content {
+    max-width: 500px;
+}
+
+.position-controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.position-controls input {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e9ecef;
+}
+
+/* Price Calculator */
+.price-section h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.price-section h4::before {
+    content: '💰';
+    font-size: 1rem;
+}
+
+.price-breakdown {
+    background: rgba(40, 167, 69, 0.05);
+    border: 1px solid rgba(40, 167, 69, 0.2);
+    border-radius: 6px;
+    padding: 1rem;
+}
+
+.price-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.price-line:last-child {
+    margin-bottom: 0;
+}
+
+.price-line.total {
+    border-top: 1px solid rgba(40, 167, 69, 0.3);
+    padding-top: 0.5rem;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #28a745;
+}
+
+/* AR Section */
+.ar-section h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ar-section h4::before {
+    content: '🥽';
+    font-size: 1rem;
+}
+
+.ar-trigger {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    color: white !important;
+    border: none !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.ar-trigger::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.ar-trigger:hover::before {
+    left: 100%;
+}
+
+.ar-trigger:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Mode-specific Styling */
+.automotive-section.showroom-mode {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+}
+
+.automotive-section.configurator-mode {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.05), rgba(255, 193, 7, 0.05));
+}
+
+.automotive-section.comparison-mode {
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.05), rgba(23, 162, 184, 0.05));
+}
+
+/* Quick Button Enhancements for Automotive */
+.automotive-section .quick-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.automotive-section .quick-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.automotive-section .quick-btn:hover::after {
+    width: 100%;
+    height: 100%;
+}
+
+/* Responsive Automotive Features */
+@media (max-width: 1200px) {
+    .color-palette {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .color-option {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media (max-width: 900px) {
+    .automotive-controls {
+        gap: 1rem;
+    }
+    
+    .hotspot-controls {
+        flex-direction: column;
+    }
+    
+    .price-breakdown {
+        font-size: 0.85rem;
+    }
+    
+    .color-palette {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .color-option {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* Special Effects for Automotive Mode */
+.automotive-section .status-light.active {
+    background: #dc3545;
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.6);
+}
+
+.automotive-section::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #dc3545, #ffc107, #28a745, #007bff);
+    background-size: 400% 400%;
+    border-radius: 12px;
+    z-index: -1;
+    animation: automotiveGradient 4s ease infinite;
+    opacity: 0.1;
+}
+
+@keyframes automotiveGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Vehicle Configuration Status */
+.vehicle-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background: rgba(40, 167, 69, 0.1);
+    border-radius: 6px;
+    border-left: 4px solid #28a745;
+}
+
+.vehicle-status.incomplete {
+    background: rgba(255, 193, 7, 0.1);
+    border-left-color: #ffc107;
+}
+
+.vehicle-status.error {
+    background: rgba(220, 53, 69, 0.1);
+    border-left-color: #dc3545;
+}
+
+.status-icon {
+    font-size: 1rem;
+}
+
+.status-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Advanced Material Indicators */
+.material-indicator {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.material-indicator.leather {
+    background: #8B4513;
+}
+
+.material-indicator.fabric {
+    background: #696969;
+}
+
+.material-indicator.alcantara {
+    background: #2F2F2F;
+}
