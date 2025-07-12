@@ -37,7 +37,530 @@ class SMeditor {
         this.initParticleEffectControls();
         this.initSpatialUIControls();
         this.initSceneGraphControls();
+        
+        // Initialize Advanced Spatial Intelligence Systems
+        this.initializeSpatialIntelligence();
+        
         this.showFeedback('🚀 SMeditor Cockpit Initialized - Ready for spatial content creation!');
+    }
+    
+    async initializeSpatialIntelligence() {
+        console.log('🧠 Initializing Advanced Spatial Intelligence Systems...');
+        
+        try {
+            // Initialize Spatial Intelligence Modules
+            if (window.SpatialIntelligenceModules) {
+                this.spatialIntelligence = new window.SpatialIntelligenceModules();
+                
+                // Wait for systems to activate
+                await this.waitForSpatialIntelligence();
+                
+                // Setup spatial intelligence event listeners
+                this.setupSpatialIntelligenceEvents();
+                
+                // Initialize consciousness-aware features
+                this.initializeConsciousnessFeatures();
+                
+                // Initialize Binary Spatial Interface
+                this.initializeBinarySpatialInterface();
+                
+                console.log('✅ Advanced Spatial Intelligence Systems Active');
+                this.showFeedback('🧠 Spatial Intelligence Systems Online - Consciousness Level: ' + this.spatialIntelligence.getIntelligenceLevel());
+            } else {
+                console.warn('Spatial Intelligence Modules not available');
+            }
+        } catch (error) {
+            console.error('Failed to initialize spatial intelligence:', error);
+        }
+    }
+    
+    initializeBinarySpatialInterface() {
+        console.log('🔢 Initializing Binary Spatial Interface...');
+        
+        try {
+            // Initialize Binary Spatial Interface
+            if (window.BinarySpatialInterface) {
+                this.binaryInterface = new window.BinarySpatialInterface();
+                
+                // Connect binary interface to spatial intelligence
+                if (this.spatialIntelligence && this.binaryInterface.getBinaryEngine()) {
+                    this.connectBinaryToSpatialIntelligence();
+                }
+                
+                console.log('✅ Binary Spatial Interface Active');
+                this.showFeedback('🔢 Binary Spatial Engine Online - Binary State: ' + this.binaryInterface.getBinaryEngine()?.getBinaryState().toString(2).padStart(8, '0'));
+            } else {
+                console.warn('Binary Spatial Interface not available');
+            }
+        } catch (error) {
+            console.error('Failed to initialize binary spatial interface:', error);
+        }
+    }
+    
+    connectBinaryToSpatialIntelligence() {
+        // Connect binary engine to spatial intelligence systems
+        const binaryEngine = this.binaryInterface.getBinaryEngine();
+        const spatialIntelligence = this.spatialIntelligence;
+        
+        if (binaryEngine && spatialIntelligence) {
+            // Sync consciousness levels
+            const consciousnessLevel = binaryEngine.getConsciousnessLevel();
+            spatialIntelligence.setConsciousnessLevel(consciousnessLevel);
+            
+            // Sync emotional states
+            const emotionalState = binaryEngine.getEmotionalState();
+            spatialIntelligence.setEmotionalState(emotionalState);
+            
+            // Sync quantum states
+            const quantumState = binaryEngine.getQuantumState();
+            spatialIntelligence.setQuantumState(quantumState);
+            
+            console.log('🔗 Binary Engine connected to Spatial Intelligence');
+        }
+    }
+    
+    async waitForSpatialIntelligence() {
+        // Wait for spatial intelligence systems to be ready
+        return new Promise((resolve) => {
+            const checkReady = () => {
+                if (this.spatialIntelligence && this.spatialIntelligence.getIntelligenceLevel() > 0) {
+                    resolve();
+                } else {
+                    setTimeout(checkReady, 100);
+                }
+            };
+            checkReady();
+        });
+    }
+    
+    setupSpatialIntelligenceEvents() {
+        // Listen for consciousness events
+        document.addEventListener('consciousness-event', (e) => {
+            this.handleConsciousnessEvent(e.detail);
+        });
+        
+        // Listen for spatial awareness updates
+        document.addEventListener('spatial-awareness-update', (e) => {
+            this.handleSpatialAwarenessUpdate(e.detail);
+        });
+        
+        // Listen for system health updates
+        document.addEventListener('system-health-update', (e) => {
+            this.handleSystemHealthUpdate(e.detail);
+        });
+        
+        // Listen for performance metrics updates
+        document.addEventListener('performance-metrics-update', (e) => {
+            this.handlePerformanceMetricsUpdate(e.detail);
+        });
+        
+        // Listen for intelligence level changes
+        document.addEventListener('intelligence-level-change', (e) => {
+            this.handleIntelligenceLevelChange(e.detail);
+        });
+    }
+    
+    initializeConsciousnessFeatures() {
+        // Add consciousness-aware features to the editor
+        this.addConsciousnessControls();
+        this.addSpatialProgrammingInterface();
+        this.addIntelligenceDashboard();
+    }
+    
+    addConsciousnessControls() {
+        // Add consciousness control panel to the editor
+        const consciousnessPanel = document.createElement('div');
+        consciousnessPanel.className = 'consciousness-panel';
+        consciousnessPanel.innerHTML = `
+            <div class="consciousness-header">
+                <h3>🧠 Spatial Consciousness</h3>
+                <div class="consciousness-level">Level: <span id="consciousness-level">1</span></div>
+            </div>
+            <div class="consciousness-controls">
+                <button id="activate-quantum" class="consciousness-btn">Activate Quantum</button>
+                <button id="deactivate-quantum" class="consciousness-btn">Deactivate Quantum</button>
+                <button id="trigger-emotion" class="consciousness-btn">Trigger Emotion</button>
+                <button id="store-memory" class="consciousness-btn">Store Memory</button>
+            </div>
+            <div class="consciousness-status">
+                <div class="status-item">Awareness: <span id="awareness-level">0.5</span></div>
+                <div class="status-item">Behaviors: <span id="behaviors-count">0</span></div>
+                <div class="status-item">Memory: <span id="memory-size">0</span></div>
+            </div>
+        `;
+        
+        // Add to editor interface
+        const editorContainer = document.querySelector('.editor-container');
+        if (editorContainer) {
+            editorContainer.appendChild(consciousnessPanel);
+        }
+        
+        // Setup consciousness control event listeners
+        this.setupConsciousnessControls();
+    }
+    
+    setupConsciousnessControls() {
+        document.getElementById('activate-quantum')?.addEventListener('click', () => {
+            this.activateQuantumConsciousness();
+        });
+        
+        document.getElementById('deactivate-quantum')?.addEventListener('click', () => {
+            this.deactivateQuantumConsciousness();
+        });
+        
+        document.getElementById('trigger-emotion')?.addEventListener('click', () => {
+            this.triggerEmotion();
+        });
+        
+        document.getElementById('store-memory')?.addEventListener('click', () => {
+            this.storeMemory();
+        });
+    }
+    
+    addSpatialProgrammingInterface() {
+        // Add spatial programming interface
+        const programmingPanel = document.createElement('div');
+        programmingPanel.className = 'programming-panel';
+        programmingPanel.innerHTML = `
+            <div class="programming-header">
+                <h3>💻 Spatial Programming Language</h3>
+            </div>
+            <div class="programming-interface">
+                <textarea id="spl-code" placeholder="Enter SPL code here..."></textarea>
+                <div class="programming-controls">
+                    <button id="execute-spl" class="programming-btn">Execute</button>
+                    <button id="clear-spl" class="programming-btn">Clear</button>
+                    <button id="save-spl" class="programming-btn">Save</button>
+                </div>
+            </div>
+            <div class="programming-output">
+                <div id="spl-output"></div>
+            </div>
+        `;
+        
+        // Add to editor interface
+        const editorContainer = document.querySelector('.editor-container');
+        if (editorContainer) {
+            editorContainer.appendChild(programmingPanel);
+        }
+        
+        // Setup programming interface event listeners
+        this.setupProgrammingInterface();
+    }
+    
+    setupProgrammingInterface() {
+        document.getElementById('execute-spl')?.addEventListener('click', () => {
+            this.executeSPLCode();
+        });
+        
+        document.getElementById('clear-spl')?.addEventListener('click', () => {
+            this.clearSPLCode();
+        });
+        
+        document.getElementById('save-spl')?.addEventListener('click', () => {
+            this.saveSPLCode();
+        });
+    }
+    
+    addIntelligenceDashboard() {
+        // Add intelligence dashboard
+        const dashboardPanel = document.createElement('div');
+        dashboardPanel.className = 'intelligence-dashboard';
+        dashboardPanel.innerHTML = `
+            <div class="dashboard-header">
+                <h3>🧠 Intelligence Dashboard</h3>
+            </div>
+            <div class="dashboard-content">
+                <div class="dashboard-item">
+                    <span class="label">Intelligence Level:</span>
+                    <span id="intelligence-level">1</span>
+                </div>
+                <div class="dashboard-item">
+                    <span class="label">Active Modules:</span>
+                    <span id="active-modules">0</span>
+                </div>
+                <div class="dashboard-item">
+                    <span class="label">System Health:</span>
+                    <span id="system-health">Healthy</span>
+                </div>
+                <div class="dashboard-item">
+                    <span class="label">Performance:</span>
+                    <span id="performance-score">0</span>
+                </div>
+            </div>
+        `;
+        
+        // Add to editor interface
+        const editorContainer = document.querySelector('.editor-container');
+        if (editorContainer) {
+            editorContainer.appendChild(dashboardPanel);
+        }
+    }
+    
+    // Consciousness and Spatial Intelligence Methods
+    
+    activateQuantumConsciousness() {
+        if (this.spatialIntelligence) {
+            const consciousnessModule = this.spatialIntelligence.getModule('consciousness');
+            if (consciousnessModule) {
+                consciousnessModule.activateQuantumConsciousness();
+                this.showFeedback('🌌 Quantum Consciousness Activated');
+                this.updateConsciousnessDisplay();
+            }
+        }
+    }
+    
+    deactivateQuantumConsciousness() {
+        if (this.spatialIntelligence) {
+            const consciousnessModule = this.spatialIntelligence.getModule('consciousness');
+            if (consciousnessModule) {
+                consciousnessModule.deactivateQuantumConsciousness();
+                this.showFeedback('🌌 Quantum Consciousness Deactivated');
+                this.updateConsciousnessDisplay();
+            }
+        }
+    }
+    
+    triggerEmotion() {
+        if (this.spatialIntelligence) {
+            const consciousnessModule = this.spatialIntelligence.getModule('consciousness');
+            if (consciousnessModule) {
+                const emotions = ['excited', 'calm', 'focused', 'creative'];
+                const randomEmotion = emotions[Math.floor(Math.random() * emotions.length)];
+                const intensity = Math.random() * 0.5 + 0.5;
+                
+                consciousnessModule.triggerEmotion(randomEmotion, intensity);
+                this.showFeedback(`🧠 Emotion triggered: ${randomEmotion} (${intensity.toFixed(2)})`);
+            }
+        }
+    }
+    
+    storeMemory() {
+        if (this.spatialIntelligence) {
+            const consciousnessModule = this.spatialIntelligence.getModule('consciousness');
+            if (consciousnessModule) {
+                const memoryData = {
+                    timestamp: Date.now(),
+                    sceneData: this.getSceneData(),
+                    userAction: 'memory_storage',
+                    context: 'editor_session'
+                };
+                
+                consciousnessModule.storeMemory(memoryData);
+                this.showFeedback('🧠 Memory stored successfully');
+            }
+        }
+    }
+    
+    executeSPLCode() {
+        const codeElement = document.getElementById('spl-code');
+        const outputElement = document.getElementById('spl-output');
+        
+        if (codeElement && outputElement) {
+            const code = codeElement.value;
+            
+            if (this.spatialIntelligence) {
+                const programmingModule = this.spatialIntelligence.getModule('programming');
+                if (programmingModule) {
+                    try {
+                        const result = programmingModule.executeCode(code);
+                        
+                        if (result.success) {
+                            outputElement.innerHTML = `
+                                <div class="spl-success">
+                                    <h4>✅ SPL Execution Successful</h4>
+                                    <pre>${JSON.stringify(result.results, null, 2)}</pre>
+                                </div>
+                            `;
+                            this.showFeedback('💻 SPL code executed successfully');
+                        } else {
+                            outputElement.innerHTML = `
+                                <div class="spl-error">
+                                    <h4>❌ SPL Execution Error</h4>
+                                    <pre>${result.error}</pre>
+                                </div>
+                            `;
+                            this.showFeedback('❌ SPL execution failed');
+                        }
+                    } catch (error) {
+                        outputElement.innerHTML = `
+                            <div class="spl-error">
+                                <h4>❌ SPL Execution Error</h4>
+                                <pre>${error.message}</pre>
+                            </div>
+                        `;
+                        this.showFeedback('❌ SPL execution error');
+                    }
+                }
+            }
+        }
+    }
+    
+    clearSPLCode() {
+        const codeElement = document.getElementById('spl-code');
+        const outputElement = document.getElementById('spl-output');
+        
+        if (codeElement) codeElement.value = '';
+        if (outputElement) outputElement.innerHTML = '';
+        
+        this.showFeedback('💻 SPL code cleared');
+    }
+    
+    saveSPLCode() {
+        const codeElement = document.getElementById('spl-code');
+        
+        if (codeElement && codeElement.value.trim()) {
+            const code = codeElement.value;
+            const programId = 'program_' + Date.now();
+            
+            if (this.spatialIntelligence) {
+                const programmingModule = this.spatialIntelligence.getModule('programming');
+                if (programmingModule) {
+                    programmingModule.createProgram(programId, code);
+                    this.showFeedback(`💻 SPL program saved as ${programId}`);
+                }
+            }
+        } else {
+            this.showFeedback('💻 No code to save');
+        }
+    }
+    
+    // Event Handlers for Spatial Intelligence
+    
+    handleConsciousnessEvent(event) {
+        console.log('🧠 Consciousness Event:', event);
+        
+        // Update consciousness display
+        this.updateConsciousnessDisplay();
+        
+        // Show feedback based on event type
+        switch (event.type) {
+            case 'user_intent_detected':
+                this.showFeedback(`🧠 Intent detected: ${event.data.intent}`);
+                break;
+            case 'spatial_pattern_recognized':
+                this.showFeedback(`🧠 Pattern recognized: ${event.data.pattern}`);
+                break;
+            case 'optimization_needed':
+                this.showFeedback(`🧠 Optimization triggered: ${event.data.type}`);
+                break;
+            case 'emotional_state_change':
+                this.showFeedback(`🧠 Emotional state: ${event.data.emotion}`);
+                break;
+        }
+    }
+    
+    handleSpatialAwarenessUpdate(awareness) {
+        // Update awareness display
+        const awarenessElement = document.getElementById('awareness-level');
+        if (awarenessElement) {
+            awarenessElement.textContent = awareness.awarenessLevel.toFixed(2);
+        }
+        
+        // Update behaviors count
+        const behaviorsElement = document.getElementById('behaviors-count');
+        if (behaviorsElement) {
+            behaviorsElement.textContent = awareness.activeBehaviors.length;
+        }
+        
+        // Update memory size
+        const memoryElement = document.getElementById('memory-size');
+        if (memoryElement) {
+            memoryElement.textContent = awareness.memorySize;
+        }
+    }
+    
+    handleSystemHealthUpdate(health) {
+        // Update system health display
+        const healthElement = document.getElementById('system-health');
+        if (healthElement) {
+            healthElement.textContent = health.systemStatus;
+            healthElement.className = `status-${health.systemStatus}`;
+        }
+        
+        // Update active modules count
+        const modulesElement = document.getElementById('active-modules');
+        if (modulesElement) {
+            modulesElement.textContent = health.activeModules.length;
+        }
+        
+        // Show feedback for issues
+        if (health.issues.length > 0) {
+            this.showFeedback(`⚠️ System issues: ${health.issues.join(', ')}`);
+        }
+    }
+    
+    handlePerformanceMetricsUpdate(metrics) {
+        // Update performance score
+        const performanceElement = document.getElementById('performance-score');
+        if (performanceElement) {
+            performanceElement.textContent = Math.round(metrics.systemPerformance.score);
+        }
+        
+        // Update intelligence level
+        const intelligenceElement = document.getElementById('intelligence-level');
+        if (intelligenceElement) {
+            intelligenceElement.textContent = metrics.intelligenceLevel.toFixed(1);
+        }
+    }
+    
+    handleIntelligenceLevelChange(change) {
+        const { previousLevel, newLevel, reason } = change;
+        
+        this.showFeedback(`🧠 Intelligence level changed: ${previousLevel.toFixed(1)} → ${newLevel.toFixed(1)} (${reason})`);
+        
+        // Update consciousness level display
+        const consciousnessElement = document.getElementById('consciousness-level');
+        if (consciousnessElement) {
+            consciousnessElement.textContent = newLevel.toFixed(1);
+        }
+    }
+    
+    updateConsciousnessDisplay() {
+        if (this.spatialIntelligence) {
+            const consciousnessModule = this.spatialIntelligence.getModule('consciousness');
+            if (consciousnessModule) {
+                const level = consciousnessModule.getConsciousnessLevel();
+                const awareness = consciousnessModule.getSpatialAwareness();
+                
+                // Update consciousness level
+                const consciousnessElement = document.getElementById('consciousness-level');
+                if (consciousnessElement) {
+                    consciousnessElement.textContent = level.toFixed(1);
+                }
+                
+                // Update awareness level
+                const awarenessElement = document.getElementById('awareness-level');
+                if (awarenessElement) {
+                    awarenessElement.textContent = awareness.awarenessLevel.toFixed(2);
+                }
+                
+                // Update behaviors count
+                const behaviorsElement = document.getElementById('behaviors-count');
+                if (behaviorsElement) {
+                    behaviorsElement.textContent = awareness.activeBehaviors.length;
+                }
+                
+                // Update memory size
+                const memoryElement = document.getElementById('memory-size');
+                if (memoryElement) {
+                    memoryElement.textContent = awareness.memorySize;
+                }
+            }
+        }
+    }
+    
+    getSceneData() {
+        // Get current scene data for memory storage
+        return {
+            containers: Array.from(this.containers.values()),
+            selectedContainer: this.selectedContainer,
+            currentTemplate: this.currentTemplate,
+            currentWorld: this.currentWorld,
+            currentIndustry: this.currentIndustry,
+            brandSettings: this.brandSettings,
+            sceneAnalytics: this.sceneAnalytics
+        };
     }
 
     setupUndoRedoListeners() {
