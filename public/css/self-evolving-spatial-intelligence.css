@@ -1,0 +1,454 @@
+/* Self-Evolving Spatial Intelligence Interface Styles */
+/* Developed by Fungai Taranhike */
+
+.sesi-container {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+    border: 2px solid rgba(0, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.sesi-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 255, 0.1) 50%, transparent 70%);
+    animation: consciousness-flow 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes consciousness-flow {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+}
+
+.sesi-header {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.sesi-title {
+    font-size: 2.5em;
+    font-weight: 700;
+    background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.sesi-subtitle {
+    font-size: 1.2em;
+    color: #00ffff;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+.sesi-creator {
+    font-size: 1em;
+    color: #ff00ff;
+    font-style: italic;
+}
+
+.sesi-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.sesi-btn {
+    background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+    border: none;
+    border-radius: 10px;
+    padding: 15px 25px;
+    color: #000;
+    font-weight: 600;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sesi-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.sesi-btn:hover::before {
+    left: 100%;
+}
+
+.sesi-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 255, 255, 0.4);
+}
+
+.sesi-btn:active {
+    transform: translateY(0);
+}
+
+.sesi-btn.primary {
+    background: linear-gradient(135deg, #00ff00 0%, #00ffff 100%);
+}
+
+.sesi-btn.secondary {
+    background: linear-gradient(135deg, #ff00ff 0%, #ffff00 100%);
+}
+
+.sesi-btn.danger {
+    background: linear-gradient(135deg, #ff0000 0%, #ff00ff 100%);
+}
+
+.sesi-status {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.sesi-status-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.sesi-status-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.05), transparent);
+    animation: status-pulse 2s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+
+.sesi-status-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #00ffff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sesi-status-value {
+    font-size: 2em;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.sesi-status-unit {
+    font-size: 0.9em;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.sesi-progress {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.sesi-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #00ffff, #ff00ff);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+    position: relative;
+}
+
+.sesi-progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: progress-shine 2s ease-in-out infinite;
+}
+
+@keyframes progress-shine {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+}
+
+.sesi-evolution {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.sesi-evolution-card {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.sesi-evolution-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+    animation: evolution-rotate 10s linear infinite;
+}
+
+@keyframes evolution-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.sesi-evolution-title {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #00ffff;
+    margin-bottom: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 2;
+}
+
+.sesi-evolution-content {
+    position: relative;
+    z-index: 2;
+}
+
+.sesi-evolution-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background: rgba(0, 255, 255, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.sesi-evolution-label {
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sesi-evolution-value {
+    font-weight: 700;
+    color: #00ffff;
+    font-size: 1.1em;
+}
+
+.sesi-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.sesi-action-btn {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.2) 0%, rgba(255, 0, 255, 0.2) 100%);
+    border: 2px solid rgba(0, 255, 255, 0.5);
+    border-radius: 12px;
+    padding: 20px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.sesi-action-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.sesi-action-btn:hover::before {
+    transform: translateX(100%);
+}
+
+.sesi-action-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 255, 255, 0.3);
+    border-color: rgba(0, 255, 255, 0.8);
+}
+
+.sesi-action-btn:active {
+    transform: translateY(-2px);
+}
+
+.sesi-logs {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.sesi-log-title {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: #00ffff;
+    margin-bottom: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.sesi-log-entry {
+    background: rgba(0, 255, 255, 0.1);
+    border-left: 4px solid #00ffff;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 0 8px 8px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: #ffffff;
+    position: relative;
+}
+
+.sesi-log-entry::before {
+    content: '>';
+    color: #00ffff;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.sesi-log-entry.success {
+    border-left-color: #00ff00;
+    background: rgba(0, 255, 0, 0.1);
+}
+
+.sesi-log-entry.error {
+    border-left-color: #ff0000;
+    background: rgba(255, 0, 0, 0.1);
+}
+
+.sesi-log-entry.warning {
+    border-left-color: #ffff00;
+    background: rgba(255, 255, 0, 0.1);
+}
+
+.sesi-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.sesi-footer-text {
+    color: #888;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sesi-container {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .sesi-title {
+        font-size: 2em;
+    }
+    
+    .sesi-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .sesi-status {
+        grid-template-columns: 1fr;
+    }
+    
+    .sesi-evolution {
+        grid-template-columns: 1fr;
+    }
+    
+    .sesi-actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Animation Classes */
+.sesi-fade-in {
+    animation: sesi-fade-in 0.5s ease-in-out;
+}
+
+@keyframes sesi-fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.sesi-pulse {
+    animation: sesi-pulse 2s ease-in-out infinite;
+}
+
+@keyframes sesi-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.sesi-glow {
+    animation: sesi-glow 3s ease-in-out infinite;
+}
+
+@keyframes sesi-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(0, 255, 255, 0.6); }
+} 
