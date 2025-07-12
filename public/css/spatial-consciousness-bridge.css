@@ -1,0 +1,562 @@
+/* Spatial Consciousness Bridge Interface Styles */
+/* Developed by Fungai Taranhike */
+
+.scb-container {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    border-radius: 20px;
+    padding: 30px;
+    margin: 20px;
+    box-shadow: 0 20px 50px rgba(138, 43, 226, 0.4);
+    border: 3px solid rgba(138, 43, 226, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.scb-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+    animation: consciousness-pulse 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes consciousness-pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.scb-header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 2;
+}
+
+.scb-title {
+    font-size: 3.5em;
+    font-weight: 900;
+    background: linear-gradient(45deg, #8a2be2, #ff00ff, #00ffff, #8a2be2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    text-shadow: 0 0 40px rgba(138, 43, 226, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+.scb-subtitle {
+    font-size: 1.6em;
+    color: #8a2be2;
+    opacity: 0.9;
+    margin-bottom: 30px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+.scb-creator {
+    font-size: 1.2em;
+    color: #ff00ff;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.scb-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+.scb-btn {
+    background: linear-gradient(135deg, #8a2be2 0%, #ff00ff 100%);
+    border: none;
+    border-radius: 15px;
+    padding: 25px 35px;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.3em;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 10px 30px rgba(138, 43, 226, 0.4);
+}
+
+.scb-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.7s;
+}
+
+.scb-btn:hover::before {
+    left: 100%;
+}
+
+.scb-btn:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 20px 50px rgba(138, 43, 226, 0.6);
+}
+
+.scb-btn:active {
+    transform: translateY(-4px) scale(1.01);
+}
+
+.scb-btn.primary {
+    background: linear-gradient(135deg, #00ff00 0%, #8a2be2 100%);
+}
+
+.scb-btn.secondary {
+    background: linear-gradient(135deg, #ff6b00 0%, #ff00ff 100%);
+}
+
+.scb-status {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.scb-status-card {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(138, 43, 226, 0.5);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+.scb-status-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.1), transparent);
+    animation: status-consciousness-pulse 3s ease-in-out infinite;
+}
+
+@keyframes status-consciousness-pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+
+.scb-status-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 60px rgba(138, 43, 226, 0.3);
+    border-color: rgba(138, 43, 226, 0.8);
+}
+
+.scb-status-title {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #8a2be2;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.scb-status-value {
+    font-size: 3em;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 15px;
+    text-shadow: 0 0 25px rgba(138, 43, 226, 0.6);
+}
+
+.scb-status-unit {
+    font-size: 1.1em;
+    color: #ff00ff;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.scb-progress {
+    width: 100%;
+    height: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.scb-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #8a2be2, #ff00ff, #00ffff);
+    border-radius: 5px;
+    transition: width 0.8s ease;
+    position: relative;
+}
+
+.scb-progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: progress-consciousness-shine 3s ease-in-out infinite;
+}
+
+@keyframes progress-consciousness-shine {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+}
+
+.scb-workspace {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.scb-workspace-left, .scb-workspace-right {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(138, 43, 226, 0.4);
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.scb-workspace-left::before, .scb-workspace-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.scb-workspace-left:hover::before, .scb-workspace-right:hover::before {
+    opacity: 1;
+}
+
+.scb-workspace-title {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #8a2be2;
+    margin-bottom: 25px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.scb-input-area, .scb-output-area {
+    position: relative;
+    z-index: 2;
+}
+
+.scb-input-area textarea {
+    width: 100%;
+    height: 200px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(138, 43, 226, 0.5);
+    border-radius: 15px;
+    padding: 20px;
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    font-size: 1em;
+    line-height: 1.6;
+    resize: vertical;
+    transition: all 0.3s ease;
+}
+
+.scb-input-area textarea:focus {
+    outline: none;
+    border-color: rgba(138, 43, 226, 0.8);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+}
+
+.scb-input-controls, .scb-output-controls {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.scb-input-btn, .scb-output-btn {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.3) 0%, rgba(255, 0, 255, 0.3) 100%);
+    border: 2px solid rgba(138, 43, 226, 0.6);
+    border-radius: 12px;
+    padding: 15px 25px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.scb-input-btn::before, .scb-output-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.4), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.scb-input-btn:hover::before, .scb-output-btn:hover::before {
+    transform: translateX(100%);
+}
+
+.scb-input-btn:hover, .scb-output-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(138, 43, 226, 0.4);
+    border-color: rgba(138, 43, 226, 0.8);
+}
+
+.scb-input-btn:active, .scb-output-btn:active {
+    transform: translateY(-1px);
+}
+
+.scb-output-area pre {
+    width: 100%;
+    height: 200px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid rgba(138, 43, 226, 0.5);
+    border-radius: 15px;
+    padding: 20px;
+    color: #00ffff;
+    font-family: 'Courier New', monospace;
+    font-size: 1em;
+    line-height: 1.6;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.scb-templates {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(138, 43, 226, 0.4);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 40px;
+}
+
+.scb-templates-title {
+    font-size: 2em;
+    font-weight: 700;
+    color: #8a2be2;
+    margin-bottom: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.scb-templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.scb-template-card {
+    background: rgba(138, 43, 226, 0.1);
+    border: 2px solid rgba(138, 43, 226, 0.4);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.scb-template-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.scb-template-card:hover::before {
+    opacity: 1;
+}
+
+.scb-template-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(138, 43, 226, 0.3);
+    border-color: rgba(138, 43, 226, 0.8);
+}
+
+.scb-template-icon {
+    font-size: 3em;
+    color: #8a2be2;
+    margin-bottom: 15px;
+    text-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+}
+
+.scb-template-title {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.scb-template-description {
+    color: #ff00ff;
+    font-size: 1em;
+    line-height: 1.5;
+    opacity: 0.8;
+}
+
+.scb-logs {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid rgba(138, 43, 226, 0.4);
+    border-radius: 20px;
+    padding: 30px;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 30px;
+}
+
+.scb-logs-title {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #8a2be2;
+    margin-bottom: 25px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.scb-log-entry {
+    background: rgba(138, 43, 226, 0.1);
+    border-left: 4px solid #8a2be2;
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    border-radius: 0 12px 12px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 1em;
+    color: #ffffff;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.scb-log-entry:hover {
+    background: rgba(138, 43, 226, 0.2);
+    transform: translateX(5px);
+}
+
+.scb-log-entry::before {
+    content: '🧠';
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.scb-log-entry.success {
+    border-left-color: #00ff00;
+    background: rgba(0, 255, 0, 0.1);
+}
+
+.scb-log-entry.error {
+    border-left-color: #ff0000;
+    background: rgba(255, 0, 0, 0.1);
+}
+
+.scb-log-entry.warning {
+    border-left-color: #ffff00;
+    background: rgba(255, 255, 0, 0.1);
+}
+
+.scb-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 3px solid rgba(138, 43, 226, 0.4);
+}
+
+.scb-footer-text {
+    color: #ff00ff;
+    font-size: 1.1em;
+    font-style: italic;
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .scb-container {
+        margin: 10px;
+        padding: 20px;
+    }
+    
+    .scb-title {
+        font-size: 2.5em;
+    }
+    
+    .scb-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .scb-status {
+        grid-template-columns: 1fr;
+    }
+    
+    .scb-workspace {
+        grid-template-columns: 1fr;
+    }
+    
+    .scb-templates-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Animation Classes */
+.scb-fade-in {
+    animation: scb-fade-in 0.8s ease-in-out;
+}
+
+@keyframes scb-fade-in {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.scb-slide-in {
+    animation: scb-slide-in 1s ease-in-out;
+}
+
+@keyframes scb-slide-in {
+    from { opacity: 0; transform: translateX(-60px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.scb-scale-in {
+    animation: scb-scale-in 0.6s ease-in-out;
+}
+
+@keyframes scb-scale-in {
+    from { opacity: 0; transform: scale(0.7); }
+    to { opacity: 1; transform: scale(1); }
+} 
