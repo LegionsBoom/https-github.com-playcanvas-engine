@@ -1,0 +1,475 @@
+/* Spatial Intelligence CSS - Futuristic Consciousness-Aware Design */
+
+/* Consciousness Panel */
+.consciousness-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border: 2px solid #00ffe7;
+    border-radius: 15px;
+    padding: 20px;
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    z-index: 1000;
+    box-shadow: 0 0 30px rgba(0, 255, 231, 0.3);
+    backdrop-filter: blur(10px);
+    animation: consciousnessGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes consciousnessGlow {
+    0% { box-shadow: 0 0 30px rgba(0, 255, 231, 0.3); }
+    100% { box-shadow: 0 0 50px rgba(0, 255, 231, 0.6); }
+}
+
+.consciousness-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00ffe7;
+}
+
+.consciousness-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #00ffe7;
+    text-shadow: 0 0 10px rgba(0, 255, 231, 0.5);
+}
+
+.consciousness-level {
+    font-size: 14px;
+    color: #ffffff;
+    background: rgba(0, 255, 231, 0.1);
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #00ffe7;
+}
+
+.consciousness-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.consciousness-btn {
+    background: linear-gradient(45deg, #00ffe7, #0099cc);
+    border: none;
+    color: #000;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.consciousness-btn:hover {
+    background: linear-gradient(45deg, #00ccff, #00ffe7);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 231, 0.4);
+}
+
+.consciousness-btn:active {
+    transform: translateY(0);
+}
+
+.consciousness-status {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(0, 255, 231, 0.2);
+}
+
+.status-item:last-child {
+    border-bottom: none;
+}
+
+/* Programming Panel */
+.programming-panel {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 400px;
+    height: 300px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border: 2px solid #ff6b35;
+    border-radius: 15px;
+    padding: 20px;
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    z-index: 1000;
+    box-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
+    backdrop-filter: blur(10px);
+    animation: programmingGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes programmingGlow {
+    0% { box-shadow: 0 0 30px rgba(255, 107, 53, 0.3); }
+    100% { box-shadow: 0 0 50px rgba(255, 107, 53, 0.6); }
+}
+
+.programming-header {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ff6b35;
+}
+
+.programming-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #ff6b35;
+    text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+}
+
+.programming-interface {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#spl-code {
+    width: 100%;
+    height: 120px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #ff6b35;
+    border-radius: 5px;
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    padding: 10px;
+    resize: none;
+}
+
+#spl-code:focus {
+    outline: none;
+    border-color: #ff8c42;
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
+}
+
+.programming-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.programming-btn {
+    background: linear-gradient(45deg, #ff6b35, #ff8c42);
+    border: none;
+    color: #000;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    flex: 1;
+}
+
+.programming-btn:hover {
+    background: linear-gradient(45deg, #ff8c42, #ff6b35);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+}
+
+.programming-btn:active {
+    transform: translateY(0);
+}
+
+.programming-output {
+    height: 80px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #ff6b35;
+    border-radius: 5px;
+    padding: 10px;
+    overflow-y: auto;
+    font-size: 11px;
+}
+
+.spl-success {
+    color: #00ff00;
+}
+
+.spl-success h4 {
+    margin: 0 0 10px 0;
+    color: #00ff00;
+}
+
+.spl-success pre {
+    background: rgba(0, 255, 0, 0.1);
+    padding: 5px;
+    border-radius: 3px;
+    margin: 0;
+    font-size: 10px;
+}
+
+.spl-error {
+    color: #ff4444;
+}
+
+.spl-error h4 {
+    margin: 0 0 10px 0;
+    color: #ff4444;
+}
+
+.spl-error pre {
+    background: rgba(255, 68, 68, 0.1);
+    padding: 5px;
+    border-radius: 3px;
+    margin: 0;
+    font-size: 10px;
+}
+
+/* Intelligence Dashboard */
+.intelligence-dashboard {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 280px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border: 2px solid #9b59b6;
+    border-radius: 15px;
+    padding: 20px;
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    z-index: 1000;
+    box-shadow: 0 0 30px rgba(155, 89, 182, 0.3);
+    backdrop-filter: blur(10px);
+    animation: intelligenceGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes intelligenceGlow {
+    0% { box-shadow: 0 0 30px rgba(155, 89, 182, 0.3); }
+    100% { box-shadow: 0 0 50px rgba(155, 89, 182, 0.6); }
+}
+
+.dashboard-header {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #9b59b6;
+}
+
+.dashboard-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #9b59b6;
+    text-shadow: 0 0 10px rgba(155, 89, 182, 0.5);
+}
+
+.dashboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dashboard-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(155, 89, 182, 0.2);
+}
+
+.dashboard-item:last-child {
+    border-bottom: none;
+}
+
+.dashboard-item .label {
+    font-size: 12px;
+    color: #cccccc;
+}
+
+.dashboard-item span:last-child {
+    font-size: 14px;
+    font-weight: bold;
+    color: #9b59b6;
+    background: rgba(155, 89, 182, 0.1);
+    padding: 3px 8px;
+    border-radius: 3px;
+    border: 1px solid #9b59b6;
+}
+
+/* Status Indicators */
+.status-healthy {
+    color: #00ff00 !important;
+    border-color: #00ff00 !important;
+    background: rgba(0, 255, 0, 0.1) !important;
+}
+
+.status-warning {
+    color: #ffaa00 !important;
+    border-color: #ffaa00 !important;
+    background: rgba(255, 170, 0, 0.1) !important;
+}
+
+.status-error {
+    color: #ff4444 !important;
+    border-color: #ff4444 !important;
+    background: rgba(255, 68, 68, 0.1) !important;
+}
+
+.status-inactive {
+    color: #888888 !important;
+    border-color: #888888 !important;
+    background: rgba(136, 136, 136, 0.1) !important;
+}
+
+/* Quantum Consciousness Effects */
+.quantum-active {
+    animation: quantumPulse 2s ease-in-out infinite;
+}
+
+@keyframes quantumPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+/* Emotional State Effects */
+.emotion-excited {
+    animation: excitedBounce 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes excitedBounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-2px); }
+}
+
+.emotion-calm {
+    animation: calmFloat 3s ease-in-out infinite;
+}
+
+@keyframes calmFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-1px); }
+}
+
+.emotion-focused {
+    animation: focusedGlow 1s ease-in-out infinite alternate;
+}
+
+@keyframes focusedGlow {
+    0% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+    100% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.6); }
+}
+
+.emotion-creative {
+    animation: creativeSpin 4s linear infinite;
+}
+
+@keyframes creativeSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .consciousness-panel,
+    .programming-panel,
+    .intelligence-dashboard {
+        position: relative;
+        width: 100%;
+        margin: 10px 0;
+        animation: none;
+    }
+    
+    .consciousness-panel {
+        top: auto;
+        right: auto;
+    }
+    
+    .programming-panel {
+        bottom: auto;
+        right: auto;
+        height: auto;
+        min-height: 300px;
+    }
+    
+    .intelligence-dashboard {
+        top: auto;
+        left: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .consciousness-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .programming-controls {
+        flex-direction: column;
+    }
+    
+    .dashboard-content {
+        gap: 8px;
+    }
+    
+    .dashboard-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .consciousness-panel,
+    .programming-panel,
+    .intelligence-dashboard,
+    .quantum-active,
+    .emotion-excited,
+    .emotion-calm,
+    .emotion-focused,
+    .emotion-creative {
+        animation: none;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .consciousness-panel,
+    .programming-panel,
+    .intelligence-dashboard {
+        border-width: 3px;
+        background: #000000;
+    }
+    
+    .consciousness-btn,
+    .programming-btn {
+        background: #ffffff;
+        color: #000000;
+        border: 2px solid #000000;
+    }
+}
+
+/* Dark Mode Enhancements */
+@media (prefers-color-scheme: dark) {
+    .consciousness-panel,
+    .programming-panel,
+    .intelligence-dashboard {
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%);
+    }
+}
+
+/* Print Styles */
+@media print {
+    .consciousness-panel,
+    .programming-panel,
+    .intelligence-dashboard {
+        display: none;
+    }
+}
