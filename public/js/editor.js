@@ -2517,6 +2517,219 @@ class SMeditor {
             this.showFeedback('No active scene to save', 'error');
         }
     }
+
+    // PlayCanvas Advanced Features Panel Methods
+    showPhysicsPanel() {
+        const modal = document.getElementById('modal-overlay');
+        const title = document.getElementById('modal-title');
+        const content = document.getElementById('modal-content');
+
+        title.textContent = 'Advanced Physics';
+        content.innerHTML = `
+            <div class="physics-panel">
+                <div class="physics-controls">
+                    <button id="enable-physics" class="physics-btn">Enable Physics</button>
+                    <button id="toggle-gravity" class="physics-btn">Toggle Gravity</button>
+                    <button id="add-rigid-body" class="physics-btn">Add Rigid Body</button>
+                    <button id="add-force-field" class="physics-btn">Add Force Field</button>
+                    <button id="create-vehicle" class="physics-btn">Create Vehicle</button>
+                </div>
+                <div class="physics-settings">
+                    <label>Gravity:</label>
+                    <input type="number" id="gravity-x" placeholder="X" value="0" step="0.1">
+                    <input type="number" id="gravity-y" placeholder="Y" value="-9.81" step="0.1">
+                    <input type="number" id="gravity-z" placeholder="Z" value="0" step="0.1">
+                </div>
+                <div class="physics-debug">
+                    <button id="toggle-physics-debug" class="physics-btn">Toggle Debug</button>
+                </div>
+            </div>
+        `;
+
+        modal.classList.remove('hidden');
+    }
+
+    showMaterialsPanel() {
+        const modal = document.getElementById('modal-overlay');
+        const title = document.getElementById('modal-title');
+        const content = document.getElementById('modal-content');
+
+        title.textContent = 'Advanced Materials';
+        content.innerHTML = `
+            <div class="materials-panel">
+                <div class="material-presets">
+                    <h4>Material Presets</h4>
+                    <button class="material-preset-btn" data-preset="holographic">Holographic</button>
+                    <button class="material-preset-btn" data-preset="neon">Neon</button>
+                    <button class="material-preset-btn" data-preset="glass">Glass</button>
+                    <button class="material-preset-btn" data-preset="metallic">Metallic</button>
+                    <button class="material-preset-btn" data-preset="carPaint">Car Paint</button>
+                </div>
+                <div class="material-properties">
+                    <h4>Material Properties</h4>
+                    <div class="property-row">
+                        <label>Base Color:</label>
+                        <input type="color" id="material-color" value="#00ccff">
+                    </div>
+                    <div class="property-row">
+                        <label>Metalness:</label>
+                        <input type="range" id="material-metalness" min="0" max="1" step="0.1" value="0">
+                    </div>
+                    <div class="property-row">
+                        <label>Roughness:</label>
+                        <input type="range" id="material-roughness" min="0" max="1" step="0.1" value="0.5">
+                    </div>
+                    <div class="property-row">
+                        <label>Opacity:</label>
+                        <input type="range" id="material-opacity" min="0" max="1" step="0.1" value="1">
+                    </div>
+                </div>
+                <div class="material-animations">
+                    <h4>Material Animations</h4>
+                    <button class="material-animation-btn" data-animation="pulse">Pulse</button>
+                    <button class="material-animation-btn" data-animation="fade">Fade</button>
+                    <button class="material-animation-btn" data-animation="colorShift">Color Shift</button>
+                </div>
+            </div>
+        `;
+
+        modal.classList.remove('hidden');
+    }
+
+    showAnimationPanel() {
+        const modal = document.getElementById('modal-overlay');
+        const title = document.getElementById('modal-title');
+        const content = document.getElementById('modal-content');
+
+        title.textContent = 'Advanced Animation';
+        content.innerHTML = `
+            <div class="animation-panel">
+                <div class="animation-types">
+                    <h4>Animation Types</h4>
+                    <button class="animation-type-btn" data-type="idle">Idle</button>
+                    <button class="animation-type-btn" data-type="hover">Hover</button>
+                    <button class="animation-type-btn" data-type="pulse">Pulse</button>
+                    <button class="animation-type-btn" data-type="orbit">Orbit</button>
+                    <button class="animation-type-btn" data-type="wave">Wave</button>
+                </div>
+                <div class="animation-settings">
+                    <h4>Animation Settings</h4>
+                    <div class="property-row">
+                        <label>Amplitude:</label>
+                        <input type="range" id="animation-amplitude" min="0" max="2" step="0.1" value="0.5">
+                    </div>
+                    <div class="property-row">
+                        <label>Frequency:</label>
+                        <input type="range" id="animation-frequency" min="0" max="5" step="0.1" value="2">
+                    </div>
+                    <div class="property-row">
+                        <label>Speed:</label>
+                        <input type="range" id="animation-speed" min="0" max="3" step="0.1" value="1">
+                    </div>
+                </div>
+                <div class="animation-controls">
+                    <h4>Animation Controls</h4>
+                    <button id="play-animation" class="animation-btn">Play</button>
+                    <button id="pause-animation" class="animation-btn">Pause</button>
+                    <button id="stop-animation" class="animation-btn">Stop</button>
+                </div>
+            </div>
+        `;
+
+        modal.classList.remove('hidden');
+    }
+
+    showLightingPanel() {
+        const modal = document.getElementById('modal-overlay');
+        const title = document.getElementById('modal-title');
+        const content = document.getElementById('modal-content');
+
+        title.textContent = 'Advanced Lighting';
+        content.innerHTML = `
+            <div class="lighting-panel">
+                <div class="lighting-types">
+                    <h4>Light Types</h4>
+                    <button class="light-type-btn" data-type="directional">Directional</button>
+                    <button class="light-type-btn" data-type="point">Point Light</button>
+                    <button class="light-type-btn" data-type="spot">Spot Light</button>
+                    <button class="light-type-btn" data-type="area">Area Light</button>
+                </div>
+                <div class="lighting-settings">
+                    <h4>Light Settings</h4>
+                    <div class="property-row">
+                        <label>Color:</label>
+                        <input type="color" id="light-color" value="#ffffff">
+                    </div>
+                    <div class="property-row">
+                        <label>Intensity:</label>
+                        <input type="range" id="light-intensity" min="0" max="5" step="0.1" value="1">
+                    </div>
+                    <div class="property-row">
+                        <label>Range:</label>
+                        <input type="range" id="light-range" min="0" max="20" step="0.1" value="10">
+                    </div>
+                    <div class="property-row">
+                        <label>Shadows:</label>
+                        <input type="checkbox" id="light-shadows" checked>
+                    </div>
+                </div>
+                <div class="lighting-effects">
+                    <h4>Lighting Effects</h4>
+                    <button class="lighting-effect-btn" data-effect="volumetric">Volumetric</button>
+                    <button class="lighting-effect-btn" data-effect="lensFlare">Lens Flare</button>
+                    <button class="lighting-effect-btn" data-effect="bloom">Bloom</button>
+                </div>
+            </div>
+        `;
+
+        modal.classList.remove('hidden');
+    }
+
+    showParticlesPanel() {
+        const modal = document.getElementById('modal-overlay');
+        const title = document.getElementById('modal-title');
+        const content = document.getElementById('modal-content');
+
+        title.textContent = 'Particle Systems';
+        content.innerHTML = `
+            <div class="particles-panel">
+                <div class="particle-types">
+                    <h4>Particle Types</h4>
+                    <button class="particle-type-btn" data-type="sparkles">Sparkles</button>
+                    <button class="particle-type-btn" data-type="smoke">Smoke</button>
+                    <button class="particle-type-btn" data-type="lightRays">Light Rays</button>
+                    <button class="particle-type-btn" data-type="carReveal">Car Reveal</button>
+                </div>
+                <div class="particle-settings">
+                    <h4>Particle Settings</h4>
+                    <div class="property-row">
+                        <label>Count:</label>
+                        <input type="range" id="particle-count" min="10" max="1000" step="10" value="100">
+                    </div>
+                    <div class="property-row">
+                        <label>Size:</label>
+                        <input type="range" id="particle-size" min="0.1" max="2" step="0.1" value="0.5">
+                    </div>
+                    <div class="property-row">
+                        <label>Speed:</label>
+                        <input type="range" id="particle-speed" min="0.1" max="5" step="0.1" value="1">
+                    </div>
+                    <div class="property-row">
+                        <label>Lifetime:</label>
+                        <input type="range" id="particle-lifetime" min="1" max="10" step="0.1" value="3">
+                    </div>
+                </div>
+                <div class="particle-controls">
+                    <h4>Particle Controls</h4>
+                    <button id="start-particles" class="particle-btn">Start</button>
+                    <button id="stop-particles" class="particle-btn">Stop</button>
+                    <button id="clear-particles" class="particle-btn">Clear</button>
+                </div>
+            </div>
+        `;
+
+        modal.classList.remove('hidden');
+    }
 }
 
 // Initialize the editor when the page loads
@@ -2551,6 +2764,35 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('3d-scanner-btn')?.addEventListener('click', () => {
         if (window.Scanner3DIntegration) {
             window.Scanner3DIntegration.showScanner();
+        }
+    });
+
+    // Add PlayCanvas Advanced Features functionality
+    document.getElementById('physics-btn')?.addEventListener('click', () => {
+        if (window.AdvancedPhysicsManager) {
+            this.showPhysicsPanel();
+        }
+    });
+
+    document.getElementById('materials-btn')?.addEventListener('click', () => {
+        if (window.AdvancedMaterialsManager) {
+            this.showMaterialsPanel();
+        }
+    });
+
+    document.getElementById('animation-btn')?.addEventListener('click', () => {
+        if (window.AdvancedAnimationManager) {
+            this.showAnimationPanel();
+        }
+    });
+
+    document.getElementById('lighting-btn')?.addEventListener('click', () => {
+        this.showLightingPanel();
+    });
+
+    document.getElementById('particles-btn')?.addEventListener('click', () => {
+        if (window.ParticleSystemManager) {
+            this.showParticlesPanel();
         }
     });
 });
